@@ -1,0 +1,10 @@
+X:\CS 3500\Harley\PS6\GUITest\bin\Debug\GUITest.dll
+X:\CS 3500\Harley\PS6\GUITest\bin\Debug\GUITest.pdb
+X:\CS 3500\Harley\PS6\GUITest\obj\Debug\GUITest.csprojResolveAssemblyReference.cache
+X:\CS 3500\Harley\PS6\GUITest\obj\Debug\GUITest.dll
+X:\CS 3500\Harley\PS6\GUITest\obj\Debug\GUITest.pdb
+X:\CS 3500 2\PS6\GUITest\bin\Debug\GUITest.dll
+X:\CS 3500 2\PS6\GUITest\bin\Debug\GUITest.pdb
+X:\CS 3500 2\PS6\GUITest\obj\Debug\GUITest.csprojResolveAssemblyReference.cache
+X:\CS 3500 2\PS6\GUITest\obj\Debug\GUITest.dll
+X:\CS 3500 2\PS6\GUITest\obj\Debug\GUITest.pdb

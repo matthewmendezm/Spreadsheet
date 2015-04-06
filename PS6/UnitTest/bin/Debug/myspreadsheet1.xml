@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><spreadsheet version="default"><cell><name>A1</name><contents>2</contents></cell><cell><name>B1</name><contents>=5+A1</contents></cell><cell><name>C1</name><contents>=B1+3</contents></cell><cell><name>D1</name><contents>hello</contents></cell></spreadsheet>

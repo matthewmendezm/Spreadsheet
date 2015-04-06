@@ -1,0 +1,20 @@
+X:\CS 3500\Harley\PS6\Spreadsheet\bin\Debug\Spreadsheet.XML
+X:\CS 3500\Harley\PS6\Spreadsheet\bin\Debug\Spreadsheet.dll
+X:\CS 3500\Harley\PS6\Spreadsheet\bin\Debug\Spreadsheet.pdb
+X:\CS 3500\Harley\PS6\Spreadsheet\bin\Debug\Formula.dll
+X:\CS 3500\Harley\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.dll
+X:\CS 3500\Harley\PS6\Spreadsheet\bin\Debug\Formula.xml
+X:\CS 3500\Harley\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
+X:\CS 3500\Harley\PS6\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
+X:\CS 3500\Harley\PS6\Spreadsheet\obj\Debug\Spreadsheet.dll
+X:\CS 3500\Harley\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb
+X:\CS 3500 2\PS6\Spreadsheet\bin\Debug\Spreadsheet.XML
+X:\CS 3500 2\PS6\Spreadsheet\bin\Debug\Spreadsheet.dll
+X:\CS 3500 2\PS6\Spreadsheet\bin\Debug\Spreadsheet.pdb
+X:\CS 3500 2\PS6\Spreadsheet\bin\Debug\Formula.dll
+X:\CS 3500 2\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.dll
+X:\CS 3500 2\PS6\Spreadsheet\bin\Debug\Formula.xml
+X:\CS 3500 2\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
+X:\CS 3500 2\PS6\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
+X:\CS 3500 2\PS6\Spreadsheet\obj\Debug\Spreadsheet.dll
+X:\CS 3500 2\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb

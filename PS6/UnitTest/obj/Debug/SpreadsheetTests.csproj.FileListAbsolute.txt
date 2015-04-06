@@ -1,0 +1,24 @@
+X:\CS 3500\Harley\PS6\UnitTest\bin\Debug\UnitTest.dll
+X:\CS 3500\Harley\PS6\UnitTest\bin\Debug\UnitTest.pdb
+X:\CS 3500\Harley\PS6\UnitTest\bin\Debug\Formula.dll
+X:\CS 3500\Harley\PS6\UnitTest\bin\Debug\Spreadsheet.dll
+X:\CS 3500\Harley\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.dll
+X:\CS 3500\Harley\PS6\UnitTest\bin\Debug\Spreadsheet.pdb
+X:\CS 3500\Harley\PS6\UnitTest\bin\Debug\Spreadsheet.xml
+X:\CS 3500\Harley\PS6\UnitTest\bin\Debug\Formula.xml
+X:\CS 3500\Harley\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.xml
+X:\CS 3500\Harley\PS6\UnitTest\obj\Debug\SpreadsheetTests.csprojResolveAssemblyReference.cache
+X:\CS 3500\Harley\PS6\UnitTest\obj\Debug\UnitTest.dll
+X:\CS 3500\Harley\PS6\UnitTest\obj\Debug\UnitTest.pdb
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\UnitTest.dll
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\UnitTest.pdb
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\Formula.dll
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\Spreadsheet.dll
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.dll
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\Spreadsheet.pdb
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\Spreadsheet.xml
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\Formula.xml
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.xml
+X:\CS 3500 2\PS6\UnitTest\obj\Debug\SpreadsheetTests.csprojResolveAssemblyReference.cache
+X:\CS 3500 2\PS6\UnitTest\obj\Debug\UnitTest.dll
+X:\CS 3500 2\PS6\UnitTest\obj\Debug\UnitTest.pdb

@@ -1,0 +1,477 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title> Spreadly Help </title>
+		<meta name="AUTHOR" content="Taylor Morris"/>
+		<style>
+			body {
+				width: 1100px;
+				background-color: #5f5f5f;
+				margin-left: auto;
+				margin-right: auto;
+				font-family: Arial, Helvetica, sans-serif;
+				position:relative;
+				top:20px;
+				color:#eeeeee;
+				background-image:url("pictures/hblogo.png");
+				background-repeat:no-repeat;
+				background-attachment:fixed;
+				background-position:left top;
+			}
+			.left {
+				width:363px;
+				float:left;
+			}
+			.right {
+				width:737px;
+				float:right;
+			}
+
+			.pleft {
+				width:550px;
+				float:left;
+				position:relative;
+				right:-7px;
+			}
+			.pright {
+				width:550px;
+				float:right;
+				position:relative;
+				left:-7px;
+			}
+
+			.pic {
+				background-image:url("pictures/mpic.png");
+				width: 331px;
+				height: 485px;
+				box-shadow: 10px 10px 15px #424242;
+				margin-left: auto;
+				margin-right: auto;
+				position:relative;
+				right:-5px;
+			}
+
+			a {
+				font-size:16pt;
+				text-decoration:none
+			}
+			a:link {color:#eaeaea;}      /* unvisited link */
+			a:visited {color:#eaeaea;}  /* visited link */
+			a:active {color:#eaeaea;}  /* selected link */
+			a.plain {
+				font-size:12pt;
+				text-decoration:underline;
+			}
+
+			.links {
+				width: 331px;
+				margin-left: auto;
+				margin-right: auto;
+				position:relative;
+				right:-3px;
+				top: 20px;
+			}
+
+			.linkleft {
+				width:165px;
+				float:left;
+			}
+			.linkright {
+				width:165px;
+				float:right;
+				position:relative;
+				right:-10px;
+			}
+
+			.linkspace {
+				height:20px;
+			}
+
+			.biglink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 331px;
+				height: 146px;
+				position:relative;
+				transition: left 0.5s, box-shadow 0.5s;
+			}
+
+			.biglink:hover {
+				left: -5px;
+				box-shadow: 22px 20px 15px #424242;
+			}
+
+			.biglink img {
+				transition: width 0.5s;
+			}
+
+			.biglink img:hover {
+				width: 341px;
+			}
+
+			.smalllink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 155px;
+				height: 146px;
+				position:relative;
+				transition: left 0.5s, box-shadow 0.5s;
+				
+			}
+
+			.smalllink:hover {
+				left: -5px;
+				box-shadow: 22px 20px 15px #424242;
+			}
+
+			.smalllink img {
+				transition: width 0.5s;
+			}
+
+			.smalllink img:hover {
+				width: 165px;
+			}
+
+			.links img {
+				border-style:solid;
+				border-color: transparent;
+				
+			}
+
+			.links img:hover {
+				border-style:solid;
+				border-color: #424242;
+				
+			}
+
+			.plink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 518px;
+				height: 112px;
+				position:relative;
+				transition: left 0.5s, box-shadow 0.5s;
+				
+			}
+
+			.plink:hover {
+				left: -5px;
+				box-shadow: 22px 20px 15px #424242;
+			}
+
+			.plink img {
+				border-style:solid;
+				border-color: transparent;
+				transition: width 0.5s;
+				
+			}
+
+			.plink img:hover {
+				border-style:solid;
+				border-color: #424242;
+				width: 528px;
+			}
+			.plonglinkc {
+				width: 1052px;
+				height: 112px;
+			}
+			.plonglink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 1052px;
+				height: 112px;
+				position:relative;
+				left: 10px;
+				transition: left 0.5s, box-shadow 0.5s, width 0.5s, height 0.5s;
+				background-color: #ff8400;
+				border-style:solid;
+				border-color: transparent;
+			}
+
+			.plonglink:hover {
+				left: 5px;
+				box-shadow: 11px 11px 15px #424242;
+				width: 1062px;
+				height: 118px;
+				border-style:solid;
+				border-color: #424242;
+			}
+
+			.picon {
+				box-shadow: 10px 10px 15px #424242;
+				width: 518px;
+				height: 246px;
+				position:relative;
+				transition: left 0.5s, box-shadow 0.5s;
+				
+			}
+
+			.picon:hover {
+				left: -5px;
+				box-shadow: 22px 20px 15px #424242;
+			}
+
+			.picon img {
+				border-style:solid;
+				border-color: transparent;
+				transition: width 0.5s;
+				
+			}
+
+			.picon img:hover {
+				border-style:solid;
+				border-color: #424242;
+				width: 528px;
+			}
+
+			.header {
+				background-image:url("pictures/mheader.png");
+				width: 705px;
+				height: 142px;
+				box-shadow: 10px 10px 15px #424242;
+				margin-left: auto;
+				margin-right: auto;
+				position:relative;
+				left:-5px;
+			}
+
+			.content {
+				width: 705px;
+				box-shadow: 10px 10px 15px #424242;
+				margin-left: auto;
+				margin-right: auto;
+				background-color: #00739e;
+				position:relative;
+				left:-5px;
+				top: 20px;
+			}
+
+			.rcon {
+				box-shadow: 10px 10px 15px #424242;
+				background-color: #00739e;
+				box-shadow: 10px 10px 15px #424242;
+				width: 518px;
+				position:relative;
+				left: 3px;
+			}
+
+			.rconhigh {
+				box-shadow: 10px 10px 15px #424242;
+				background-color: #ff8400;
+				box-shadow: 10px 10px 15px #424242;
+				width: 518px;
+				position:relative;
+				left: 3px;
+			}
+
+			.padding {
+				padding: 5px 20px 5px 20px;
+			}
+
+			.spacer {
+				height:50px;
+				width: 1100px;
+				margin-left: auto;
+				margin-right: auto;
+				clear:both;
+			}
+
+			.pcenter {
+				width: 1100px;
+				height:25px;
+				margin-left: auto;
+				margin-right: auto;
+				clear:both;
+			}
+
+			.projectstuff {
+				width: 1050px;
+				box-shadow: 10px 10px 15px #424242;
+				background-color: #00739e;
+				margin-left: auto;
+				margin-right: auto;
+				position:relative;
+				left:-3px;
+				
+			}
+
+			.nopad {
+				line-height: 0;
+				text-align:center;
+			}
+
+			.projecttextlink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 506px;
+				height: 112px;
+				position:relative;
+				
+				left:-6px;
+				transition: left 0.5s, box-shadow 0.5s, width 0.5s, height 0.5s;
+				background-color: #ff8400;
+				border-style:solid;
+				border-color: transparent;
+			}
+
+			.projecttextlink:hover {
+				left: -11px;
+				box-shadow: 11px 11px 15px #424242;
+				width: 516px;
+				height: 118px;
+				border-style:solid;
+				border-color: #424242;
+			}
+
+			.projecttextc {
+				width: 506px;
+				height: 112px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			ul {list-style-type:square}
+
+			li{ 
+			margin-top: 9pt;
+			margin-bottom: 9pt;
+			}
+
+			hr {
+				border: 0;
+				height: 1px;
+				background-image: -webkit-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); 
+				background-image:    -moz-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); 
+				background-image:     -ms-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); 
+				background-image:      -o-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); 
+			}
+
+			#HCB_comment_box .submit {
+			  background:none; /* Clear twitter bootstrap style. */
+			  border:0px;
+			  background-color: #ffffff;
+			  font-family: Arial, Helvetica, sans-serif;
+			}
+			
+			table, td, th {
+				border: 0px;
+			}
+			
+		</style>
+	</head>
+        
+    <body>
+      		
+
+	<div class="wrap">
+	<div class="pleft">
+
+		<div class="projecttextc">
+		<a>
+		<div class="projecttextlink">
+		<table border="1">
+			<tr>
+			<td><img src="spreadlyicon.png" alt="some_text" width="100"></td>
+			<td><h1>readly</h1></td>
+			</tr>
+			
+		</table>
+		
+		
+		
+		</div>
+		</a>
+		</div>
+		
+	</div>
+
+	<div class="pright">
+
+		<div class="projecttextc">
+		<a>
+		<div class="projecttextlink">
+		
+		<h1>Help File</h1>
+		
+		</div>
+		</a>
+		</div>
+		
+	</div>
+	
+	
+	<div class="pcenter"></div>
+	
+	<div class="projectstuff">
+	<div class="padding">
+		<h1> Application Suite
+		<br/>
+		Spreadly - Spreadsheet Desktop Application
+		</h1>
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff">
+	<div class="padding">
+		<h2>Introduction</h2>
+		<p>Spreadly is the spreadsheet solution for the <b>Application Suite</b>.</p>
+		<p>There are many features to this free software that will be explained in this file, they are</p>
+		<p>
+		<ul>
+			<li>Cell Panel</li>
+			<li>Status Bar</li>
+			<li>Toolbar</li>
+			<li>Cell Name Value and Contents</li>
+			<li>Save and Load Spreadsheet</li>
+			
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff">
+	<div class="padding">
+		<h2>Cell Panel</h2>
+		
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff">
+	<div class="padding">
+		<h2>Status Bar</h2>
+		
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff">
+	<div class="padding">
+		<h2>Toolbar</h2>
+		
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff">
+	<div class="padding">
+		<h2>Cell Name Value and Contents</h2>
+		
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff">
+	<div class="padding">
+		<h2>Save and Load Spreadsheet</h2>
+		
+	</div>
+	</div>
+	
+	<div class="spacer"></div>
+	
+	</div>
+	
+	</body>
+	</html>

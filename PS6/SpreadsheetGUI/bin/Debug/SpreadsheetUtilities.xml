@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SpreadsheetUtilities</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "T:SpreadsheetUtilities.DependencyGraph" -->
+        <member name="M:SpreadsheetUtilities.DependencyGraph.#ctor">
+            <summary>
+            Creates an empty DependencyGraph.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.HasDependents(System.String)">
+            <summary>
+            Reports whether dependents(s) is non-empty.
+            </summary>
+            <param name="s">the string which you are checking for dependants</param>
+            <returns>a boolean that states whether s has dependants or not</returns>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.HasDependees(System.String)">
+            <summary>
+            Reports whether dependees(s) is non-empty.
+            </summary>
+            <param name="s">the string which you are checking for dependees</param>
+            <returns>a boolean that states whether s has dependees or not</returns>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.GetDependents(System.String)">
+            <summary>
+            enumerates dependants(s)
+            </summary>
+            <param name="s">the string that you want the dependants for</param>
+            <returns>yield returns an Ienumberable containing the dependants</returns>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.GetDependees(System.String)">
+            <summary>
+            enumerates dependees(s)
+            </summary>
+            <param name="s">the string that you want the dependees for</param>
+            <returns>yield returns an Ienumberable containing the dependees</returns>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.AddDependency(System.String,System.String)">
+            <summary>
+            Adds the ordered pair (s,t), if it doesn't exist
+            </summary>
+            <param name="s">the dependee to add</param>
+            <param name="t">the dependant to add</param>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.RemoveDependency(System.String,System.String,System.Boolean)">
+            <summary>
+            Removes the ordered pair (s,t), if it exists
+            </summary>
+            <param name="s">the dependee to remove</param>
+            <param name="t">the dependant to remove</param>
+            <param name="helpReplace">this is used to allow me to use removeDependancy as a helper for my replace method</param>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.ReplaceDependents(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes all existing ordered pairs of the form (s,r).  Then, for each
+            t in newDependents, adds the ordered pair (s,t).
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.ReplaceDependees(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes all existing ordered pairs of the form (r,s).  Then, for each 
+            t in newDependees, adds the ordered pair (t,s).
+            </summary>
+        </member>
+        <member name="P:SpreadsheetUtilities.DependencyGraph.Size">
+            <summary>
+            The number of ordered pairs in the DependencyGraph.
+            </summary>
+        </member>
+        <member name="P:SpreadsheetUtilities.DependencyGraph.Item(System.String)">
+            <summary>
+            The size of dependees(s).
+            This property is an example of an indexer.  If dg is a DependencyGraph, you would
+            invoke it like this:
+            dg["a"]
+            It should return the size of dependees("a")
+            </summary>
+        </member>
+    </members>
+</doc>

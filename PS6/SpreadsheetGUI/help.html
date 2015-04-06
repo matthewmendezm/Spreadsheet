@@ -1,0 +1,543 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title> Spreadly Help </title>
+		<meta name="AUTHOR" content="Taylor Morris"/>
+		<style>
+			body {
+				width: 1100px;
+				background-color: #5f5f5f;
+				margin-left: auto;
+				margin-right: auto;
+				font-family: Arial, Helvetica, sans-serif;
+				position:relative;
+				top:20px;
+				color:#eeeeee;
+				background-image:url("pictures/hblogo.png");
+				background-repeat:no-repeat;
+				background-attachment:fixed;
+				background-position:left top;
+			}
+			.left {
+				width:363px;
+				float:left;
+			}
+			.right {
+				width:737px;
+				float:right;
+			}
+
+			.pleft {
+				width:550px;
+				float:left;
+				position:relative;
+				right:-7px;
+			}
+			.pright {
+				width:550px;
+				float:right;
+				position:relative;
+				left:-7px;
+			}
+
+			.pic {
+				background-image:url("pictures/mpic.png");
+				width: 331px;
+				height: 485px;
+				box-shadow: 10px 10px 15px #424242;
+				margin-left: auto;
+				margin-right: auto;
+				position:relative;
+				right:-5px;
+			}
+
+			a {
+				font-size:16pt;
+				text-decoration:none;
+			}
+			a:link {color:#eaeaea;}      /* unvisited link */
+			a:visited {color:#eaeaea;}  /* visited link */
+			a:active {color:#eaeaea;}  /* selected link */
+			a.plain {
+				font-size:12pt;
+				text-decoration:underline;
+			}
+			
+			li a {
+				font-size:12pt;
+				text-decoration:underline;
+			}
+
+			.links {
+				width: 331px;
+				margin-left: auto;
+				margin-right: auto;
+				position:relative;
+				right:-3px;
+				top: 20px;
+			}
+
+			.linkleft {
+				width:165px;
+				float:left;
+			}
+			.linkright {
+				width:165px;
+				float:right;
+				position:relative;
+				right:-10px;
+			}
+
+			.linkspace {
+				height:20px;
+			}
+
+			.biglink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 331px;
+				height: 146px;
+				position:relative;
+				transition: left 0.5s, box-shadow 0.5s;
+			}
+
+			.biglink:hover {
+				left: -5px;
+				box-shadow: 22px 20px 15px #424242;
+			}
+
+			.biglink img {
+				transition: width 0.5s;
+			}
+
+			.biglink img:hover {
+				width: 341px;
+			}
+
+			.smalllink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 155px;
+				height: 146px;
+				position:relative;
+				transition: left 0.5s, box-shadow 0.5s;
+				
+			}
+
+			.smalllink:hover {
+				left: -5px;
+				box-shadow: 22px 20px 15px #424242;
+			}
+
+			.smalllink img {
+				transition: width 0.5s;
+			}
+
+			.smalllink img:hover {
+				width: 165px;
+			}
+
+			.links img {
+				border-style:solid;
+				border-color: transparent;
+				
+			}
+
+			.links img:hover {
+				border-style:solid;
+				border-color: #424242;
+				
+			}
+
+			.plink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 518px;
+				height: 112px;
+				position:relative;
+				transition: left 0.5s, box-shadow 0.5s;
+				
+			}
+
+			.plink:hover {
+				left: -5px;
+				box-shadow: 22px 20px 15px #424242;
+			}
+
+			.plink img {
+				border-style:solid;
+				border-color: transparent;
+				transition: width 0.5s;
+				
+			}
+
+			.plink img:hover {
+				border-style:solid;
+				border-color: #424242;
+				width: 528px;
+			}
+			.plonglinkc {
+				width: 1052px;
+				height: 112px;
+			}
+			.plonglink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 1052px;
+				height: 112px;
+				position:relative;
+				left: 10px;
+				transition: left 0.5s, box-shadow 0.5s, width 0.5s, height 0.5s;
+				background-color: #ff8400;
+				border-style:solid;
+				border-color: transparent;
+			}
+
+			.plonglink:hover {
+				left: 5px;
+				box-shadow: 11px 11px 15px #424242;
+				width: 1062px;
+				height: 118px;
+				border-style:solid;
+				border-color: #424242;
+			}
+
+			.picon {
+				box-shadow: 10px 10px 15px #424242;
+				width: 518px;
+				height: 246px;
+				position:relative;
+				transition: left 0.5s, box-shadow 0.5s;
+				
+			}
+
+			.picon:hover {
+				left: -5px;
+				box-shadow: 22px 20px 15px #424242;
+			}
+
+			.picon img {
+				border-style:solid;
+				border-color: transparent;
+				transition: width 0.5s;
+				
+			}
+
+			.picon img:hover {
+				border-style:solid;
+				border-color: #424242;
+				width: 528px;
+			}
+
+			.header {
+				background-image:url("pictures/mheader.png");
+				width: 705px;
+				height: 142px;
+				box-shadow: 10px 10px 15px #424242;
+				margin-left: auto;
+				margin-right: auto;
+				position:relative;
+				left:-5px;
+			}
+
+			.content {
+				width: 705px;
+				box-shadow: 10px 10px 15px #424242;
+				margin-left: auto;
+				margin-right: auto;
+				background-color: #00739e;
+				position:relative;
+				left:-5px;
+				top: 20px;
+			}
+
+			.rcon {
+				box-shadow: 10px 10px 15px #424242;
+				background-color: #00739e;
+				box-shadow: 10px 10px 15px #424242;
+				width: 518px;
+				position:relative;
+				left: 3px;
+			}
+
+			.rconhigh {
+				box-shadow: 10px 10px 15px #424242;
+				background-color: #ff8400;
+				box-shadow: 10px 10px 15px #424242;
+				width: 518px;
+				position:relative;
+				left: 3px;
+			}
+
+			.padding {
+				padding: 5px 20px 5px 20px;
+			}
+
+			.spacer {
+				height:50px;
+				width: 1100px;
+				margin-left: auto;
+				margin-right: auto;
+				clear:both;
+			}
+
+			.pcenter {
+				width: 1100px;
+				height:25px;
+				margin-left: auto;
+				margin-right: auto;
+				clear:both;
+			}
+
+			.projectstuff {
+				width: 1050px;
+				box-shadow: 10px 10px 15px #424242;
+				background-color: #00739e;
+				margin-left: auto;
+				margin-right: auto;
+				position:relative;
+				left:-3px;
+				
+			}
+
+			.nopad {
+				line-height: 0;
+				text-align:center;
+			}
+
+			.projecttextlink {
+				box-shadow: 10px 10px 15px #424242;
+				width: 506px;
+				height: 112px;
+				position:relative;
+				
+				left:-6px;
+				transition: left 0.5s, box-shadow 0.5s, width 0.5s, height 0.5s;
+				background-color: #ff8400;
+				border-style:solid;
+				border-color: transparent;
+			}
+
+			.projecttextlink:hover {
+				left: -11px;
+				box-shadow: 11px 11px 15px #424242;
+				width: 516px;
+				height: 118px;
+				border-style:solid;
+				border-color: #424242;
+			}
+
+			.projecttextc {
+				width: 506px;
+				height: 112px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			ul {list-style-type:square}
+
+			li{ 
+			margin-top: 9pt;
+			margin-bottom: 9pt;
+			}
+
+			hr {
+				border: 0;
+				height: 1px;
+				background-image: -webkit-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); 
+				background-image:    -moz-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); 
+				background-image:     -ms-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); 
+				background-image:      -o-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0)); 
+			}
+
+			#HCB_comment_box .submit {
+			  background:none; /* Clear twitter bootstrap style. */
+			  border:0px;
+			  background-color: #ffffff;
+			  font-family: Arial, Helvetica, sans-serif;
+			}
+			
+			table, td, th {
+				border: 0px;
+			}
+			
+		</style>
+	</head>
+        
+    <body>
+      		
+
+	<div class="wrap">
+	<div class="pleft">
+
+		<div class="projecttextc">
+		<a>
+		<div class="projecttextlink">
+		<table border="1">
+			<tr>
+			<td><img src="spreadlyicon.png" alt="some_text" width="100"></td>
+			<td><h1>readly</h1></td>
+			</tr>
+			
+		</table>
+		
+		
+		
+		</div>
+		</a>
+		</div>
+		
+	</div>
+
+	<div class="pright">
+
+		<div class="projecttextc">
+		<a>
+		<div class="projecttextlink">
+		
+		<h1>Help File</h1>
+		
+		</div>
+		</a>
+		</div>
+		
+	</div>
+	
+	
+	<div class="pcenter"></div>
+	
+	<div class="projectstuff">
+	<div class="padding">
+		<h1>Application Suite
+		<br/>
+		Spreadly - Spreadsheet Desktop Application
+		</h1>
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff">
+	<div class="padding">
+		<h2>Introduction</h2>
+		<p>Spreadly is the spreadsheet solution for the <b>Application Suite</b>.</p>
+		<p>There are many features to this free software that will be explained in this file, they are</p>
+		<p>
+		<ul>
+			<li><a href="#cellpanel">Cell Panel</a></li>
+			<li><a href="#statusbar">Status Bar</a></li>
+			<li><a href="#toolbar">Toolbar</a></li>
+			<li><a href="#contentsbox">Cell Name Value and Contents</a></li>
+			<li><a href="#undo">Undo Actions</a></li>
+			<li><a href="#saveload">Save and Load Spreadsheet</a></li>
+			
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff" id="cellpanel">
+	<div class="padding">
+		<h2>Cell Panel</h2>
+		<p>
+			The cell panel is located in the main portion of Spreadly. It allows you to select a cell and then change the value through the <b>Cell Name Value and Contents</b> items above. You can visually see what cell you have selected by the black box.
+		</p>
+		<p>
+			As you put content into cells, the positions on the spreadsheet panel will reflect these changes. You can use this to your advantage, by putting titles in the cell above a cell you want a name for.
+		</p>
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff" id="statusbar">
+	<div class="padding">
+		<h2>Status Bar</h2>
+		<p>
+			The status bar is located at the bottom of the Spreadly window. It shows you what you are currently doing, tips on what to do next, and what you have done. The Status bar should be your go-to item should you become lost or confused about what you have done, or how to continue.
+		</p>
+		<p>
+			For serious messages or errors, they will not be displayed in the status bar. These types of messages will be shown in a pop-up, giving further instruction.
+		</p>
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff" id="toolbar">
+	<div class="padding">
+		<h2>Toolbar</h2>
+		<p>
+			The toolbar is located at the very top of Spreadly. This is where all of your normal toolbar-associated actions can be performed. This includes
+		</p>
+		<ul>
+			<li>File Submenu<ul>
+				<li>Create a new Spreadsheet</li>
+				<li>Open an existing spreadsheet</li>
+				<li>Save the current Spreadsheet in it's current location</li>
+				<li>Save the current Spreadsheet in a new location</li>
+				<li>Close this Spreadsheet</li>
+			</ul></li>
+			<li>Help Submenu<ul>
+				<li>Open this help documentation (you found me!)</li>
+				<li>About the current version of Spreadly</li>
+			</ul></li>
+			<li>Quick Action Buttons<ul>
+				<li>Save - saves in the current location</li>
+				<li>Undo - undo the previous actions</li>
+			</ul></li>
+		</ul>
+		<p>
+			Clicking any of these menus will perform the action indicated, though some menus will be greyed out when they under current circumstances, wouldn't perform any action.
+		</p>
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff" id="contentsbox">
+	<div class="padding">
+		<h2>Cell Name Value and Contents</h2>
+		<p>
+			The Cell Name, Value, and Contents text boxes are located right below the toolbar. These are context sensative to what you have selected in the <b>Spreadsheet Panel</b> and will reflect the selected cell's value, name, and content.
+		</p>
+		<p>
+			By clicking the contents text box, you can set the contents of the selected cell. Simply enter a formula, number, or words and hit enter. A formula is signified by an <b>= sign</b> at the beginning.
+		</p>
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff" id="undo">
+	<div class="padding">
+		<h2>Undo Actions</h2>
+		<p>
+			The undo button is located in the <b>Toolbar</b> at the top of Spreadly. It is an orange back arrow. It is used to undo previous changes you have made to your spreadsheet since opening/creating it. One click will correspond with one change you made.
+		</p>
+		<p>
+			Once you have undone every action, the button will become disabled until more actions are performed.
+		</p>
+	</div>
+	</div>
+	
+	<div class="linkspace"></div>
+	
+	<div class="projectstuff" id="saveload">
+	<div class="padding">
+		<h2>Save and Load Spreadsheet</h2>
+		<p>
+			Save and open are located in the file submenu of the <b>Toolbar</b>, and there is also a quicksave button to the right.
+		</p>
+		<p>
+			If you click open, a window will pop up asking you to select the Spreadsheet file you wish to open. Navigate to the file, click on it, and click open. This will load the spreadsheet.
+		</p>
+		<p>
+			Clicking save from a spreadsheet you have saved before will simply save to the current location of the file, this will be indicated on the <b>Status Bar</b>. If you haven't saved before, or if you click Save As, a window will pop up allowing you to choose where to save the spreadsheet and under what name. Choose a location, name the file, and click save. The <b>Status Bar</b> should then indicate the save was successful.
+		</p>
+	</div>
+	</div>
+	
+	<div class="spacer"></div>
+	
+	</div>
+	
+	</body>
+	</html>
