@@ -15,6 +15,6 @@ make any changes
 
 <git status> again to ensure you've added everything
 
-<git commit -m 'your comment here'> to add a comment to the push
+<git commit -m 'your comment here'> to add a comment to the push (-am works too, was needed to push ps6, don't know why)
 
 <git push> to commit your changes to the repo.
