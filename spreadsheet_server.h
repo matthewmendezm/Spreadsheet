@@ -3,22 +3,18 @@
 #ifndef SPREADSHEET_SERVER_H
 #define SPREADSHEET_SERVER_H
 
-#include <string>
-
 class spreadsheet_server
 {
-public:
-  spreadsheet_server();
-  listen();
-  connect();
-  message_received();
-  send_message(std::string);
+	public:
+	  spreadsheet_server();
+	  void listen();
+	  void connect();
+	  void message_received();
+	  void send_message(std::string s);
 
-  ~huge_number();
+	  ~spreadsheet_server();
 
-private:
-}
+	private:
+};
 
-
-
-# endif
+#endif
