@@ -15,6 +15,7 @@ class spreadsheet_server
 	  ~spreadsheet_server();
 
 	private:
+		socket listener;
 };
 
 #endif

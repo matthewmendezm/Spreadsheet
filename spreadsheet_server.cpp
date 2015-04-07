@@ -2,11 +2,12 @@
 #include <iostream>
 #include <string>
 #include <sys/socket.h>
+#include <sys/types.h>
 #include "spreadsheet_server.h"
 
 int main(int argc, char const *argv[])
 {
-	/* code */
+	listen();
 	return 0;
 }
 
@@ -17,7 +18,10 @@ spreadsheet_server::spreadsheet_server()
 
 void spreadsheet_server::listen()
 {
-
+	while(true)
+	{
+		connect();
+	}
 }
 
 void spreadsheet_server::connect()
