@@ -1,6 +1,7 @@
 // SpreadsheetServer.cpp 
+#include <iostream>
 #include <string>
-#include <boost/asio.hpp>
+#include <sys/socket.h>
 #include "spreadsheet_server.h"
 
 int main(int argc, char const *argv[])
