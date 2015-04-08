@@ -30,7 +30,52 @@ X:\CS 3500 2\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetPanel.xml
 X:\CS 3500 2\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetUtilities.xml
 X:\CS 3500 2\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csprojResolveAssemblyReference.cache
 X:\CS 3500 2\PS6\SpreadsheetGUI\obj\Debug\SS.SpreadsheetGUI.resources
-X:\CS 3500 2\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.Properties.Resources.resources
 X:\CS 3500 2\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache
 X:\CS 3500 2\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.exe
 X:\CS 3500 2\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.pdb
+X:\CS 3500 2\PS6\SpreadsheetGUI\bin\Debug\StringSocket.dll
+X:\CS 3500 2\PS6\SpreadsheetGUI\bin\Debug\StringSocket.xml
+X:\CS 3500 2\PS6\SpreadsheetGUI\obj\Debug\Spreadsheet.ConnectionDialog.resources
+X:\CS 3500 2\PS6\SpreadsheetGUI\obj\Debug\Spreadsheet.Properties.Resources.resources
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe.config
+X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.exe
+X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.pdb
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.pdb
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\Formula.dll
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\Spreadsheet.dll
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetPanel.dll
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\StringSocket.dll
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetUtilities.dll
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\Spreadsheet.pdb
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\Spreadsheet.xml
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\Formula.xml
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetPanel.xml
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\StringSocket.xml
+X:\cs3505\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetUtilities.xml
+X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csprojResolveAssemblyReference.cache
+X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\Spreadsheet.ConnectionDialog.resources
+X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\SS.SpreadsheetGUI.resources
+X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\Spreadsheet.Properties.Resources.resources
+X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe.config
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.exe
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.pdb
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.pdb
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Formula.dll
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Spreadsheet.dll
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetPanel.dll
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\StringSocket.dll
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetUtilities.dll
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Spreadsheet.pdb
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Spreadsheet.xml
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Formula.xml
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetPanel.xml
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\StringSocket.xml
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetUtilities.xml
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csprojResolveAssemblyReference.cache
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\Spreadsheet.ConnectionDialog.resources
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SS.SpreadsheetGUI.resources
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\Spreadsheet.Properties.Resources.resources
+X:\spreadsheet\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache

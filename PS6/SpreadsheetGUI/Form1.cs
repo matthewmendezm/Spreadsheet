@@ -1,4 +1,5 @@
 ﻿
+using Spreadsheet;
 using SpreadsheetUtilities;
 using SS;
 using System;
@@ -25,7 +26,7 @@ namespace SS
     /// </summary>
     public partial class SpreadsheetGUI : Form
     {
-
+        private Controller controller;
         AbstractSpreadsheet currentSheet;
         enum columns { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
         string selectedCell;
@@ -40,6 +41,8 @@ namespace SS
         public SpreadsheetGUI()
         {
             InitializeComponent();
+            controller = new Controller();
+            controller.IncomingMessageEvent += MessageReceived;
 
 
             // This an example of registering a method so that it is notified when
@@ -59,11 +62,17 @@ namespace SS
 
             this.Width += 2;
 
-            this.Text = "New Spreadsheet - Spreadly";
+            this.Text = "New Spreadsheet - Mangosheets Online";
 
-            saveToolStripMenuItem.Enabled = false;
-            saveToolStripMenuItem1.Enabled = false;
+            //saveToolStripMenuItem.Enabled = false;
+            //saveToolStripMenuItem1.Enabled = false;
 
+        }
+
+        private void MessageReceived(string obj)
+        {
+            //update gui
+            statusLabel.Text = obj;
         }
 
         /// <summary>
@@ -80,7 +89,7 @@ namespace SS
             }
             catch (SpreadsheetReadWriteException)
             {
-                MessageBox.Show("This file could not be read correctly! It may be for an older version of Spreadly, or may have become corrupt. Continue at own risk!", "Spreadly - Application Suite", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This file could not be read correctly! It may be for an older version of Mangosheets Online, or may have become corrupt. Continue at own risk!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
             }
 
@@ -122,7 +131,7 @@ namespace SS
             {
                 filePath = filePath.Substring(subInd+1);
             }
-            this.Text = filePath + " - Spreadly";
+            this.Text = filePath + " - Mangosheets Online";
 
         }
 
@@ -219,22 +228,8 @@ namespace SS
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (currentSheet.Changed)
-            {
-                if (MessageBox.Show("Are you sure you want to close? All unsaved changes will be lost! Oh no!", "Spreadly - Application Suite", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    closed = true;
-                    Close();
-
-                }
-            }
-            else
-            {
-                Close();
-
-            }
-            
+        {           
+            Close();
         }
 
         /// <summary>
@@ -278,8 +273,8 @@ namespace SS
             {
                 currentSheet.Save(currentFilePath);
                 statusLabel.Text = "Saved!";
-                saveToolStripMenuItem.Enabled = false;
-                saveToolStripMenuItem1.Enabled = false;
+                //saveToolStripMenuItem.Enabled = false;
+                //saveToolStripMenuItem1.Enabled = false;
             }
         }
 
@@ -303,10 +298,10 @@ namespace SS
             {
                 file = file.Substring(subInd+1);
             }
-            this.Text = file + " - Spreadly";
+            this.Text = file + " - Mangosheets Online";
 
-            saveToolStripMenuItem.Enabled = false;
-            saveToolStripMenuItem1.Enabled = false;
+            //saveToolStripMenuItem.Enabled = false;
+            //saveToolStripMenuItem1.Enabled = false;
 
         }
 
@@ -333,12 +328,12 @@ namespace SS
                 }
                 catch (FormulaFormatException ec)
                 {
-                    MessageBox.Show("You have put in bad data for a formula, your changes have not been made!", "Spreadly - Application Suite", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("You have put in bad data for a formula, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
                 catch (CircularException ce)
                 {
-                    MessageBox.Show("Setting this as the formula would result in a circular dependancy, your changes have not been made!", "Spreadly - Application Suite", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Setting this as the formula would result in a circular dependancy, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
                 catch (ArgumentException ecx)
@@ -422,7 +417,7 @@ namespace SS
         {
             if (currentSheet.Changed && closed != true)
             {
-                if (MessageBox.Show("Are you sure you want to close? All unsaved changes will be lost! Oh no!", "Spreadly - Application Suite", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("Are you sure you want to close? All unsaved changes will be lost! Oh no!", "Mangosheets Online", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     e.Cancel = true;
 
@@ -448,11 +443,11 @@ namespace SS
         /// <param name="e"></param>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This software was developed by Taylor Morris for cs3500 at the University of Utah." + Environment.NewLine + Environment.NewLine + "If you have any questions or issues, please contact me at iambakuhatsu@hotmail.com" + Environment.NewLine + Environment.NewLine + "Spreadly icon was created by my lovely girlfriend, Christa Crabtree", "Spreadly - Application Suite", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("This software was developed by Team Mangos for cs3505 at the University of Utah.", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
-        /// opens an html file with the help documentation for spreadly
+        /// opens an html file with the help documentation for Mangosheets Online
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -507,8 +502,19 @@ namespace SS
 
             statusLabel.Text = "Set cell " + selectedCell + " to " + textBoxCellContents.Text;
 
-            saveToolStripMenuItem.Enabled = true;
-            saveToolStripMenuItem1.Enabled = true;
+            //saveToolStripMenuItem.Enabled = true;
+            //saveToolStripMenuItem1.Enabled = true;
+        }
+
+        private void SpreadsheetGUI_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void connectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConnectionDialog connectionDialog = new ConnectionDialog();
+            connectionDialog.ShowDialog();
         }
 
 

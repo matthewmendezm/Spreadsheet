@@ -22,3 +22,9 @@ X:\CS 3500 2\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.xml
 X:\CS 3500 2\PS6\UnitTest\obj\Debug\SpreadsheetTests.csprojResolveAssemblyReference.cache
 X:\CS 3500 2\PS6\UnitTest\obj\Debug\UnitTest.dll
 X:\CS 3500 2\PS6\UnitTest\obj\Debug\UnitTest.pdb
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\StringSocket.dll
+X:\CS 3500 2\PS6\UnitTest\bin\Debug\StringSocket.xml
+X:\cs3505\PS6\UnitTest\obj\Debug\SpreadsheetTests.csprojResolveAssemblyReference.cache
+X:\cs3505\PS6\UnitTest\obj\Debug\UnitTest.dll
+X:\spreadsheet\spreadsheet\PS6\UnitTest\obj\Debug\SpreadsheetTests.csprojResolveAssemblyReference.cache
+X:\spreadsheet\spreadsheet\PS6\UnitTest\obj\Debug\UnitTest.dll

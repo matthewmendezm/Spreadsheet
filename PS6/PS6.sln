@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		SpreadsheetPanel.XML = SpreadsheetPanel.XML
 		SpreadsheetUtilities.dll = SpreadsheetUtilities.dll
 		SpreadsheetUtilities.XML = SpreadsheetUtilities.XML
+		StringSocket.dll = StringSocket.dll
+		StringSocket.XML = StringSocket.XML
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spreadsheet", "Spreadsheet\Spreadsheet.csproj", "{E6D8B62B-4966-428D-9E94-049344A00747}"
