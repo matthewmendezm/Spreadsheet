@@ -22,10 +22,10 @@ void sigchld_handler(int s);
 
 int main(int argc, char const *argv[])
 {
-	std::cout << "HERE" << std::endl;
-  spreadsheet_server server;
-  server.listen_for_connections();
-  return 0;
+	std::cout << "Spreadsheet server created" << std::endl;
+  	spreadsheet_server server;
+  	server.listen_for_connections();
+  	return 0;
 }
 
 spreadsheet_server::spreadsheet_server()
@@ -37,7 +37,7 @@ void spreadsheet_server::listen_for_connections()
 {
 	int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
     struct addrinfo hints, *servinfo, *p;
-    struct sockaddr_storage their_addr; // connector's address information
+    struct sockaddr_storage client_addr; // connector's address information
     socklen_t sin_size;
     struct sigaction sa;
     int yes=1;
@@ -68,6 +68,7 @@ void spreadsheet_server::listen_for_connections()
             exit(1);
         }
 
+        // Bind the server socket to listen to this IP and port
         if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
             close(sockfd);
             perror("server: bind");
@@ -97,19 +98,21 @@ void spreadsheet_server::listen_for_connections()
         exit(1);
     }
 
-    printf("server: waiting for connections...\n");
+    printf("Waiting for connection from clients...\n");
 
      // main accept() loop //put while loop back HERE
-        sin_size = sizeof their_addr;
-        new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
+        sin_size = sizeof client_addr;
+
+        // Accept call is BLOCKING until a client connects
+        new_fd = accept(sockfd, (struct sockaddr *)&client_addr, &sin_size);
         if (new_fd == -1) {
             perror("accept");
             //continue;
             return;
         }
 
-        inet_ntop(their_addr.ss_family,
-            get_in_addr((struct sockaddr *)&their_addr),
+        inet_ntop(client_addr.ss_family,
+            get_in_addr((struct sockaddr *)&client_addr),
             s, sizeof s);
         printf("server: got connection from %s\n", s);
 
@@ -141,19 +144,19 @@ void spreadsheet_server::connect()
 
 void spreadsheet_server::message_received(int socket)
 {
-	// char incoming_buffer[256];
-	// char * buf_ptr = (char *) incoming_buffer;
-	// int last_index = 0;
-	// size_t to_read = 256;
-	// while(to_read > 0)
-	// {
-	// 	ssize_t receive_size = recv(socket, buf_ptr, 256, 0);
-	// 	if(receive_size <= 0)
-	// 		return;
+	char incoming_buffer[256];
+	char * buf_ptr = (char *) incoming_buffer;
+	int last_index = 0;
+	size_t to_read = 256;
+	while(to_read > 0)
+	{
+		ssize_t receive_size = read(socket, buf_ptr, 256);
+		if(receive_size <= 0)
+			return;
 
-	// 	to_read 		-= receive_size;
-	// 	buf_ptr += receive_size;
-	// }
+		to_read -= receive_size;
+		buf_ptr += receive_size;
+	}
 
 	if (send(socket, "Hello from server :)\r\n", 50, 0) == -1)
                 perror("send");
