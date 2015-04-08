@@ -9,7 +9,7 @@ class spreadsheet_server
 	  spreadsheet_server();
 	  void listen_for_connections();
 	  void connect();
-	  void message_received();
+	  void message_received(int socket);
 	  void send_message(std::string s);
 
 	  ~spreadsheet_server(){}
