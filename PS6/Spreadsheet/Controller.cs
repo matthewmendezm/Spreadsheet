@@ -44,7 +44,7 @@ namespace Spreadsheet
         {
             String temp;
 
-           // if (IncomingMessageEvent != null)
+            if (IncomingMessageEvent != null)
             {
                 temp = s.Trim();
                 IncomingMessageEvent(temp);

@@ -326,7 +326,7 @@ namespace SS
                 //FOR SPREADSHEET SERVER PROJECT
                 //FOR SPREADSHEET SERVER PROJECT
                 controller.SendMessage(currentSheet.GetCellValue(selectedCell).ToString());
-
+                
                 try
                 {
 

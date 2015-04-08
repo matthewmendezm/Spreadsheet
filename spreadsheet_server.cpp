@@ -35,7 +35,7 @@ spreadsheet_server::spreadsheet_server()
 
 void spreadsheet_server::listen_for_connections()
 {
-	int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
+    int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
     struct addrinfo hints, *servinfo, *p;
     struct sockaddr_storage client_addr; // connector's address information
     socklen_t sin_size;
@@ -111,13 +111,11 @@ void spreadsheet_server::listen_for_connections()
             return;
         }
 
-        inet_ntop(client_addr.ss_family,
-            get_in_addr((struct sockaddr *)&client_addr),
-            s, sizeof s);
+        inet_ntop(client_addr.ss_family, get_in_addr((struct sockaddr *)&client_addr), s, sizeof s);
         printf("server: got connection from %s\n", s);
 
         message_received(new_fd);
-        //close(new_fd);  // parent doesn't need this
+        close(new_fd);  // parent doesn't need this
 
     return;
 }
@@ -142,26 +140,33 @@ void spreadsheet_server::connect()
 
 }
 
+// WE SHOULD RENAME THIS LISTEN_FOR_MESSAGE or something
 void spreadsheet_server::message_received(int socket)
 {
-	// char incoming_buffer[256];
-	// char * buf_ptr = (char *) incoming_buffer;
-	// int last_index = 0;
-	// size_t to_read = 256;
-	// while(to_read > 0)
-	// {
-	// 	ssize_t receive_size = rcv(socket, buf_ptr, 256);
-	// 	if(receive_size <= 0)
-	// 		return;
+  // char incoming_buffer[256];
+  // char * buf_ptr = (char *) incoming_buffer;
+  // int last_index = 0;
+  // size_t to_read = 256;
+  // while(to_read > 0)
+  // {
+  // 	ssize_t receive_size = rcv(socket, buf_ptr, 256);
+  // 	if(receive_size <= 0)
+  // 		return;
+  
+  // 	to_read -= receive_size;
+  // 	buf_ptr += receive_size;
+  // }
+ 
+  char msg[250];
+  std::string strmsg;
+  recv(socket, msg, sizeof(msg), NULL);
+  strmsg = msg;
+  std::cout << msg << std::endl;
 
-	// 	to_read -= receive_size;
-	// 	buf_ptr += receive_size;
-	// }
-
-	if (send(socket, "Hello from server :)\r\n", 50, 0) == -1)
-                perror("send");
-    //close(socket);
-    //exit(0);
+  if (send(socket, "Hello from server :)\n", 25, 0) == -1)
+    perror("send");
+  //close(socket);
+  //exit(0);
 }
 
 void spreadsheet_server::send_message(std::string s)
