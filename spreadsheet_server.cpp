@@ -144,19 +144,19 @@ void spreadsheet_server::connect()
 
 void spreadsheet_server::message_received(int socket)
 {
-	char incoming_buffer[256];
-	char * buf_ptr = (char *) incoming_buffer;
-	int last_index = 0;
-	size_t to_read = 256;
-	while(to_read > 0)
-	{
-		ssize_t receive_size = read(socket, buf_ptr, 256);
-		if(receive_size <= 0)
-			return;
+	// char incoming_buffer[256];
+	// char * buf_ptr = (char *) incoming_buffer;
+	// int last_index = 0;
+	// size_t to_read = 256;
+	// while(to_read > 0)
+	// {
+	// 	ssize_t receive_size = rcv(socket, buf_ptr, 256);
+	// 	if(receive_size <= 0)
+	// 		return;
 
-		to_read -= receive_size;
-		buf_ptr += receive_size;
-	}
+	// 	to_read -= receive_size;
+	// 	buf_ptr += receive_size;
+	// }
 
 	if (send(socket, "Hello from server :)\r\n", 50, 0) == -1)
                 perror("send");
