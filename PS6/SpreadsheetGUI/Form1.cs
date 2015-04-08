@@ -320,6 +320,12 @@ namespace SS
                 backActions.Push(new BackItem(selectedCell, currentSheet.GetCellValue(selectedCell).ToString()));
 
                 backToolStripMenuItem.Enabled = true;
+                
+                //FOR SPREADSHEET SERVER PROJECT
+                //FOR SPREADSHEET SERVER PROJECT
+                //FOR SPREADSHEET SERVER PROJECT
+                //FOR SPREADSHEET SERVER PROJECT
+                controller.SendMessage(currentSheet.GetCellValue(selectedCell).ToString());
 
                 try
                 {

@@ -36,7 +36,7 @@ namespace Spreadsheet
             socket = new StringSocket(client.Client, ASCIIEncoding.Default);
 
             socket.BeginSend("connect " + name + " " + sheetName +  "\n", (e, p) => { }, null);
-            
+
             socket.BeginReceive(LineReceived, null);
         }
 
@@ -44,11 +44,13 @@ namespace Spreadsheet
         {
             String temp;
 
-            if (IncomingMessageEvent != null)
+           // if (IncomingMessageEvent != null)
             {
                 temp = s.Trim();
                 IncomingMessageEvent(temp);
             }
+
+            socket.BeginReceive(LineReceived, null);
         }
 
         /// <summary>
