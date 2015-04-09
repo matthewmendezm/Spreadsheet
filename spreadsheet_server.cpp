@@ -149,17 +149,23 @@ void spreadsheet_server::connect()
 // WE SHOULD RENAME THIS LISTEN_FOR_MESSAGE or something
 void spreadsheet_server::message_received(int socket)
 {
+	std::string temp = "";
 	int last_index = 0;
 	while(1)
 	{
   		char msg[1];
-  		std::string strmsg;
   		recv(socket, msg, 1, 0);
-  		strmsg = msg;
-  		std::cout << msg << std::endl;
-
-  		// if (send(socket, msg, sizeof(msg), 0) == -1)
-    // 		break;
+  		if(msg[0] == '\n')
+  		{
+  			std::cout << temp << std:: endl;
+  			temp += "\n";
+  			send(socket, temp.c_str(), sizeof(temp.c_str()), 0);
+  			temp = "";
+  		}
+  		else
+  			temp += msg;
+		 //if (send(socket, msg, sizeof(msg), 0) == -1)
+  	 		//break;
 	}		
   	close(socket);
   	exit(0);
