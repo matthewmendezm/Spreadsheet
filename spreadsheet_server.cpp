@@ -101,21 +101,27 @@ void spreadsheet_server::listen_for_connections()
     printf("Waiting for connection from clients...\n");
 
      // main accept() loop //put while loop back HERE
+    while(true)
+    {
+    	
         sin_size = sizeof client_addr;
 
         // Accept call is BLOCKING until a client connects
         new_fd = accept(sockfd, (struct sockaddr *)&client_addr, &sin_size);
         if (new_fd == -1) {
             perror("accept");
-            //continue;
-            return;
+            continue;
         }
 
         inet_ntop(client_addr.ss_family, get_in_addr((struct sockaddr *)&client_addr), s, sizeof s);
         printf("server: got connection from %s\n", s);
 
+        // if (!fork()) { // this is the child process
+        //     close(sockfd);
+
         message_received(new_fd);
         close(new_fd);  // parent doesn't need this
+    }
 
     return;
 }
@@ -143,30 +149,20 @@ void spreadsheet_server::connect()
 // WE SHOULD RENAME THIS LISTEN_FOR_MESSAGE or something
 void spreadsheet_server::message_received(int socket)
 {
-  // char incoming_buffer[256];
-  // char * buf_ptr = (char *) incoming_buffer;
-  // int last_index = 0;
-  // size_t to_read = 256;
-  // while(to_read > 0)
-  // {
-  // 	ssize_t receive_size = rcv(socket, buf_ptr, 256);
-  // 	if(receive_size <= 0)
-  // 		return;
-  
-  // 	to_read -= receive_size;
-  // 	buf_ptr += receive_size;
-  // }
- 
-  char msg[250];
-  std::string strmsg;
-  recv(socket, msg, sizeof(msg), NULL);
-  strmsg = msg;
-  std::cout << msg << std::endl;
+	int last_index = 0;
+	while(1)
+	{
+  		char msg[1];
+  		std::string strmsg;
+  		recv(socket, msg, 1, 0);
+  		strmsg = msg;
+  		std::cout << msg << std::endl;
 
-  if (send(socket, "Hello from server :)\n", 25, 0) == -1)
-    perror("send");
-  //close(socket);
-  //exit(0);
+  		// if (send(socket, msg, sizeof(msg), 0) == -1)
+    // 		break;
+	}		
+  	close(socket);
+  	exit(0);
 }
 
 void spreadsheet_server::send_message(std::string s)
