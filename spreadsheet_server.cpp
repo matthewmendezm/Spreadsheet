@@ -14,6 +14,7 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <cstring>
 
 #define PENDINGCONNECTIONS 5
 
@@ -116,13 +117,13 @@ void spreadsheet_server::listen_for_connections()
         inet_ntop(client_addr.ss_family, get_in_addr((struct sockaddr *)&client_addr), s, sizeof s);
         printf("server: got connection from %s\n", s);
 
-        // if (!fork()) { // this is the child process
-        //     close(sockfd);
-
-        message_received(new_fd);
+        if (!fork()) // this is the child process
+        { 
+            close(sockfd);
+            message_received(new_fd);   
+        }
         close(new_fd);  // parent doesn't need this
     }
-
     return;
 }
 
@@ -155,11 +156,16 @@ void spreadsheet_server::message_received(int socket)
 	{
   		char msg[1];
   		recv(socket, msg, 1, 0);
+  		if(temp == "END\n")
+  			break;
   		if(msg[0] == '\n')
   		{
-  			std::cout << temp << std:: endl;
-  			temp += "\n";
-  			send(socket, temp.c_str(), sizeof(temp.c_str()), 0);
+  			// temp += "\n";
+  			char * cstr = new char[temp.length() + 1];
+  			std::strcpy (cstr, temp.c_str());
+  			cstr[temp.length()] = '\n';
+  			send(socket, cstr, (temp.length() +1), 0);
+  			std::cout << cstr << std:: endl;
   			temp = "";
   		}
   		else
