@@ -306,7 +306,7 @@
             Provides a way for the spreadsheet client to communicate with the server
             </summary>
         </member>
-        <member name="M:Spreadsheet.Controller.Connect(System.String,System.String,System.Int32,System.String)">
+        <member name="M:Spreadsheet.Controller.Connect(System.String,System.String,System.String,System.Int32)">
             <summary>
             Connect to the server at the given hostname and port and with the given name.
             </summary>

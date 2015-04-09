@@ -130,9 +130,6 @@ namespace SS
             get { return spreadChanged; }
             protected set { spreadChanged = value; }
         }
-
-        
-
         
 
         /// <summary>

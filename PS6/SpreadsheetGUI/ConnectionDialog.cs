@@ -14,11 +14,12 @@ namespace Spreadsheet
 
     public partial class ConnectionDialog : Form
     {
-        Controller controller = new Controller();
+        private Controller controller;
 
-        public ConnectionDialog()
+        public ConnectionDialog(Controller controller)
         {
             InitializeComponent();
+            this.controller = controller;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -38,7 +39,7 @@ namespace Spreadsheet
             string userName = textBoxUserName.Text;
             string spreadsheetName = textBoxSpreadsheetName.Text;
 
-            controller.Connect(host, userName, port, spreadsheetName);
+            controller.Connect(host, userName, spreadsheetName, port);
 
             this.Close();
         }

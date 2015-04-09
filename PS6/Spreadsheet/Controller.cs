@@ -13,11 +13,12 @@ namespace Spreadsheet
     /// </summary>
     public class Controller
     {
-        // This is when we receive a message for the messager
-        public event Action<String> IncomingMessageEvent;
-
         // The socket used to communicate with the server
         private StringSocket socket;
+
+        // This is when we receive a message for the messager
+        public event Action<String> IncomingMessageEvent;
+        
 
         public Controller()
         {
@@ -30,13 +31,11 @@ namespace Spreadsheet
         /// <param name="hostname">IP addresses for game server</param>
         /// <param name="name">User's name</param>
         /// <param name="port">Connection port</param>
-        public void Connect(string hostname, String name, int port, String sheetName)
+        public void Connect(string hostname, String name, String sheetName, int port = 2000)
         {            
             TcpClient client = new TcpClient(hostname, port);
             socket = new StringSocket(client.Client, ASCIIEncoding.Default);
-
             socket.BeginSend("connect " + name + " " + sheetName +  "\n", (e, p) => { }, null);
-
             socket.BeginReceive(LineReceived, null);
         }
 
@@ -44,13 +43,13 @@ namespace Spreadsheet
         {
             String temp;
 
-            if (IncomingMessageEvent != null)
+            socket.BeginReceive(LineReceived, null);
+
+            //if (IncomingMessageEvent != null)
             {
-                temp = s.Trim();
+                temp = s.Trim();                
                 IncomingMessageEvent(temp);
             }
-
-            socket.BeginReceive(LineReceived, null);
         }
 
         /// <summary>

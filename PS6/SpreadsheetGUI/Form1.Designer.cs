@@ -50,6 +50,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.sendMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -64,6 +65,7 @@
             this.spreadsheetPanel1.Name = "spreadsheetPanel1";
             this.spreadsheetPanel1.Size = new System.Drawing.Size(501, 371);
             this.spreadsheetPanel1.TabIndex = 0;
+            this.spreadsheetPanel1.Load += new System.EventHandler(this.spreadsheetPanel1_Load);
             // 
             // menuStrip1
             // 
@@ -82,7 +84,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectToolStripMenuItem,
-            this.closeConnectionToolStripMenuItem});
+            this.closeConnectionToolStripMenuItem,
+            this.sendMessageToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.fileToolStripMenuItem.Text = "CONNECT";
@@ -239,6 +242,7 @@
             this.statusLabel.Size = new System.Drawing.Size(45, 16);
             this.statusLabel.TabIndex = 0;
             this.statusLabel.Text = "Ready";
+            this.statusLabel.Click += new System.EventHandler(this.statusLabel_Click);
             // 
             // openFileDialog1
             // 
@@ -264,6 +268,13 @@
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
+            // 
+            // sendMessageToolStripMenuItem
+            // 
+            this.sendMessageToolStripMenuItem.Name = "sendMessageToolStripMenuItem";
+            this.sendMessageToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.sendMessageToolStripMenuItem.Text = "Send Message";
+            this.sendMessageToolStripMenuItem.Click += new System.EventHandler(this.sendMessageToolStripMenuItem_Click);
             // 
             // SpreadsheetGUI
             // 
@@ -320,6 +331,7 @@
         private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeConnectionToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.ToolStripMenuItem sendMessageToolStripMenuItem;
     }
 }
 

@@ -27,6 +27,7 @@ namespace SS
     public partial class SpreadsheetGUI : Form
     {
         private Controller controller;
+
         AbstractSpreadsheet currentSheet;
         enum columns { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
         string selectedCell;
@@ -72,7 +73,12 @@ namespace SS
         private void MessageReceived(string obj)
         {
             //update gui
-            statusLabel.Text = obj;
+            //statusLabel.Text = obj;
+            int col = 1;
+            int row = 1;
+                    
+            //spreadsheetPanel1.SetValue(col, row, obj);
+            spreadsheetPanel1.Invoke(new Action(() => { spreadsheetPanel1.SetValue(col, row, obj); }));
         }
 
         /// <summary>
@@ -519,8 +525,24 @@ namespace SS
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConnectionDialog connectionDialog = new ConnectionDialog();
+            ConnectionDialog connectionDialog = new ConnectionDialog(controller);
             connectionDialog.ShowDialog();
+        }
+
+        private void statusLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void spreadsheetPanel1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sendMessageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendDialog sendDialog = new SendDialog(controller);
+            sendDialog.ShowDialog();
         }
 
 
