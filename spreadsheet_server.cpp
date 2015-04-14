@@ -10,7 +10,6 @@ int main(int argc, char const *argv[])
   	server.listen_for_connections();
 
   	// mem clean up
-  	delete graph;
   	return 0;
 }
 
