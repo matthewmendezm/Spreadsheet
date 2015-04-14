@@ -1,23 +1,5 @@
 // SpreadsheetServer.cpp 
-#include <string>
-#include <iostream>
 #include "spreadsheet_server.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <cstring>
-
-#define PENDINGCONNECTIONS 5
-
 void *get_in_addr(struct sockaddr *sa);
 void sigchld_handler(int s);
 
@@ -26,12 +8,15 @@ int main(int argc, char const *argv[])
 	std::cout << "Spreadsheet server created" << std::endl;
   	spreadsheet_server server;
   	server.listen_for_connections();
+
+  	// mem clean up
+  	delete graph;
   	return 0;
 }
 
 spreadsheet_server::spreadsheet_server()
 {
-
+	graph = new spreadsheet_graph();
 }
 
 void spreadsheet_server::listen_for_connections()
@@ -120,7 +105,7 @@ void spreadsheet_server::listen_for_connections()
         if (!fork()) // this is the child process
         { 
             close(sockfd);
-            message_received(new_fd);   
+            listen_to_client(new_fd);   
         }
         close(new_fd);  // parent doesn't need this
     }
@@ -148,7 +133,7 @@ void spreadsheet_server::connect()
 }
 
 // WE SHOULD RENAME THIS LISTEN_FOR_MESSAGE or something
-void spreadsheet_server::message_received(int socket)
+void spreadsheet_server::listen_to_client(int socket)
 {
 	std::string temp = "";
 	int last_index = 0;
@@ -160,12 +145,8 @@ void spreadsheet_server::message_received(int socket)
   			break;
   		if(msg[0] == '\n')
   		{
-  			// temp += "\n";
-  			char * cstr = new char[temp.length() + 1];
-  			std::strcpy (cstr, temp.c_str());
-  			cstr[temp.length()] = '\n';
-  			send(socket, cstr, (temp.length() +1), 0);
-  			std::cout << cstr << std:: endl;
+  			process_request(temp);
+  			send_message(socket, temp);
   			temp = "";
   		}
   		else
@@ -176,8 +157,19 @@ void spreadsheet_server::message_received(int socket)
   	close(socket);
   	exit(0);
 }
+void spreadsheet_server::process_request(std::string input)
+{	
+	return;
+	// parse message
+	// complete command
+	// decide where to go from here
+}
 
-void spreadsheet_server::send_message(std::string s)
+void spreadsheet_server::send_message(int socket, std::string temp)
 {
-
+	char * cstr = new char[temp.length() + 1];
+  			std::strcpy (cstr, temp.c_str());
+  			cstr[temp.length()] = '\n';
+  			send(socket, cstr, (temp.length() +1), 0);
+  			std::cout << cstr << std:: endl;
 }
