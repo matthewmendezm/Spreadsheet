@@ -149,7 +149,7 @@ void spreadsheet_server::listen_to_client(int socket)
   			temp = "";
   		}
   		else
-  			temp += msg;
+  			temp += msg[0];
 		 //if (send(socket, msg, sizeof(msg), 0) == -1)
   	 		//break;
 	}		
