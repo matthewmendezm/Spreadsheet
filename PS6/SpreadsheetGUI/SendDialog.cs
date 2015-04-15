@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spreadsheet
+namespace SS
 {
     public partial class SendDialog : Form
     {

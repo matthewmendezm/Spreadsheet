@@ -1,4 +1,4 @@
-﻿namespace Spreadsheet
+﻿namespace SS
 {
     partial class SendDialog
     {

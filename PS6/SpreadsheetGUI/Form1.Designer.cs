@@ -34,6 +34,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hELPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,7 +51,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.sendMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -103,6 +103,13 @@
             this.closeConnectionToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.closeConnectionToolStripMenuItem.Text = "Close Connection";
             // 
+            // sendMessageToolStripMenuItem
+            // 
+            this.sendMessageToolStripMenuItem.Name = "sendMessageToolStripMenuItem";
+            this.sendMessageToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.sendMessageToolStripMenuItem.Text = "Send Message";
+            this.sendMessageToolStripMenuItem.Click += new System.EventHandler(this.sendMessageToolStripMenuItem_Click);
+            // 
             // hELPToolStripMenuItem
             // 
             this.hELPToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -121,7 +128,7 @@
             // backToolStripMenuItem
             // 
             this.backToolStripMenuItem.Enabled = false;
-            this.backToolStripMenuItem.Image = global::Spreadsheet.Properties.Resources.backicon;
+            this.backToolStripMenuItem.Image = global::SS.Properties.Resources.backicon;
             this.backToolStripMenuItem.Name = "backToolStripMenuItem";
             this.backToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
             this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
@@ -257,7 +264,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox1.Image = global::Spreadsheet.Properties.Resources.spreadlysidebar1;
+            this.pictureBox1.Image = global::SS.Properties.Resources.spreadlysidebar1;
             this.pictureBox1.Location = new System.Drawing.Point(0, 24);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.pictureBox1.Name = "pictureBox1";
@@ -268,13 +275,6 @@
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
-            // 
-            // sendMessageToolStripMenuItem
-            // 
-            this.sendMessageToolStripMenuItem.Name = "sendMessageToolStripMenuItem";
-            this.sendMessageToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.sendMessageToolStripMenuItem.Text = "Send Message";
-            this.sendMessageToolStripMenuItem.Click += new System.EventHandler(this.sendMessageToolStripMenuItem_Click);
             // 
             // SpreadsheetGUI
             // 

@@ -28,3 +28,15 @@ X:\cs3505\PS6\UnitTest\obj\Debug\SpreadsheetTests.csprojResolveAssemblyReference
 X:\cs3505\PS6\UnitTest\obj\Debug\UnitTest.dll
 X:\spreadsheet\spreadsheet\PS6\UnitTest\obj\Debug\SpreadsheetTests.csprojResolveAssemblyReference.cache
 X:\spreadsheet\spreadsheet\PS6\UnitTest\obj\Debug\UnitTest.dll
+X:\cs3505\PS6\UnitTest\bin\Debug\UnitTest.dll
+X:\cs3505\PS6\UnitTest\bin\Debug\UnitTest.pdb
+X:\cs3505\PS6\UnitTest\bin\Debug\Formula.dll
+X:\cs3505\PS6\UnitTest\bin\Debug\Spreadsheet.dll
+X:\cs3505\PS6\UnitTest\bin\Debug\StringSocket.dll
+X:\cs3505\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.dll
+X:\cs3505\PS6\UnitTest\bin\Debug\Spreadsheet.pdb
+X:\cs3505\PS6\UnitTest\bin\Debug\Spreadsheet.xml
+X:\cs3505\PS6\UnitTest\bin\Debug\Formula.xml
+X:\cs3505\PS6\UnitTest\bin\Debug\StringSocket.xml
+X:\cs3505\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.xml
+X:\cs3505\PS6\UnitTest\obj\Debug\UnitTest.pdb

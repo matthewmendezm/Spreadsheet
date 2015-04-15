@@ -1,5 +1,5 @@
 ﻿
-using Spreadsheet;
+using SS;
 using SpreadsheetUtilities;
 using SS;
 using System;
@@ -43,7 +43,9 @@ namespace SS
         {
             InitializeComponent();
             controller = new Controller();
-            controller.IncomingMessageEvent += MessageReceived;
+            controller.IncomingCellEvent += CellReceived;
+            controller.IncomingConnectionEvent += ConnectionReceived;
+            controller.IncomingErrorEvent += ErrorReceived;
 
 
             // This an example of registering a method so that it is notified when
@@ -70,15 +72,33 @@ namespace SS
 
         }
 
-        private void MessageReceived(string obj)
+        private void ErrorReceived(string obj)
         {
-            //update gui
-            //statusLabel.Text = obj;
-            int col = 1;
-            int row = 1;
+            throw new NotImplementedException();
+        }
+
+        private void ConnectionReceived(string obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CellReceived(string[] obj)
+        {
+            updateNewCell(obj[0], obj[1]);
+            /*
+            // Capture the firsrt character of the cell name and convert it to a 0 indexed integer equivalent
+            string temp = obj[0].Substring(0, 1);
+            char column = char.Parse(temp);
+            int col = char.ToUpper(column) - 65;//index == 0
+
+            // Capture the rest of the cell name (could be a one or two digit number)
+            temp = obj[0].Substring(1);
+            int row = int.Parse(temp);
+            row--; // 0 index the row number.
                     
             //spreadsheetPanel1.SetValue(col, row, obj);
-            spreadsheetPanel1.Invoke(new Action(() => { spreadsheetPanel1.SetValue(col, row, obj); }));
+            spreadsheetPanel1.Invoke(new Action(() => { spreadsheetPanel1.SetValue(col, row, obj[1]); }));
+             */
         }
 
         /// <summary>
@@ -331,11 +351,13 @@ namespace SS
                 //FOR SPREADSHEET SERVER PROJECT
                 //FOR SPREADSHEET SERVER PROJECT
                 //FOR SPREADSHEET SERVER PROJECT
-                controller.SendMessage(currentSheet.GetCellValue(selectedCell).ToString());
-                
+                //string temp = currentSheet.GetCellValue(selectedCell).ToString();
+                string message = "cell " + selectedCell + " " + textBoxCellContents.Text;
+               // cell += textBoxCellContents.Text;
+                controller.SendMessage(message);
+                /*
                 try
                 {
-
                     updateNewCell(selectedCell, textBoxCellContents.Text);
                 }
                 catch (FormulaFormatException ec)
@@ -360,7 +382,7 @@ namespace SS
                         textBoxCellContents.Text = "=" + textBoxCellContents.Text;
                     }
                 }
-
+                */
                 
             }
         }
@@ -501,18 +523,18 @@ namespace SS
                 updateSpreadValues(cell);
             }
 
+            // fix these, not just comment them out
+            /////////////////////////////////////spreadsheetPanel1.SetValue(selectedCol, selectedRow, currentSheet.GetCellValue(selectedCell).ToString());
 
-            //spreadsheetPanel1.SetValue(selectedCol, selectedRow, currentSheet.GetCellValue(selectedCell).ToString());
 
-
-            textBoxCellValue.Text = currentSheet.GetCellValue(selectedCell).ToString();
+            //textBoxCellValue.Text = currentSheet.GetCellValue(selectedCell).ToString();
             if (currentSheet.GetCellValue(selectedCell) is FormulaError)
             {
                 textBoxCellValue.Text = "Dependant cells not set";
 
             }
 
-            statusLabel.Text = "Set cell " + selectedCell + " to " + textBoxCellContents.Text;
+           ///////////////////////////////////////// statusLabel.Text = "Set cell " + selectedCell + " to " + textBoxCellContents.Text;
 
             //saveToolStripMenuItem.Enabled = true;
             //saveToolStripMenuItem1.Enabled = true;
@@ -544,7 +566,5 @@ namespace SS
             SendDialog sendDialog = new SendDialog(controller);
             sendDialog.ShowDialog();
         }
-
-
     }
 }
