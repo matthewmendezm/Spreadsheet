@@ -7,7 +7,7 @@
     <ProjectGuid>{91465119-878E-4DF0-8929-854C1F35858B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spreadsheet</RootNamespace>
+    <RootNamespace>SS</RootNamespace>
     <AssemblyName>SpreadsheetGUI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

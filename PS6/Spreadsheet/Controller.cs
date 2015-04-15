@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using CustomNetworking;
 
-namespace Spreadsheet
+namespace SS
 {
     /// <summary>
     /// Provides a way for the spreadsheet client to communicate with the server
@@ -17,8 +17,9 @@ namespace Spreadsheet
         private StringSocket socket;
 
         // This is when we receive a message for the messager
-        public event Action<String> IncomingMessageEvent;
-        
+        public event Action<String[]> IncomingCellEvent;
+        public event Action<String[]> IncomingErrorEvent;
+        public event Action<String[]> IncomingConnectionEvent;        
 
         public Controller()
         {
@@ -42,14 +43,48 @@ namespace Spreadsheet
         private void LineReceived(string s, Exception e, object payload)
         {
             String temp;
+            char[] seperator = { ' ' };
+            if (s == null)
+            {
+                //disconnected socket. do something
+                //ServerEvent("The server has crashed");
+                Disconnect();
+                return;
+            }
 
             socket.BeginReceive(LineReceived, null);
 
-            //if (IncomingMessageEvent != null)
+            if (s.StartsWith("cell", true, null))
             {
-                temp = s.Trim();                
-                IncomingMessageEvent(temp);
+                if (IncomingCellEvent != null)
+                {                    
+                    temp = s.Substring(5);
+                    temp = temp.Trim();
+                    String[] subString = temp.Split(seperator, 2);
+                    IncomingCellEvent(subString);
+                }
             }
+            else if (s.StartsWith("connected", true, null))
+            {
+                if (IncomingConnectionEvent != null)
+                {
+                    temp = s.Substring(10);
+                    temp = temp.Trim();
+                    String[] subString = temp.Split(seperator, 2);
+                    IncomingConnectionEvent(subString);
+                }
+            }
+            else if (s.StartsWith("error", true, null))
+            {
+                if (IncomingErrorEvent != null)
+                {
+                    temp = s.Substring(6);
+                    temp = temp.Trim();
+                    String[] subString = temp.Split(seperator, 2);
+                    IncomingErrorEvent(subString);
+                }
+            }
+                
         }
 
         /// <summary>
@@ -65,7 +100,7 @@ namespace Spreadsheet
                 {
                     socket.BeginSend(line + "\n", (e, p) => { }, null);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     //server died
                     Disconnect();
