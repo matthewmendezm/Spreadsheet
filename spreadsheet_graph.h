@@ -3,6 +3,10 @@
 
 #include <map>
 #include <string>
+#include <iostream>
+#include <vector>
+#include <regex>
+#include <boost/regex.hpp>
 
 class spreadsheet_graph
 {
@@ -13,6 +17,7 @@ class spreadsheet_graph
 	private:
 		std::map<std::string, std::string> cells;
 		bool circular_dependency_check(std::string key, std::string value);
+		std::vector<std::string> parse_formula(std::string value);
 };
 
 #endif

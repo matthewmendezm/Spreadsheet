@@ -144,7 +144,7 @@ void spreadsheet_server::listen_to_client(int socket)
   			break;
   		if(msg[0] == '\n')
   		{
-  			process_request(temp);
+  			process_request(socket, temp);
   			send_message(socket, temp);
   			temp = "";
   		}
@@ -156,9 +156,11 @@ void spreadsheet_server::listen_to_client(int socket)
   	close(socket);
   	exit(0);
 }
-void spreadsheet_server::process_request(std::string input)
+void spreadsheet_server::process_request(int socket, std::string input)
 {	
-	return;
+  std::vector<std::string> v = parse_command(input);
+  if(v[0] == "cell")
+    graph->add(v[1], v[2]);
 	// parse message
 	// complete command
 	// decide where to go from here
@@ -167,8 +169,35 @@ void spreadsheet_server::process_request(std::string input)
 void spreadsheet_server::send_message(int socket, std::string temp)
 {
 	char * cstr = new char[temp.length() + 1];
-  			std::strcpy (cstr, temp.c_str());
-  			cstr[temp.length()] = '\n';
-  			send(socket, cstr, (temp.length() +1), 0);
-  			std::cout << cstr << std:: endl;
+	std::strcpy (cstr, temp.c_str());
+	cstr[temp.length()] = '\n';
+	send(socket, cstr, (temp.length() +1), 0);
+	std::cout << cstr << std:: endl;
+}
+
+std::vector<std::string> spreadsheet_server::parse_command(std::string input)
+{
+  int first_space   = 0;
+  int second_space  = 0;
+  std::vector<std::string> result;
+
+  // find positions of the first 2 empty spaces to parse string
+  for (int i = 0; i < input.length(); i++)
+  {
+    if (input[i] == ' ')
+      if(first_space == 0)
+        first_space = i;
+      else
+      {
+        second_space = i;
+        break;
+      }
+  }
+  // command
+  result.push_back(input.substr(0, first_space));
+  // cell name
+  result.push_back(input.substr(first_space + 1, second_space - first_space - 1));
+  // contents
+  result.push_back(input.substr(second_space + 1, input.length() - second_space - 1));
+  return result;
 }
