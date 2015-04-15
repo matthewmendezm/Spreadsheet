@@ -72,12 +72,12 @@ namespace SS
 
         }
 
-        private void ErrorReceived(string obj)
+        private void ErrorReceived(string[] obj)
         {
             throw new NotImplementedException();
         }
 
-        private void ConnectionReceived(string obj)
+        private void ConnectionReceived(string[] obj)
         {
             throw new NotImplementedException();
         }
@@ -530,7 +530,7 @@ namespace SS
             //textBoxCellValue.Text = currentSheet.GetCellValue(selectedCell).ToString();
             if (currentSheet.GetCellValue(selectedCell) is FormulaError)
             {
-                textBoxCellValue.Text = "Dependant cells not set";
+                textBoxCellValue.Invoke(new Action(() => { textBoxCellValue.Text = "Dependant cells not set"; }));
 
             }
 
