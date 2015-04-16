@@ -21,6 +21,9 @@ namespace SS
         public event Action<String[]> IncomingErrorEvent;
         public event Action<String[]> IncomingConnectionEvent;        
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Controller()
         {
             socket = null;
@@ -31,6 +34,7 @@ namespace SS
         /// </summary>
         /// <param name="hostname">IP addresses for game server</param>
         /// <param name="name">User's name</param>
+        /// <param name="sheetName">The name of the sheet</param>
         /// <param name="port">Connection port</param>
         public void Connect(string hostname, String name, String sheetName, int port = 2000)
         {            
