@@ -13,13 +13,15 @@ namespace SS
     /// </summary>
     public class Controller
     {
+        bool connected = false;
+
         // The socket used to communicate with the server
         private StringSocket socket;
 
         // This is when we receive a message for the messager
         public event Action<String[]> IncomingCellEvent;
         public event Action<String[]> IncomingErrorEvent;
-        public event Action<String[]> IncomingConnectionEvent;        
+        public event Action<String> IncomingConnectionEvent;        
 
         /// <summary>
         /// Constructor
@@ -64,7 +66,22 @@ namespace SS
                 {                    
                     temp = s.Substring(5);
                     temp = temp.Trim();
-                    String[] subString = temp.Split(seperator, 2);
+                    String[] subString = new String[2];
+                    String[] tempSubString = temp.Split(seperator, 2);
+                    
+                    // if the content of the cell is null, set it to a nullstring instead
+                    if (tempSubString.Length == 1)
+                    {
+                        subString[0] = tempSubString[0];
+                        subString[1] = "";
+                    }
+                    else
+                    {
+                        subString[0] = tempSubString[0];
+                        subString[1] = tempSubString[1];
+                    }
+
+
                     IncomingCellEvent(subString);
                 }
             }
@@ -74,8 +91,9 @@ namespace SS
                 {
                     temp = s.Substring(10);
                     temp = temp.Trim();
-                    String[] subString = temp.Split(seperator, 2);
+                    String subString = temp;
                     IncomingConnectionEvent(subString);
+                    connected = true;
                 }
             }
             else if (s.StartsWith("error", true, null))
@@ -84,11 +102,10 @@ namespace SS
                 {
                     temp = s.Substring(6);
                     temp = temp.Trim();
-                    String[] subString = temp.Split(seperator, 2);
+                    String[] subString = temp.Split(seperator, 3);
                     IncomingErrorEvent(subString);
                 }
-            }
-                
+            }                
         }
 
         /// <summary>
@@ -119,6 +136,7 @@ namespace SS
         public void Disconnect()
         {
             socket.Close();
+            connected = false;
         }
     }
 }

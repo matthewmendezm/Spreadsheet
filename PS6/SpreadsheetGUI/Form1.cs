@@ -1,7 +1,6 @@
 ﻿
 using SS;
 using SpreadsheetUtilities;
-using SS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -74,12 +73,20 @@ namespace SS
 
         private void ErrorReceived(string[] obj)
         {
-            throw new NotImplementedException();
+            if (obj[1] == "1")
+            {
+                MessageBox.Show("Setting this as the formula would result in a circular dependancy, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (currentSheet.GetCellContents(selectedCell) is FormulaFixed)
+                {
+                    textBoxCellContents.Text = "=" + textBoxCellContents.Text;
+                }
+            }            
         }
 
-        private void ConnectionReceived(string[] obj)
+        private void ConnectionReceived(string obj)
         {
-            throw new NotImplementedException();
+            // start counting incoming cell commands?  obj contains number of cells the saved sheet has as a string.
         }
 
         private void CellReceived(string[] obj)
@@ -343,46 +350,70 @@ namespace SS
             {
                 e.Handled = true;
 
-                backActions.Push(new BackItem(selectedCell, currentSheet.GetCellValue(selectedCell).ToString()));
-
-                backToolStripMenuItem.Enabled = true;
+                backActions.Push(new BackItem(selectedCell, currentSheet.GetCellValue(selectedCell).ToString()));                
                 
                 //FOR SPREADSHEET SERVER PROJECT
                 //FOR SPREADSHEET SERVER PROJECT
                 //FOR SPREADSHEET SERVER PROJECT
                 //FOR SPREADSHEET SERVER PROJECT
                 //string temp = currentSheet.GetCellValue(selectedCell).ToString();
-                string message = "cell " + selectedCell + " " + textBoxCellContents.Text;
-               // cell += textBoxCellContents.Text;
-                controller.SendMessage(message);
-                /*
+
+                bool hasError = false;
                 try
                 {
                     updateNewCell(selectedCell, textBoxCellContents.Text);
+
+                    BackItem tempItem = backActions.Pop();
+
+                    updateNewCell(tempItem.name, tempItem.value);
+
+                    //textBoxCellContents.Text = currentSheet.GetCellContents(selectedCell).ToString();
+
+                    /*
+                    if (backActions.Count < 1)
+                    {
+                        backToolStripMenuItem.Enabled = false;
+                    }
+                     */
                 }
                 catch (FormulaFormatException ec)
                 {
                     MessageBox.Show("You have put in bad data for a formula, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    hasError = true;
+                }              
+                catch (ArgumentException ecx)
+                {
 
                 }
+                    /*
                 catch (CircularException ce)
                 {
                     MessageBox.Show("Setting this as the formula would result in a circular dependancy, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
-                catch (ArgumentException ecx)
-                {
+                     */
 
-                }
                 finally
                 {
-                    textBoxCellContents.Text = currentSheet.GetCellContents(selectedCell).ToString();
+                    //textBoxCellContents.Text = currentSheet.GetCellContents(selectedCell).ToString();
+
+                    if (hasError)
+                    {
+                        BackItem tempItem = backActions.Pop();
+                    }
+                   
+
                     if (currentSheet.GetCellContents(selectedCell) is FormulaFixed)
                     {
                         textBoxCellContents.Text = "=" + textBoxCellContents.Text;
                     }
                 }
-                */
+
+                if (!hasError)
+                {
+                    string message = "cell " + selectedCell + " " + textBoxCellContents.Text;
+                    controller.SendMessage(message);
+                }             
                 
             }
         }
@@ -498,6 +529,11 @@ namespace SS
         /// <param name="e"></param>
         private void backToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // send an undo message to the server.
+            string message = "undo";
+            controller.SendMessage(message);
+
+            /*
             BackItem tempItem = backActions.Pop();
 
             updateNewCell(tempItem.name, tempItem.value);
@@ -509,6 +545,7 @@ namespace SS
             {
                 backToolStripMenuItem.Enabled = false;
             }
+             */
         }
 
         /// <summary>
@@ -523,19 +560,22 @@ namespace SS
                 updateSpreadValues(cell);
             }
 
-            // fix these, not just comment them out
-            /////////////////////////////////////spreadsheetPanel1.SetValue(selectedCol, selectedRow, currentSheet.GetCellValue(selectedCell).ToString());
+            // probably delete this
+            //spreadsheetPanel1.Invoke(new Action(() => { spreadsheetPanel1.SetValue(selectedCol, selectedRow, currentSheet.GetCellValue(selectedCell).ToString()); }));
 
 
-            //textBoxCellValue.Text = currentSheet.GetCellValue(selectedCell).ToString();
+            //textBoxCellValue.Invoke(new Action(() => { textBoxCellValue.Text = currentSheet.GetCellValue(selectedCell).ToString(); }));
+
+            // this is in the right place
             if (currentSheet.GetCellValue(selectedCell) is FormulaError)
             {
                 textBoxCellValue.Invoke(new Action(() => { textBoxCellValue.Text = "Dependant cells not set"; }));
 
             }
 
-           ///////////////////////////////////////// statusLabel.Text = "Set cell " + selectedCell + " to " + textBoxCellContents.Text;
+            statusLabel.Invoke(new Action(() => { statusLabel.Text = "Set cell " + selectedCell + " to " + textBoxCellContents.Text; }));
 
+            backToolStripMenuItem.Enabled = true;
             //saveToolStripMenuItem.Enabled = true;
             //saveToolStripMenuItem1.Enabled = true;
         }
@@ -565,6 +605,21 @@ namespace SS
         {
             SendDialog sendDialog = new SendDialog(controller);
             sendDialog.ShowDialog();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void closeConnectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            controller.Disconnect();
         }
     }
 }

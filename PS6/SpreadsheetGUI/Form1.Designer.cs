@@ -89,6 +89,7 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.fileToolStripMenuItem.Text = "CONNECT";
+            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // connectToolStripMenuItem
             // 
@@ -102,6 +103,7 @@
             this.closeConnectionToolStripMenuItem.Name = "closeConnectionToolStripMenuItem";
             this.closeConnectionToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.closeConnectionToolStripMenuItem.Text = "Close Connection";
+            this.closeConnectionToolStripMenuItem.Click += new System.EventHandler(this.closeConnectionToolStripMenuItem_Click);
             // 
             // sendMessageToolStripMenuItem
             // 
@@ -167,6 +169,7 @@
             this.label1.Size = new System.Drawing.Size(34, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Cell:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBoxCellName
             // 

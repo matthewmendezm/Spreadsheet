@@ -306,12 +306,18 @@
             Provides a way for the spreadsheet client to communicate with the server
             </summary>
         </member>
+        <member name="M:SS.Controller.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
         <member name="M:SS.Controller.Connect(System.String,System.String,System.String,System.Int32)">
             <summary>
             Connect to the server at the given hostname and port and with the given name.
             </summary>
             <param name="hostname">IP addresses for game server</param>
             <param name="name">User's name</param>
+            <param name="sheetName">The name of the sheet</param>
             <param name="port">Connection port</param>
         </member>
         <member name="M:SS.Controller.SendMessage(System.String)">
