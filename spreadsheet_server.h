@@ -21,6 +21,7 @@
 #include <cstring>
 #include <vector>
 #include "spreadsheet_graph.h"
+#include <map>
 
 #define PENDINGCONNECTIONS 5
 
@@ -36,10 +37,14 @@ class spreadsheet_server
 	  ~spreadsheet_server(){}
 
 	private:
-		spreadsheet_graph * graph;
 		void process_request(int socket, std::string input);
 		std::vector<std::string> parse_command(std::string input);
 
+		// Spreadsheet name mapped to a graph
+		std::map<std::string, spreadsheet_graph> * spreadsheets;
+		// Spreadsheet name mapped to its sockets (clients)
+		std::map<std::string, std::vector<int> > * spreadsheet_clients;
+		std::map<int, std::string> * socket_spreadsheet;
 };
 
 #endif

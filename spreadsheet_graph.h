@@ -5,8 +5,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <regex>
 #include <boost/regex.hpp>
+#include <cctype> // toupper
 
 class spreadsheet_graph
 {
@@ -18,6 +18,7 @@ class spreadsheet_graph
 		std::map<std::string, std::string> cells;
 		bool circular_dependency_check(std::string key, std::string value);
 		std::vector<std::string> parse_formula(std::string value);
+		bool circular_recursive(std::string check, std::string key);
 };
 
 #endif

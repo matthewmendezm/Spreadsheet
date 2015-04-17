@@ -15,7 +15,9 @@ int main(int argc, char const *argv[])
 
 spreadsheet_server::spreadsheet_server()
 {
-	graph = new spreadsheet_graph();
+	spreadsheets = new std::map<std::string, spreadsheet_graph>;
+  spreadsheet_clients = new std::map<std::string, std::vector<int> >;
+  socket_spreadsheet = new std::map<int, std::string>;
 }
 
 void spreadsheet_server::listen_for_connections()
@@ -140,18 +142,18 @@ void spreadsheet_server::listen_to_client(int socket)
 	{
   		char msg[1];
   		recv(socket, msg, 1, 0);
+
+      // REPLACE THIS TO HANDLE CLOSED CLIENTS
   		if(temp == "END\n")
   			break;
+
   		if(msg[0] == '\n')
   		{
   			process_request(socket, temp);
-  			send_message(socket, temp);
   			temp = "";
   		}
   		else
   			temp += msg[0];
-		 //if (send(socket, msg, sizeof(msg), 0) == -1)
-  	 		//break;
 	}		
   	close(socket);
   	exit(0);
@@ -159,8 +161,52 @@ void spreadsheet_server::listen_to_client(int socket)
 void spreadsheet_server::process_request(int socket, std::string input)
 {	
   std::vector<std::string> v = parse_command(input);
-  if(v[0] == "cell")
-    graph->add(v[1], v[2]);
+
+  if(v[0] == "connect")
+  {
+    // if not found, make new spreadsheet
+    if(spreadsheets->find(v[2]) == spreadsheets->end())
+    {
+      // Make a new spreadsheet
+      spreadsheet_graph new_graph;
+        std::cout << input << std::endl;
+      (*spreadsheets)[v[2]] = new_graph;
+
+
+      std::vector<int> new_vector; 
+      (*spreadsheet_clients)[v[2]] = new_vector;
+
+
+    }
+
+    // Add the new client's socket to the associated spreadsheet_clients list
+    (*spreadsheet_clients)[v[2]].push_back(socket);
+       
+    (*socket_spreadsheet)[socket] = v[2];
+
+    send_message(socket, "connected 0");
+
+  }
+  else if(v[0] == "register")
+  {
+
+  }
+  else if(v[0] == "cell")
+  {
+    if((*spreadsheets)[(*socket_spreadsheet)[socket]].add(v[1], v[2]))
+    {
+       send_message(socket, input); 
+    }
+    //else
+      //send_message(socket, "error 1 CD");
+  }
+  else if(v[0] == "undo")
+  {
+
+  }
+  else
+    send_message(socket, "error 2 " + input);
+
 	// parse message
 	// complete command
 	// decide where to go from here
@@ -172,7 +218,6 @@ void spreadsheet_server::send_message(int socket, std::string temp)
 	std::strcpy (cstr, temp.c_str());
 	cstr[temp.length()] = '\n';
 	send(socket, cstr, (temp.length() +1), 0);
-	std::cout << cstr << std:: endl;
 }
 
 std::vector<std::string> spreadsheet_server::parse_command(std::string input)
@@ -193,11 +238,24 @@ std::vector<std::string> spreadsheet_server::parse_command(std::string input)
         break;
       }
   }
-  // command
-  result.push_back(input.substr(0, first_space));
-  // cell name
-  result.push_back(input.substr(first_space + 1, second_space - first_space - 1));
-  // contents
-  result.push_back(input.substr(second_space + 1, input.length() - second_space - 1));
+
+  // Probably undo
+  if (!first_space && !second_space)
+    result.push_back(input);
+
+  // Probably Register User
+  else if(!second_space)
+  {  
+    result.push_back(input.substr(0, first_space));
+    result.push_back(input.substr(first_space + 1, input.length() - first_space - 1));
+  }
+  else if(first_space && second_space)
+  {
+    result.push_back(input.substr(0, first_space));
+    // cell name
+    result.push_back(input.substr(first_space + 1, second_space - first_space - 1));
+    // contents
+    result.push_back(input.substr(second_space + 1, input.length() - second_space - 1));
+  }
   return result;
 }
