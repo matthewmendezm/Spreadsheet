@@ -22,15 +22,21 @@
 #include <vector>
 #include "spreadsheet_graph.h"
 #include <map>
+#include <unistd.h>
+#include <pthread.h>
 
 #define PENDINGCONNECTIONS 5
+
+typedef std::map<std::string, spreadsheet_graph*>   spreadsheet_map;
+typedef std::map<std::string, std::vector<int> >    spreadsheet_client_map;
+typedef std::map<int, std::string>                  socket_spreadsheet_map;
+typedef std::vector<int>                            socket_list;
 
 class spreadsheet_server
 {
 	public:
 	  spreadsheet_server();
 	  void listen_for_connections();
-	  void connect();
 	  void listen_to_client(int socket);
 	  void send_message(int socket, std::string s);
 
@@ -39,12 +45,9 @@ class spreadsheet_server
 	private:
 		void process_request(int socket, std::string input);
 		std::vector<std::string> parse_command(std::string input);
-
-		// Spreadsheet name mapped to a graph
-		std::map<std::string, spreadsheet_graph> * spreadsheets;
-		// Spreadsheet name mapped to its sockets (clients)
-		std::map<std::string, std::vector<int> > * spreadsheet_clients;
-		std::map<int, std::string> * socket_spreadsheet;
+		spreadsheet_map * spreadsheets;
+    	spreadsheet_client_map * spreadsheet_clients;
+    	socket_spreadsheet_map * socket_spreadsheet;
 };
 
 #endif
