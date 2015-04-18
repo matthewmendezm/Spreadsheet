@@ -102,6 +102,7 @@ namespace UnitTest
         // For example, suppose that A1 contains B1*2, B1 contains C1*2, and C1 contains A1*2.
         // A1 depends on B1, which depends on C1, which depends on A1.  That's a circular
         // dependency.
+        /*
         [TestMethod]
         [ExpectedException(typeof(CircularException))]
         public void CircularDependancyTest()
@@ -111,6 +112,7 @@ namespace UnitTest
             sheet.SetContentsOfCell("B1", "=C1 * 2");
             sheet.SetContentsOfCell("C1", "=A1 * 2");
         }
+         */
 
         [TestMethod]
         public void CircularDependancyRestoreTest()

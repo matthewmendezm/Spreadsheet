@@ -30,13 +30,14 @@ using SpreadsheetUtilities;
 
 namespace SS
 {
+    /*
     /// <summary>
     /// Thrown to indicate that a change to a cell will cause a circular dependency.
     /// </summary>
     public class CircularException : Exception
     {
     }
-
+    */
 
     /// <summary>
     /// Thrown to indicate that a name parameter was either null or invalid.
@@ -370,7 +371,7 @@ namespace SS
             {
                 if (n.Equals(start))
                 {
-                    throw new CircularException();
+                    //throw new CircularException();
                 }
                 else if (!visited.Contains(n))
                 {

@@ -469,31 +469,40 @@ namespace SS
         /// <returns>the double for the variable</returns>
         protected double getVar(String var)
         {
-            if (Regex.IsMatch(var, "(^[a-zA-Z]+[0-9]*$)") || IsValid(Normalize(var)) == true)
-            {
-                var = Normalize(var);
-                Cell cellAtKey;
-                if (CellSet.TryGetValue(var, out cellAtKey))
+           //try
+           //{
+                if (Regex.IsMatch(var, "(^[a-zA-Z]+[0-9]*$)") || IsValid(Normalize(var)) == true)
                 {
-                    if (cellAtKey.CellValue is double)
+                    var = Normalize(var);
+                    Cell cellAtKey;
+                    if (CellSet.TryGetValue(var, out cellAtKey))
                     {
-                        return (double)cellAtKey.CellValue;
+                        if (cellAtKey.CellValue is double)
+                        {
+                            return (double)cellAtKey.CellValue;
+                        }
+                        else
+                        {
+
+                            throw new ArgumentException();//"var not here", "exp");
+                        }
                     }
                     else
                     {
-
-                        throw new ArgumentException("var not here", "exp");
+                        throw new ArgumentException();//"var not here", "exp");
                     }
                 }
                 else
                 {
-                    throw new ArgumentException("var not here", "exp");
+                    throw new ArgumentException();//"invalid var", "exp");
                 }
-            }
-            else
-            {
-                throw new ArgumentException("invalid var", "exp");
-            }
+            //}
+
+            //catch (ArgumentException)
+            //{
+
+            //}
+            
 
         }
 
@@ -634,6 +643,9 @@ namespace SS
                     CellDep.AddDependency(variable, name);
                 }
 
+
+                GetCellsToRecalculate(new HashSet<String>(formula.GetVariables()));
+                /*
                 //check for circular dependancy
                 try
                 {
@@ -669,6 +681,7 @@ namespace SS
                     //restore cells value
                     throw new CircularException();
                 }
+                 */
 
                 //return
                 HashSet<String> depends = new HashSet<String>(GetCellsToRecalculate(name));

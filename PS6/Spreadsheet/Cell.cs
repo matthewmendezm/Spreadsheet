@@ -50,14 +50,14 @@ namespace SS
 
         public void evaluateFunc()
         {
-            try
-            {
+            //try
+            //{
                 CellValue = (CellContentsInternal as FormulaFixed).Evaluate(lookup);
-            }
-            catch (System.ArgumentException ae)
-            {
+            //}
+            //catch (System.ArgumentException ae)
+            //{
 
-            }
+            //}
             
         }
 

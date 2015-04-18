@@ -4,11 +4,6 @@
         <name>Spreadsheet</name>
     </assembly>
     <members>
-        <member name="T:SS.CircularException">
-            <summary>
-            Thrown to indicate that a change to a cell will cause a circular dependency.
-            </summary>
-        </member>
         <member name="T:SS.InvalidNameException">
             <summary>
             Thrown to indicate that a name parameter was either null or invalid.

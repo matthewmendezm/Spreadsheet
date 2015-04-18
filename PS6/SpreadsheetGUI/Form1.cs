@@ -383,7 +383,7 @@ namespace SS
                 }              
                 catch (ArgumentException ecx)
                 {
-
+                    
                 }
                     /*
                 catch (CircularException ce)
@@ -480,6 +480,7 @@ namespace SS
         /// <param name="e"></param>
         private void SpreadsheetGUI_FormClosing(object sender, FormClosingEventArgs e)
         {
+            /*
             if (currentSheet.Changed && closed != true)
             {
                 if (MessageBox.Show("Are you sure you want to close? All unsaved changes will be lost! Oh no!", "Mangosheets Online", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
@@ -489,6 +490,7 @@ namespace SS
 
                 }
             }
+             */
         }
 
         /// <summary>
@@ -555,10 +557,19 @@ namespace SS
         /// <param name="newValue"></param>
         private void updateNewCell(string cellName, string newValue)
         {
-            foreach (string cell in currentSheet.SetContentsOfCell(cellName, newValue))
-            {
-                updateSpreadValues(cell);
-            }
+            //try
+            //{
+                foreach (string cell in currentSheet.SetContentsOfCell(cellName, newValue))
+                {
+                    updateSpreadValues(cell);
+                }
+
+            //}
+            
+            //catch (Exception)
+            //{
+                //textBoxCellValue.Invoke(new Action(() => { textBoxCellValue.Text = "Dependant cells have wrong format"; }));
+            //}
 
             // probably delete this
             //spreadsheetPanel1.Invoke(new Action(() => { spreadsheetPanel1.SetValue(selectedCol, selectedRow, currentSheet.GetCellValue(selectedCell).ToString()); }));
