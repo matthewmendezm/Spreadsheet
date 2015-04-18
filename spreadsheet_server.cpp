@@ -276,12 +276,12 @@ std::vector<std::string> spreadsheet_server::parse_command(std::string input)
   else if(!second_space)
   { 
     std::string first_one = input.substr(0, first_space);
-    std::string second_one = input.substr(first_space + 1, input.length() - first_space - 2);
+    std::string second_one = input.substr(first_space + 1, input.length() - first_space - 1);
 
-    // std::cout << first_one << std::endl;
-    // std::cout << first_one.length() << std::endl;
-    // std::cout << second_one << std::endl;
-    // std::cout << second_one.length() << std::endl;
+    std::cout << first_one << std::endl;
+    std::cout << first_one.length() << std::endl;
+    std::cout << second_one << std::endl;
+    std::cout << second_one.length() << std::endl;
     result.push_back(first_one);
     result.push_back(second_one);
   }
@@ -291,7 +291,7 @@ std::vector<std::string> spreadsheet_server::parse_command(std::string input)
     // cell name
     result.push_back(input.substr(first_space + 1, second_space - first_space - 1));
     // contents
-    result.push_back(input.substr(second_space + 1, input.length() - second_space - 2));
+    result.push_back(input.substr(second_space + 1, input.length() - second_space - 1));
   }
   return result;
 }
