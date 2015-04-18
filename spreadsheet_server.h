@@ -27,10 +27,10 @@
 
 #define PENDINGCONNECTIONS 5
 
-typedef std::map<std::string, spreadsheet_graph*>   spreadsheet_map;
-typedef std::map<std::string, std::vector<int> >    spreadsheet_client_map;
-typedef std::map<int, std::string>                  socket_spreadsheet_map;
 typedef std::vector<int>                            socket_list;
+typedef std::map<std::string, spreadsheet_graph*>   spreadsheet_map;
+typedef std::map<std::string, socket_list >    		spreadsheet_client_map;
+typedef std::map<int, std::string>                  socket_spreadsheet_map;
 
 class spreadsheet_server
 {
@@ -40,14 +40,15 @@ class spreadsheet_server
 	  void listen_to_client(int socket);
 	  void send_message(int socket, std::string s);
 
-	  ~spreadsheet_server(){}
+	  ~spreadsheet_server();
 
 	private:
-		void process_request(int socket, std::string input);
+		void process_request(int socket, std::string input, bool * registered);
 		std::vector<std::string> parse_command(std::string input);
 		spreadsheet_map * spreadsheets;
     	spreadsheet_client_map * spreadsheet_clients;
     	socket_spreadsheet_map * socket_spreadsheet;
+    	std::vector<std::string> * users;
 };
 
 #endif

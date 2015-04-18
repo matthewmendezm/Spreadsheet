@@ -25,8 +25,17 @@ spreadsheet_server::spreadsheet_server()
   spreadsheets = new spreadsheet_map;
   spreadsheet_clients = new spreadsheet_client_map;
   socket_spreadsheet = new socket_spreadsheet_map;
+  users = new std::vector<std::string>;
+  (*users).push_back("sysadmin");
 }
 
+spreadsheet_server::~spreadsheet_server()
+{
+  delete spreadsheets;
+  delete spreadsheet_clients;
+  delete socket_spreadsheet;
+  delete users;
+}
 void spreadsheet_server::listen_for_connections()
 {
   int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
@@ -132,6 +141,7 @@ void sigchld_handler(int s)
 // WE SHOULD RENAME THIS LISTEN_FOR_MESSAGE or something
 void spreadsheet_server::listen_to_client(int socket)
 {
+  bool registered = false;
 	std::string temp = "";
   int received;
 	while(1)
@@ -141,13 +151,9 @@ void spreadsheet_server::listen_to_client(int socket)
       if(!received)
         break;
 
-      // REPLACE THIS TO HANDLE CLOSED CLIENTS
-  		if(temp == "END\n")
-  			break;
-
   		if(msg[0] == '\n')
   		{
-  			process_request(socket, temp);
+  			process_request(socket, temp, &registered);
   			temp = "";
   		}
   		else
@@ -157,47 +163,69 @@ void spreadsheet_server::listen_to_client(int socket)
     std::cout << "client disconnected" << std::endl;
     pthread_exit(NULL);
 }
-void spreadsheet_server::process_request(int socket, std::string input)
+void print_stuff(std::vector<std::string> * collection)
+{
+  std::cout << "printing stuff" << std::endl;
+  for (int i = 0; i < collection->size(); i++)
+  {
+    std::cout << collection->at(i) << ": size of this entry" << collection->at(i).length() << std::endl;
+  }
+}
+
+void spreadsheet_server::process_request(int socket, std::string input, bool * registered)
 {	
   std::vector<std::string> v = parse_command(input);
+  std::cout << v.at(1) << std::endl;
 
   if(v[0] == "connect")
   {
-    // if not found, make new spreadsheet
-    if(spreadsheets->find(v[2]) == spreadsheets->end())
+    if(std::find((*users).begin(), (*users).end(), v.at(1)) == (*users).end())
+    {
+      send_message(socket, "error 4 " + v.at(1));
+      return;
+    }  
+
+    *registered = true;
+
+    // if not found, make new spreadv[0] == "connect"sheet
+    if(spreadsheets->find(v.at(2)) == spreadsheets->end())
     {
       // Make a new spreadsheet, add it to servers current spreadsheets
         std::cout << input << std::endl;
-      (*spreadsheets)[v[2]] = new spreadsheet_graph();
+      (*spreadsheets)[v.at(2)] = new spreadsheet_graph();
 
 
       std::vector<int> new_vector; 
-      (*spreadsheet_clients)[v[2]] = new_vector;
+      (*spreadsheet_clients)[v.at(2)] = new_vector;
     }
 
     // Add the new client's socket to the associated spreadsheet_clients list
-    (*spreadsheet_clients)[v[2]].push_back(socket);
+    (*spreadsheet_clients)[v.at(2)].push_back(socket);
        
-    (*socket_spreadsheet)[socket] = v[2];
+    (*socket_spreadsheet)[socket] = v.at(2);
 
     send_message(socket, "connected 0");
-
   }
-  else if(v[0] == "register")
+  else if(v.at(0) == "register" && *registered)
   {
-
+    if(std::find((*users).begin(), (*users).end(), v.at(1)) == (*users).end())
+    {
+      (*users).push_back(v.at(1));
+      print_stuff(users);
+    }
+    else
+      send_message(socket, "error 4 " + v[1]);
   }
-  else if(v[0] == "cell")
+  else if(v.at(0) == "cell" && *registered)
   {
     // get the spreadsheet name
     std::string sheet_name = (*socket_spreadsheet)[socket];
-    if((*spreadsheets)[sheet_name]->add(v[1], v[2]))
+    if((*spreadsheets)[sheet_name]->add(v.at(1), v.at(2)))
     {
       // iterate through all of the clients and send new cell value
       for(socket_list::iterator iterator = (*spreadsheet_clients)[sheet_name].begin();
         iterator != (*spreadsheet_clients)[sheet_name].end(); iterator++)
           send_message(*iterator, input); 
-      
     }
     else
       send_message(socket, "error 1 CD");
@@ -244,12 +272,18 @@ std::vector<std::string> spreadsheet_server::parse_command(std::string input)
   // Probably undo
   if (!first_space && !second_space)
     result.push_back(input);
-
   // Probably Register User
   else if(!second_space)
-  {  
-    result.push_back(input.substr(0, first_space));
-    result.push_back(input.substr(first_space + 1, input.length() - first_space - 1));
+  { 
+    std::string first_one = input.substr(0, first_space);
+    std::string second_one = input.substr(first_space + 1, input.length() - first_space - 2);
+
+    // std::cout << first_one << std::endl;
+    // std::cout << first_one.length() << std::endl;
+    // std::cout << second_one << std::endl;
+    // std::cout << second_one.length() << std::endl;
+    result.push_back(first_one);
+    result.push_back(second_one);
   }
   else if(first_space && second_space)
   {
@@ -257,7 +291,7 @@ std::vector<std::string> spreadsheet_server::parse_command(std::string input)
     // cell name
     result.push_back(input.substr(first_space + 1, second_space - first_space - 1));
     // contents
-    result.push_back(input.substr(second_space + 1, input.length() - second_space - 1));
+    result.push_back(input.substr(second_space + 1, input.length() - second_space - 2));
   }
   return result;
 }

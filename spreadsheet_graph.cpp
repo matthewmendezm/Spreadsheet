@@ -1,13 +1,14 @@
 #include "spreadsheet_graph.h"
 spreadsheet_graph::spreadsheet_graph()
 {
-	cells["hi"] = "dad";
 	std::cout << "Constructor touched" << std::endl;
 }
 
 bool spreadsheet_graph::add(std::string key, std::string value)
 {
 	std::cout << "ADD: Key " << key << " Value " << value << std::endl;
+	for (int i = 0; i < key.length(); i++)
+		key[i] = toupper(key[i]);
 	if(value[0] == '=')
 	{
 		// normalize formula
