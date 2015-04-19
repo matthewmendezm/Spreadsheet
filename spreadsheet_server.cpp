@@ -175,8 +175,6 @@ void print_stuff(std::vector<std::string> * collection)
 void spreadsheet_server::process_request(int socket, std::string input, bool * registered)
 {	
   std::vector<std::string> v = parse_command(input);
-  std::cout << v.at(1) << std::endl;
-
   if(v[0] == "connect")
   {
     if(std::find((*users).begin(), (*users).end(), v.at(1)) == (*users).end())
