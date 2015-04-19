@@ -39,7 +39,6 @@ class spreadsheet_server
 	  void listen_for_connections();
 	  void listen_to_client(int socket);
 	  void send_message(int socket, std::string s);
-
 	  ~spreadsheet_server();
 
 	private:

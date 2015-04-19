@@ -29,6 +29,18 @@ bool spreadsheet_graph::add(std::string key, std::string value)
 		if(circular_dependency_check(key, value))
 			return false;
 	}
+
+	if(cells.find(key) == cells.end())
+	{
+		std::pair<std::string, std::string> temp(key, "");
+		undo_stack.push(temp);
+	}
+	else
+	{
+		std::pair<std::string, std::string> temp(key, cells[key]);
+		undo_stack.push(temp);
+	}
+
 	cells[key] = value;
 	return true;
 }
@@ -77,6 +89,20 @@ std::vector<std::string> spreadsheet_graph::parse_formula(std::string value)
 			result.push_back(str);
 		}
 	}
+	return result;
+}
+
+std::string spreadsheet_graph::undo()
+{
+	if(undo_stack.size() == 0)
+		return "error 0 nothing to undo";
+	std::string key = undo_stack.top().first;
+	std::string value = undo_stack.top().second;
+	undo_stack.pop();
+	
+	cells[key] = value;
+
+	std::string result = "cell " + key + " " + value;
 	return result;
 }
 

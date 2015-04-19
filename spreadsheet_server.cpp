@@ -236,9 +236,12 @@ void spreadsheet_server::process_request(int socket, std::string input, bool * r
     else
       send_message(socket, "error 1 CD");
   }
-  else if(v[0] == "undo")
+  else if(v.at(0) == "undo")
   {
-    
+    std::string sheet_name = (*socket_spreadsheet)[socket];
+    for(socket_list::iterator iterator = (*spreadsheet_clients)[sheet_name].begin();
+      iterator != (*spreadsheet_clients)[sheet_name].end(); iterator++)
+        send_message(*iterator, (*spreadsheets)[(*socket_spreadsheet)[socket]]->undo());
   }
   else
     send_message(socket, "error 2 " + input);
