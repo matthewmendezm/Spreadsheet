@@ -57,6 +57,7 @@ namespace SS
             // demonstrated in class.
             spreadsheetPanel1.SelectionChanged += displaySelection;
 
+            
             spreadsheetPanel1.SetSelection(0, 0);
             selectedCell = "A1";
 
@@ -65,11 +66,13 @@ namespace SS
             this.Width += 2;
 
             this.Text = "New Spreadsheet - Mangosheets Online";
+             
 
             //saveToolStripMenuItem.Enabled = false;
             //saveToolStripMenuItem1.Enabled = false;
 
         }
+                
 
         private void ErrorReceived(string[] obj)
         {
@@ -336,6 +339,17 @@ namespace SS
             //saveToolStripMenuItem.Enabled = false;
             //saveToolStripMenuItem1.Enabled = false;
 
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.Z))
+            {
+                string message = "undo";
+                controller.SendMessage(message);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         /// <summary>

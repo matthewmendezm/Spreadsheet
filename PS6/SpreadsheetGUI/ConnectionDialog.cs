@@ -44,13 +44,18 @@ namespace SS
 
             string userName = textBoxUserName.Text;
             string spreadsheetName = textBoxSpreadsheetName.Text;
-            /*
+            
             controller.Connect(host, "sysadmin", spreadsheetName, port);
+
+            System.Threading.Thread.Sleep(100);
 
             controller.SendMessage("register " + userName);
 
+            System.Threading.Thread.Sleep(100);
+
             controller.Disconnect();
-            */ 
+
+            System.Threading.Thread.Sleep(100);
 
             controller.Connect(host, userName, spreadsheetName, port);
 
