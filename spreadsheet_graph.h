@@ -14,6 +14,9 @@ class spreadsheet_graph
 		spreadsheet_graph();
 		~spreadsheet_graph(){};
 		bool add(std::string key, std::string value);
+		std::map<std::string, std::string> get_cells();
+		int size();
+
 	private:
 		std::map<std::string, std::string> cells;
 		bool circular_dependency_check(std::string key, std::string value);

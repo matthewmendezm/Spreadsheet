@@ -4,6 +4,16 @@ spreadsheet_graph::spreadsheet_graph()
 	std::cout << "Constructor touched" << std::endl;
 }
 
+int spreadsheet_graph::size()
+{
+	return cells.size();
+}
+
+std::map<std::string, std::string> spreadsheet_graph::get_cells()
+{
+	return cells;
+}
+
 bool spreadsheet_graph::add(std::string key, std::string value)
 {
 	std::cout << "ADD: Key " << key << " Value " << value << std::endl;

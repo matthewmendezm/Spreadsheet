@@ -194,7 +194,6 @@ void spreadsheet_server::process_request(int socket, std::string input, bool * r
         std::cout << input << std::endl;
       (*spreadsheets)[v.at(2)] = new spreadsheet_graph();
 
-
       std::vector<int> new_vector; 
       (*spreadsheet_clients)[v.at(2)] = new_vector;
     }
@@ -204,7 +203,14 @@ void spreadsheet_server::process_request(int socket, std::string input, bool * r
        
     (*socket_spreadsheet)[socket] = v.at(2);
 
-    send_message(socket, "connected 0");
+
+    send_message(socket, "connected " + (*spreadsheets)[v.at(2)]->size());
+    std::map<std::string, std::string> cells_to_send = (*spreadsheets)[v.at(2)]->get_cells();
+    std::map<std::string, std::string>::iterator it;
+    for(it = cells_to_send.begin(); it != cells_to_send.end(); it++)
+      send_message(socket, "cell " + it->first + " " + it->second);
+
+  
   }
   else if(v.at(0) == "register" && *registered)
   {
@@ -232,7 +238,7 @@ void spreadsheet_server::process_request(int socket, std::string input, bool * r
   }
   else if(v[0] == "undo")
   {
-
+    
   }
   else
     send_message(socket, "error 2 " + input);
