@@ -68,3 +68,15 @@ X:\Spreadsheet\PS6\Spreadsheet\bin\Debug\StringSocket.xml
 X:\Spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
 X:\Spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.dll
 X:\Spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\bin\Debug\Spreadsheet.XML
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\bin\Debug\Spreadsheet.dll
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\bin\Debug\Spreadsheet.pdb
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\bin\Debug\Formula.dll
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.dll
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\bin\Debug\StringSocket.dll
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\bin\Debug\Formula.xml
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\bin\Debug\StringSocket.xml
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.dll
+\\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb

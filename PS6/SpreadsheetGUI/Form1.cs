@@ -1,5 +1,4 @@
-﻿
-using SS;
+﻿using SS;
 using SpreadsheetUtilities;
 using System;
 using System.Collections;
@@ -233,15 +232,7 @@ namespace SS
         /// <returns>a boolean stating whether the var passed in was valid or not</returns>
         public static bool isVal(String var)
         {
-            if (Regex.IsMatch(var, "(^[A-Z][1-9][0-9]?$)"))
-            {
-                return true;
-
-            }
-            else
-            {
-                return false;
-            }
+            return Regex.IsMatch(var, "(^[A-Z][1-9][0-9]?$)");
 
         }
 
@@ -343,12 +334,23 @@ namespace SS
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == (Keys.Control | Keys.Z))
+            switch (keyData)
             {
-                string message = "undo";
-                controller.SendMessage(message);
-                return true;
+                case (Keys.Control | Keys.Z) :
+                    string message = "undo";
+                    controller.SendMessage(message);
+                    return true;
+                    
+                case Keys.Tab :
+                    textBoxCellContents_KeyUp(new object(), new KeyEventArgs(Keys.Enter));
+                    break;
+
+                default :
+                    break;
+
+
             }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
