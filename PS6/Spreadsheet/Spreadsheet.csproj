@@ -38,8 +38,9 @@
     <Reference Include="SpreadsheetUtilities">
       <HintPath>..\SpreadsheetUtilities.dll</HintPath>
     </Reference>
-    <Reference Include="StringSocket">
-      <HintPath>..\StringSocket.dll</HintPath>
+    <Reference Include="StringSocketOfficial, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\mmendez\Documents\Visual Studio 2013\Projects\PS10\Resources\Libraries\StringSocketOfficial.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

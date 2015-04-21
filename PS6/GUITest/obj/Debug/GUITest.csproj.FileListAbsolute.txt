@@ -13,3 +13,7 @@ X:\cs3505\PS6\GUITest\bin\Debug\GUITest.pdb
 X:\cs3505\PS6\GUITest\obj\Debug\GUITest.csprojResolveAssemblyReference.cache
 X:\cs3505\PS6\GUITest\obj\Debug\GUITest.dll
 X:\cs3505\PS6\GUITest\obj\Debug\GUITest.pdb
+X:\cs3505\Spreadsheet\spreadsheet\PS6\GUITest\bin\Debug\GUITest.dll
+X:\cs3505\Spreadsheet\spreadsheet\PS6\GUITest\bin\Debug\GUITest.pdb
+X:\cs3505\Spreadsheet\spreadsheet\PS6\GUITest\obj\Debug\GUITest.dll
+X:\cs3505\Spreadsheet\spreadsheet\PS6\GUITest\obj\Debug\GUITest.pdb

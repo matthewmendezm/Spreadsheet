@@ -49,11 +49,8 @@ X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\bin\Debug\Spreadsheet.dll
 X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\bin\Debug\Spreadsheet.pdb
 X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\bin\Debug\Formula.dll
 X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.dll
-X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\bin\Debug\StringSocket.dll
 X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\bin\Debug\Formula.xml
 X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
-X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\bin\Debug\StringSocket.xml
-X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
 X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.dll
 X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb
 X:\Spreadsheet\PS6\Spreadsheet\bin\Debug\Spreadsheet.XML
@@ -80,3 +77,4 @@ X:\Spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb
 \\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
 \\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.dll
 \\chips.eng.utah.edu\home\jaseb\.win_desktop\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb
+X:\cs3505\Spreadsheet\spreadsheet\PS6\Spreadsheet\bin\Debug\StringSocketOfficial.dll

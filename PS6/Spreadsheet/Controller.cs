@@ -42,8 +42,7 @@ namespace SS
         {            
             TcpClient client = new TcpClient(hostname, port);
             socket = new StringSocket(client.Client, ASCIIEncoding.Default);
-            socket.BeginSend("connect " + name + " " + sheetName +  "\n", (e, p) => { }, null);
-            socket.BeginReceive(LineReceived, null);
+            socket.BeginSend("connect " + name + " " + sheetName + "\n", (e, p) => { socket.BeginReceive(LineReceived, null); }, null);
         }
 
         private void LineReceived(string s, Exception e, object payload)
@@ -58,7 +57,7 @@ namespace SS
                 return;
             }
 
-            socket.BeginReceive(LineReceived, null);
+            //socket.BeginReceive(LineReceived, null);
 
             if (s.StartsWith("cell", true, null))
             {
@@ -92,7 +91,7 @@ namespace SS
                     temp = s.Substring(10);
                     temp = temp.Trim();
                     String subString = temp;
-                    IncomingConnectionEvent(subString);
+                    //IncomingConnectionEvent(subString);
                     connected = true;
                 }
             }
@@ -105,7 +104,9 @@ namespace SS
                     String[] subString = temp.Split(seperator, 3);
                     IncomingErrorEvent(subString);
                 }
-            }                
+            }
+
+            socket.BeginReceive(LineReceived, null);
         }
 
         /// <summary>

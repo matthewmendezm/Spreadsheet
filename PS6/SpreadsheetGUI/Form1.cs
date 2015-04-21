@@ -88,7 +88,8 @@ namespace SS
 
         private void ConnectionReceived(string obj)
         {
-            // start counting incoming cell commands?  obj contains number of cells the saved sheet has as a string.
+            for(int i = 0; i < Int32.Parse(obj); i++)
+                ;   
         }
 
         private void CellReceived(string[] obj)
