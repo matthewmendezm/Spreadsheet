@@ -1,7 +1,7 @@
 #include "spreadsheet_graph.h"
 spreadsheet_graph::spreadsheet_graph()
 {
-	std::cout << "Constructor touched" << std::endl;
+
 }
 
 int spreadsheet_graph::size()
@@ -16,7 +16,7 @@ std::map<std::string, std::string> spreadsheet_graph::get_cells()
 
 bool spreadsheet_graph::add(std::string key, std::string value)
 {
-	std::cout << "ADD: Key " << key << " Value " << value << std::endl;
+	//std::cout << "ADD: Key " << key << " Value " << value << std::endl;
 	for (int i = 0; i < key.length(); i++)
 		key[i] = toupper(key[i]);
 	if(value[0] == '=')
@@ -85,7 +85,6 @@ std::vector<std::string> spreadsheet_graph::parse_formula(std::string value)
 				if(value[i] <= 57 && value[i] >= 48)
 					str += value[i];
 			}
-			std::cout << str << std::endl;
 			result.push_back(str);
 		}
 	}

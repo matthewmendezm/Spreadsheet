@@ -1,5 +1,6 @@
 #include "spreadsheet_server.h"
 void *get_in_addr(struct sockaddr *sa);
+std::string int_to_string(int a);
 
 // global variable spreadsheet
 spreadsheet_server * server = new spreadsheet_server();
@@ -16,8 +17,16 @@ void *thread_init(void * arg)
 {
   int * socket;
   socket = (int *) arg;
-  std::cout << "now in thread init" << std::endl;
+  std::cout << "New thread created for socket " + int_to_string((*socket)) << std::endl;
   server->listen_to_client(*socket);
+}
+
+std::string int_to_string(int a)
+{
+  std::string result;
+  std::stringstream out;
+  out << a;
+  return out.str();
 }
 
 spreadsheet_server::spreadsheet_server()
@@ -133,11 +142,6 @@ void *get_in_addr(struct sockaddr *sa)
     return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
-void sigchld_handler(int s)
-{
-    while(waitpid(-1, NULL, WNOHANG) > 0);
-}
-
 // WE SHOULD RENAME THIS LISTEN_FOR_MESSAGE or something
 void spreadsheet_server::listen_to_client(int socket)
 {
@@ -148,7 +152,7 @@ void spreadsheet_server::listen_to_client(int socket)
 	{
   		char msg[1];
   		received = recv(socket, msg, 1, 0);
-      if(!received)
+      if(received < 1)
         break;
 
   		if(msg[0] == '\n')
@@ -163,22 +167,27 @@ void spreadsheet_server::listen_to_client(int socket)
     std::cout << "client disconnected" << std::endl;
     pthread_exit(NULL);
 }
-void print_stuff(std::vector<std::string> * collection)
-{
-  std::cout << "printing stuff" << std::endl;
-  for (int i = 0; i < collection->size(); i++)
-  {
-    std::cout << collection->at(i) << ": size of this entry" << collection->at(i).length() << std::endl;
-  }
-}
 
 void spreadsheet_server::process_request(int socket, std::string input, bool * registered)
 {	
   std::vector<std::string> v = parse_command(input);
   if(v[0] == "connect")
-  {
-    if(std::find((*users).begin(), (*users).end(), v.at(1)) == (*users).end())
+    process_connect(socket, v, registered);
+  else if(v.at(0) == "register" && *registered)
+    process_register(socket, v);
+  else if(v.at(0) == "cell" && *registered)
+    process_cell(socket, v, input);
+  else if(v.at(0) == "undo")
+    process_undo(socket, v);
+  else // Junk recieved... send error 2
+    send_message(socket, "error 2 " + input);
+}
+
+void spreadsheet_server::process_connect(int socket, std::vector<std::string> v, bool * registered)
+{
+  if(std::find((*users).begin(), (*users).end(), v.at(1)) == (*users).end())
     {
+      std::cout << " Sent error 4 in connect" << std::endl;
       send_message(socket, "error 4 " + v.at(1));
       return;
     }  
@@ -188,8 +197,8 @@ void spreadsheet_server::process_request(int socket, std::string input, bool * r
     // if not found, make new spreadv[0] == "connect"sheet
     if(spreadsheets->find(v.at(2)) == spreadsheets->end())
     {
+      std::cout << "New spreadsheet made with name " + v.at(2) << std::endl;
       // Make a new spreadsheet, add it to servers current spreadsheets
-        std::cout << input << std::endl;
       (*spreadsheets)[v.at(2)] = new spreadsheet_graph();
 
       std::vector<int> new_vector; 
@@ -201,52 +210,51 @@ void spreadsheet_server::process_request(int socket, std::string input, bool * r
        
     (*socket_spreadsheet)[socket] = v.at(2);
 
-
-    send_message(socket, "connected " + (*spreadsheets)[v.at(2)]->size());
+    // Send updated spreadsheet to connecting client via cell messages
+    send_message(socket, "connected " + int_to_string((*spreadsheets)[v.at(2)]->size()));
     std::map<std::string, std::string> cells_to_send = (*spreadsheets)[v.at(2)]->get_cells();
     std::map<std::string, std::string>::iterator it;
     for(it = cells_to_send.begin(); it != cells_to_send.end(); it++)
+    {
+      std::cout << "sending cell " + it->first + " " + it->second << std::endl;
       send_message(socket, "cell " + it->first + " " + it->second);
+    }
+}
 
-  
-  }
-  else if(v.at(0) == "register" && *registered)
-  {
-    if(std::find((*users).begin(), (*users).end(), v.at(1)) == (*users).end())
+void spreadsheet_server::process_register(int socket, std::vector<std::string> v)
+{
+  if(std::find((*users).begin(), (*users).end(), v.at(1)) == (*users).end())
     {
       (*users).push_back(v.at(1));
-      print_stuff(users);
+      std::cout << "registered new user " + v.at(1) << std::endl;
     }
     else
       send_message(socket, "error 4 " + v[1]);
-  }
-  else if(v.at(0) == "cell" && *registered)
+}
+
+void spreadsheet_server::process_cell(int socket, std::vector<std::string> v, std::string input)
+{
+  // get the spreadsheet name
+  std::string sheet_name = (*socket_spreadsheet)[socket];
+  if((*spreadsheets)[sheet_name]->add(v.at(1), v.at(2)))
   {
-    // get the spreadsheet name
-    std::string sheet_name = (*socket_spreadsheet)[socket];
-    if((*spreadsheets)[sheet_name]->add(v.at(1), v.at(2)))
-    {
-      // iterate through all of the clients and send new cell value
-      for(socket_list::iterator iterator = (*spreadsheet_clients)[sheet_name].begin();
-        iterator != (*spreadsheet_clients)[sheet_name].end(); iterator++)
-          send_message(*iterator, input); 
-    }
-    else
-      send_message(socket, "error 1 CD");
-  }
-  else if(v.at(0) == "undo")
-  {
-    std::string sheet_name = (*socket_spreadsheet)[socket];
+    std::cout << "sending updated cell value to all clients " + v.at(1) + " " + v.at(2) << std::endl;
+    // iterate through all of the clients and send new cell value
     for(socket_list::iterator iterator = (*spreadsheet_clients)[sheet_name].begin();
       iterator != (*spreadsheet_clients)[sheet_name].end(); iterator++)
-        send_message(*iterator, (*spreadsheets)[(*socket_spreadsheet)[socket]]->undo());
+        send_message(*iterator, input); 
   }
   else
-    send_message(socket, "error 2 " + input);
+    send_message(socket, "error 1 CD");
+}
 
-	// parse message
-	// complete command
-	// decide where to go from here
+void spreadsheet_server::process_undo(int socket, std::vector<std::string> v)
+{
+  std::string sheet_name = (*socket_spreadsheet)[socket];
+  std::string undo = (*spreadsheets)[(*socket_spreadsheet)[socket]]->undo();
+  for(socket_list::iterator iterator = (*spreadsheet_clients)[sheet_name].begin();
+    iterator != (*spreadsheet_clients)[sheet_name].end(); iterator++)
+      send_message(*iterator, undo);
 }
 
 void spreadsheet_server::send_message(int socket, std::string temp)
@@ -254,7 +262,8 @@ void spreadsheet_server::send_message(int socket, std::string temp)
 	char * cstr = new char[temp.length() + 1];
 	std::strcpy (cstr, temp.c_str());
 	cstr[temp.length()] = '\n';
-	send(socket, cstr, (temp.length() +1), 0);
+  std::cout << cstr;
+	send(socket, cstr, (temp.length() + 1), 0);
 }
 
 std::vector<std::string> spreadsheet_server::parse_command(std::string input)
@@ -284,11 +293,6 @@ std::vector<std::string> spreadsheet_server::parse_command(std::string input)
   { 
     std::string first_one = input.substr(0, first_space);
     std::string second_one = input.substr(first_space + 1, input.length() - first_space - 1);
-
-    std::cout << first_one << std::endl;
-    std::cout << first_one.length() << std::endl;
-    std::cout << second_one << std::endl;
-    std::cout << second_one.length() << std::endl;
     result.push_back(first_one);
     result.push_back(second_one);
   }

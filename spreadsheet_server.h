@@ -24,6 +24,8 @@
 #include <map>
 #include <unistd.h>
 #include <pthread.h>
+#include <stdlib.h>
+#include <sstream>
 
 #define PENDINGCONNECTIONS 5
 
@@ -43,6 +45,11 @@ class spreadsheet_server
 
 	private:
 		void process_request(int socket, std::string input, bool * registered);
+		void process_connect(int socket, std::vector<std::string> v, bool * registered);
+		void process_register(int socket, std::vector<std::string> v);
+		void process_cell(int socket, std::vector<std::string> v, std::string input);
+		void process_undo(int socket, std::vector<std::string> v);
+
 		std::vector<std::string> parse_command(std::string input);
 		spreadsheet_map * spreadsheets;
     	spreadsheet_client_map * spreadsheet_clients;
