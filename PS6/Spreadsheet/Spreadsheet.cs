@@ -59,7 +59,7 @@ namespace SS
         private bool spreadChanged = false;
 
         /// <summary>
-        /// the graph of all cell dependancies
+        /// the graph of all cell dependencies
         /// </summary>
         protected DependencyGraph CellDep;
 
@@ -97,7 +97,7 @@ namespace SS
         /// Constructs an abstract spreadsheet by recording its variable validity test, its normalization method, and its
         /// version information. The variable validity test is used throughout to determine whether a string that consists of
         /// one or more letters followed by one or more digits is a valid cell name. The variable equality test should be
-        /// used thoughout to determine whether two variables are equal.
+        /// used throughout to determine whether two variables are equal.
         /// </summary>
         /// <param name="isValid">a delegate to check if a cellname is valid</param>
         /// <param name="normalize">normalizes the cellnames</param>
@@ -487,7 +487,7 @@ namespace SS
         /// </summary>
         /// <param name="name">the name of the cell to set as </param>
         /// <param name="number">the double to put into the cell at the key</param>
-        /// <returns>returns all, direct or inderect, dependants</returns>
+        /// <returns>returns all, direct or indirect, dependents</returns>
         protected override ISet<String> SetCellContents(String name, double number)
         {
             //this checks if the name is valid and not null
@@ -504,7 +504,7 @@ namespace SS
                     cellReplace(name, cellAtKey);
                 }
 
-                //i need to figure out how to get the indirect dependants, probably a recursive helper function
+                //i need to figure out how to get the indirect dependents, probably a recursive helper function
                 HashSet<String> depends = new HashSet<String>(GetCellsToRecalculate(name));
                 //depends.Add(name);
                 return depends;
@@ -530,7 +530,7 @@ namespace SS
         /// </summary>
         /// <param name="name">the name of the cell to set as</param>
         /// <param name="text">the string to put into the cell at the key</param>
-        /// <returns>returns all, direct or inderect, dependants</returns>
+        /// <returns>returns all, direct or indirect, dependents</returns>
         protected override ISet<String> SetCellContents(String name, String text)
         {
             if (text == null)
@@ -578,7 +578,7 @@ namespace SS
         /// </summary>
         /// <param name="name">the name of the cell to set as</param>
         /// <param name="formula">the formula to put into the cell at the key</param>
-        /// <returns>returns all, direct or inderect, dependants</returns>
+        /// <returns>returns all, direct or indirect, dependents</returns>
         protected override ISet<String> SetCellContents(String name, FormulaFixed formula)
         {
             if (formula == null)
@@ -612,14 +612,14 @@ namespace SS
 
                 GetCellsToRecalculate(new HashSet<String>(formula.GetVariables()));
                 /*
-                //check for circular dependancy
+                //check for circular dependency
                 try
                 {
                     GetCellsToRecalculate(new HashSet<String>(formula.GetVariables()));
                 }
                 catch (Exception e)
                 {
-                    //add back old dependancies if there were any
+                    //add back old dependencies if there were any
                     if (!newKey)
                     {
                         if (currentVal.CellContents is FormulaFixed)
@@ -638,7 +638,7 @@ namespace SS
                         CellSet.Remove(name);
                     }
 
-                    //remove old dependancies
+                    //remove old dependencies
                     foreach (String variable in vars)
                     {
                         CellDep.RemoveDependency(variable, name);
@@ -697,8 +697,8 @@ namespace SS
         /// D1 contains the formula B1 - C1
         /// The direct dependents of A1 are B1 and C1
         /// </summary>
-        /// <param name="name">the key to find the dependants for</param>
-        /// <returns>the dependants for the key are returned as an Ienemerable</returns>
+        /// <param name="name">the key to find the dependents for</param>
+        /// <returns>the dependents for the key are returned as an Ienemerable</returns>
         protected override IEnumerable<String> GetDirectDependents(String name)
         {
             if (name == null)

@@ -98,8 +98,11 @@ namespace SS
         private void ConnectionReceived(string obj)
         {
             for (int i = 0; i < Int32.Parse(obj); i++) ;
-            closeConnectionToolStripMenuItem.Enabled = true;
-            sendMessageToolStripMenuItem.Enabled = true;
+            this.Invoke(new Action(() =>
+            {
+                closeConnectionToolStripMenuItem.Enabled = true;
+                sendMessageToolStripMenuItem.Enabled = true;
+            }));
             //statusLabel.Invoke(new Action(() => { statusLabel.Text = "Connected"; }));
             //displaySelection(spreadsheetPanel1);
         }
