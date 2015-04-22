@@ -76,3 +76,13 @@ X:\cs3505\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
 X:\cs3505\PS6\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
 X:\cs3505\PS6\Spreadsheet\obj\Debug\Spreadsheet.dll
 X:\cs3505\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\bin\Debug\Spreadsheet.XML
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\bin\Debug\Spreadsheet.dll
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\bin\Debug\Spreadsheet.pdb
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\bin\Debug\Formula.dll
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\bin\Debug\Formula.xml
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.dll
+C:\Users\Jase\Documents\spreadsheet\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb

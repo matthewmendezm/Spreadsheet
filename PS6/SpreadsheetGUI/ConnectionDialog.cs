@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,11 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SS;
 
 namespace SS
-{   
-
+{
     public partial class ConnectionDialog : Form
     {
         private Controller controller;
@@ -22,11 +21,6 @@ namespace SS
             this.controller = controller;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonConnect_Click(object sender, EventArgs e)
         {
             int port;
@@ -34,12 +28,12 @@ namespace SS
 
             if (textBoxPort.Text == "")
                 port = 2000;
-            else    
+            else
                 port = int.Parse(textBoxPort.Text);
 
             string userName = textBoxUserName.Text;
             string spreadsheetName = textBoxSpreadsheetName.Text;
-            
+
             controller.Connect(host, "sysadmin", "", port);
 
             System.Threading.Thread.Sleep(100);
@@ -86,6 +80,17 @@ namespace SS
         private void textBoxSpreadsheetName_MouseDown(object sender, MouseEventArgs e)
         {
             defaultTextClick(textBoxSpreadsheetName);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Enter:
+                    buttonConnect_Click(new Object(), new EventArgs());
+                    break;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

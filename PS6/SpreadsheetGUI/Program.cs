@@ -6,20 +6,19 @@ using System.Windows.Forms;
 
 namespace SS
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Start an application context and run one form inside it
             SpreadsheetApplicationContext appContext = SpreadsheetApplicationContext.getAppContext();
-            appContext.RunForm(new SpreadsheetGUI());
             appContext.RunForm(new SpreadsheetGUI());
             Application.Run(appContext);
         }
@@ -28,7 +27,7 @@ namespace SS
     /// <summary>
     /// Keeps track of how many top-level forms are running
     /// </summary>
-    class SpreadsheetApplicationContext : ApplicationContext
+    internal class SpreadsheetApplicationContext : ApplicationContext
     {
         // Number of open forms
         private int formCount = 0;
@@ -69,8 +68,5 @@ namespace SS
             // Run the form
             form.Show();
         }
-
-
-
     }
 }
