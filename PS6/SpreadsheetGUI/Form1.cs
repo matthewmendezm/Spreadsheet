@@ -31,7 +31,7 @@ namespace SS
         string selectedCell;
         int selectedRow, selectedCol;
         string currentFilePath;
-        Boolean closed = false;
+        //Boolean closed = false;
         Stack<BackItem> backActions = new Stack<BackItem>();
 
         /// <summary>
@@ -44,6 +44,7 @@ namespace SS
             controller.IncomingCellEvent += CellReceived;
             controller.IncomingConnectionEvent += ConnectionReceived;
             controller.IncomingErrorEvent += ErrorReceived;
+            controller.IncomingDisconnectEvent += DisconnectReceived;
 
 
             // This an example of registering a method so that it is notified when
@@ -70,14 +71,27 @@ namespace SS
             //saveToolStripMenuItem.Enabled = false;
             //saveToolStripMenuItem1.Enabled = false;
 
+            backToolStripMenuItem.Enabled = true;
+            closeConnectionToolStripMenuItem.Enabled = false;
+            sendMessageToolStripMenuItem.Enabled = false;
+
+        }
+
+        private void DisconnectReceived(string obj)
+        {
+            spreadsheetPanel1.Clear();
+            statusLabel.Invoke(new Action(() => { statusLabel.Text = "Disconnected"; }));
+            closeConnectionToolStripMenuItem.Enabled = false;
+            sendMessageToolStripMenuItem.Enabled = false;
         }
                 
 
         private void ErrorReceived(string[] obj)
         {
-            if (obj[1] == "1")
+            if (obj[0] == "1")
             {
-                MessageBox.Show("Setting this as the formula would result in a circular dependancy, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                statusLabel.Invoke(new Action(() => { statusLabel.Text = "Current formula results in a circular dependancy, no changes made"; }));
+                //MessageBox.Show("Current formula results in a circular dependancy, no changes made", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 if (currentSheet.GetCellContents(selectedCell) is FormulaFixed)
                 {
@@ -88,8 +102,11 @@ namespace SS
 
         private void ConnectionReceived(string obj)
         {
-            for(int i = 0; i < Int32.Parse(obj); i++)
-                ;   
+            for(int i = 0; i < Int32.Parse(obj); i++);
+            closeConnectionToolStripMenuItem.Enabled = true;
+            sendMessageToolStripMenuItem.Enabled = true;
+            //statusLabel.Invoke(new Action(() => { statusLabel.Text = "Connected"; }));
+            //displaySelection(spreadsheetPanel1);
         }
 
         private void CellReceived(string[] obj)
@@ -393,12 +410,12 @@ namespace SS
                     }
                      */
                 }
-                catch (FormulaFormatException ec)
+                catch (FormulaFormatException)
                 {
                     MessageBox.Show("You have put in bad data for a formula, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     hasError = true;
                 }              
-                catch (ArgumentException ecx)
+                catch (ArgumentException)
                 {
                     
                 }
@@ -481,7 +498,7 @@ namespace SS
             {
                 row = Convert.ToInt32(number);
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
 
             }
@@ -603,7 +620,6 @@ namespace SS
 
             statusLabel.Invoke(new Action(() => { statusLabel.Text = "Set cell " + selectedCell + " to " + textBoxCellContents.Text; }));
 
-            backToolStripMenuItem.Enabled = true;
             //saveToolStripMenuItem.Enabled = true;
             //saveToolStripMenuItem1.Enabled = true;
         }

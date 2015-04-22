@@ -1,0 +1,6 @@
+X:\cs3505\PS6\SpreadsheetGUI\bin\x86\Release\SpreadsheetGUI.exe.config
+X:\cs3505\PS6\SpreadsheetGUI\obj\x86\Release\SS.ConnectionDialog.resources
+X:\cs3505\PS6\SpreadsheetGUI\obj\x86\Release\SS.SpreadsheetGUI.resources
+X:\cs3505\PS6\SpreadsheetGUI\obj\x86\Release\SS.Properties.Resources.resources
+X:\cs3505\PS6\SpreadsheetGUI\obj\x86\Release\SS.SendDialog.resources
+X:\cs3505\PS6\SpreadsheetGUI\obj\x86\Release\SpreadsheetGUI.csproj.GenerateResource.Cache

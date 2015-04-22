@@ -13,15 +13,28 @@ namespace SS
     /// </summary>
     public class Controller
     {
-        bool connected = false;
+        //bool connected = false;
 
         // The socket used to communicate with the server
         private StringSocket socket;
 
         // This is when we receive a message for the messager
+        /// <summary>
+        /// message to update a cell has been received
+        /// </summary>
         public event Action<String[]> IncomingCellEvent;
+        /// <summary>
+        /// some communication protocol error as occured
+        /// </summary>
         public event Action<String[]> IncomingErrorEvent;
-        public event Action<String> IncomingConnectionEvent;        
+        /// <summary>
+        /// confirmation of connection to server 
+        /// </summary>
+        public event Action<String> IncomingConnectionEvent;
+        /// <summary>
+        /// Used for informing the client that we have disconnected
+        /// </summary>
+        public event Action<String> IncomingDisconnectEvent;
 
         /// <summary>
         /// Constructor
@@ -39,10 +52,17 @@ namespace SS
         /// <param name="sheetName">The name of the sheet</param>
         /// <param name="port">Connection port</param>
         public void Connect(string hostname, String name, String sheetName, int port = 2000)
-        {            
-            TcpClient client = new TcpClient(hostname, port);
-            socket = new StringSocket(client.Client, ASCIIEncoding.Default);
-            socket.BeginSend("connect " + name + " " + sheetName + "\n", (e, p) => { socket.BeginReceive(LineReceived, null); }, null);
+        {
+            try
+            {
+                TcpClient client = new TcpClient(hostname, port);
+                socket = new StringSocket(client.Client, ASCIIEncoding.Default);
+                socket.BeginSend("connect " + name + " " + sheetName + "\n", (e, p) => { socket.BeginReceive(LineReceived, null); }, null);
+            }
+            catch (Exception)
+            {
+ 
+            }
         }
 
         private void LineReceived(string s, Exception e, object payload)
@@ -54,6 +74,7 @@ namespace SS
                 //disconnected socket. do something
                 //ServerEvent("The server has crashed");
                 Disconnect();
+                IncomingDisconnectEvent("");
                 return;
             }
 
@@ -91,8 +112,8 @@ namespace SS
                     temp = s.Substring(10);
                     temp = temp.Trim();
                     String subString = temp;
-                    //IncomingConnectionEvent(subString);
-                    connected = true;
+                    IncomingConnectionEvent(subString);
+                    //connected = true;
                 }
             }
             else if (s.StartsWith("error", true, null))
@@ -101,7 +122,7 @@ namespace SS
                 {
                     temp = s.Substring(6);
                     temp = temp.Trim();
-                    String[] subString = temp.Split(seperator, 3);
+                    String[] subString = temp.Split(seperator, 2);
                     IncomingErrorEvent(subString);
                 }
             }
@@ -126,6 +147,7 @@ namespace SS
                 {
                     //server died
                     Disconnect();
+                    IncomingDisconnectEvent("");
                     //ServerEvent("The server has crashed");
                 }
             }
@@ -137,7 +159,8 @@ namespace SS
         public void Disconnect()
         {
             socket.Close();
-            connected = false;
+            IncomingDisconnectEvent("");
+            //connected = false;
         }
     }
 }

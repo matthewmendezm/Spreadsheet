@@ -1,0 +1,5 @@
+X:\cs3505\PS6\GUITest\bin\x86\Release\GUITest.dll
+X:\cs3505\PS6\GUITest\bin\x86\Release\GUITest.pdb
+X:\cs3505\PS6\GUITest\obj\x86\Release\GUITest.csprojResolveAssemblyReference.cache
+X:\cs3505\PS6\GUITest\obj\x86\Release\GUITest.dll
+X:\cs3505\PS6\GUITest\obj\x86\Release\GUITest.pdb

@@ -295,6 +295,7 @@
             the constructor for the cell, it sets up the member variables
             </summary>
             <param name="contents">this is what the cell contains, not to be confused with the value</param>
+            <param name="lookupFunc">empty</param>
         </member>
         <member name="T:SS.Controller">
             <summary>
@@ -325,6 +326,26 @@
         <member name="M:SS.Controller.Disconnect">
             <summary>
             Helper method used to disconnect clients under any condition that ends the game
+            </summary>
+        </member>
+        <member name="E:SS.Controller.IncomingCellEvent">
+            <summary>
+            message to update a cell has been received
+            </summary>
+        </member>
+        <member name="E:SS.Controller.IncomingErrorEvent">
+            <summary>
+            some communication protocol error as occured
+            </summary>
+        </member>
+        <member name="E:SS.Controller.IncomingConnectionEvent">
+            <summary>
+            confirmation of connection to server 
+            </summary>
+        </member>
+        <member name="E:SS.Controller.IncomingDisconnectEvent">
+            <summary>
+            Used for informing the client that we have disconnected
             </summary>
         </member>
         <member name="T:SS.Spreadsheet">

@@ -22,6 +22,7 @@ namespace SS
         /// the constructor for the cell, it sets up the member variables
         /// </summary>
         /// <param name="contents">this is what the cell contains, not to be confused with the value</param>
+        /// <param name="lookupFunc">empty</param>
         public Cell(object contents, Func<string, double> lookupFunc)
         {
             CellContentsInternal = contents;
@@ -50,14 +51,14 @@ namespace SS
 
         public void evaluateFunc()
         {
-            //try
-            //{
+            try
+            {
                 CellValue = (CellContentsInternal as FormulaFixed).Evaluate(lookup);
-            //}
-            //catch (System.ArgumentException ae)
-            //{
-
-            //}
+            }
+            catch (System.ArgumentException)
+            {
+                CellValue = "";
+            }
             
         }
 

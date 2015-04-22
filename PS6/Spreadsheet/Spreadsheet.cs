@@ -190,7 +190,7 @@ namespace SS
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new SpreadsheetReadWriteException("The file could not be read");
             }
@@ -278,7 +278,7 @@ namespace SS
                     writer.WriteEndDocument();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new SpreadsheetReadWriteException("The file could not be saved");
             }
@@ -419,7 +419,7 @@ namespace SS
                 {
                     FormulaFixed newFormula = new FormulaFixed(tempContents, Normalize, IsValid);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     //throw new InvalidNameException();
                     throw new FormulaFormatException("Invalid formula");
@@ -483,7 +483,6 @@ namespace SS
                         }
                         else
                         {
-
                             throw new ArgumentException();//"var not here", "exp");
                         }
                     }
@@ -500,10 +499,8 @@ namespace SS
 
             //catch (ArgumentException)
             //{
-
+            //    return 0;
             //}
-            
-
         }
 
         /// <summary>
@@ -623,13 +620,13 @@ namespace SS
             {
                 name = Normalize(name);
                 Cell currentVal = null;
-                bool newKey = false;
+                //bool newKey = false;
 
                 Cell cellAtKey = new Cell(formula, getVar);
                 try
                 {
                     CellSet.Add(name, cellAtKey);
-                    newKey = true;
+                    //newKey = true;
                 }
                 catch (ArgumentException)
                 {

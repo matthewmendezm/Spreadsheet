@@ -265,7 +265,7 @@ namespace UnitTest
             Assert.IsTrue(sheet.GetCellValue("C1") is FormulaError);
             sheet.SetContentsOfCell("B1", "=5+A1");
             Assert.IsTrue((double)sheet.GetCellValue("C1") == 11);
-            Assert.IsTrue(sheet.GetCellValue("H1") == "");
+            Assert.IsTrue((string)sheet.GetCellValue("H1") == "");
         }
 
         [TestMethod]
