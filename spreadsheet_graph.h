@@ -18,6 +18,7 @@ class spreadsheet_graph
 		std::map<std::string, std::string> get_cells();
 		std::string undo();
 		int size();
+		void reset_undo();
 
 	private:
 		std::map<std::string, std::string> cells;

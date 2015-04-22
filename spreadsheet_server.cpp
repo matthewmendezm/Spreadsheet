@@ -36,6 +36,7 @@ spreadsheet_server::spreadsheet_server()
   socket_spreadsheet = new socket_spreadsheet_map;
   users = new std::vector<std::string>;
   (*users).push_back("sysadmin");
+  open();
 }
 
 spreadsheet_server::~spreadsheet_server()
@@ -45,6 +46,62 @@ spreadsheet_server::~spreadsheet_server()
   delete socket_spreadsheet;
   delete users;
 }
+
+void spreadsheet_server::save()
+{
+  // create spreadsheet file data on disk
+  std::ofstream file_out ("sprd_data.bin", std::ofstream::out | std::ofstream::trunc);
+  std::vector<std::string>::iterator it;
+  for(it = users->begin(); it != users->end(); it++)
+    if((*it) != "sysadmin")
+      file_out << "user " + (*it) + "\n";
+
+  spreadsheet_map::iterator iter;
+  for(iter = spreadsheets->begin(); iter != spreadsheets->end(); iter++)
+  {
+    file_out << "spreadsheet " + (*iter).first + "\n";
+    std::map<std::string, std::string> cells = (*iter).second->get_cells();
+    std::map<std::string, std::string>::iterator cells_it;
+    for(cells_it = cells.begin(); cells_it != cells.end(); cells_it++)
+      file_out << "cell " + (*cells_it).first + " " + (*cells_it).second + "\n";
+  }
+  file_out.close();
+}
+
+void spreadsheet_server::open()
+{
+  std::ifstream file_in ("sprd_data.bin", std::ifstream::in);
+  std::string line = "";
+  std::string current_sheet = "";
+  char c = file_in.get();
+  while(file_in.good())
+  {
+    if(c != '\n')
+      line += c;
+    else
+    {
+      std::vector<std::string> v = parse_command(line.substr(0, line.length()));
+      if(v.at(0) == "user")
+        users->push_back(v.at(1));
+      else if(v.at(0) == "spreadsheet")
+      {
+        if(current_sheet != "")
+          (*spreadsheets)[current_sheet]->reset_undo();
+        current_sheet = v.at(1);
+        (*spreadsheets)[current_sheet] = new spreadsheet_graph();
+      }
+      else if(v.at(0) == "cell")
+        (*spreadsheets)[current_sheet]->add(v.at(1), v.at(2));
+
+      line = "";
+    }
+    c = file_in.get();
+  }
+  if(current_sheet != "")
+      (*spreadsheets)[current_sheet]->reset_undo();
+  file_in.close();
+}
+
 void spreadsheet_server::listen_for_connections()
 {
   int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
@@ -165,6 +222,7 @@ void spreadsheet_server::listen_to_client(int socket)
 	}		
   	close(socket);
     std::cout << "client disconnected" << std::endl;
+    server->save();
     pthread_exit(NULL);
 }
 

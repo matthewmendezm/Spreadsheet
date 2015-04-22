@@ -105,3 +105,9 @@ std::string spreadsheet_graph::undo()
 	return result;
 }
 
+void spreadsheet_graph::reset_undo()
+{
+	while(undo_stack.size() > 0)
+		undo_stack.pop();
+}
+
