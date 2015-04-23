@@ -442,8 +442,8 @@ namespace SS
         /// <returns>the double for the variable</returns>
         protected double getVar(String var)
         {
-            try
-            {
+            //try
+            //{
                 if (Regex.IsMatch(var, "(^[a-zA-Z]+[0-9]*$)") || IsValid(Normalize(var)) == true)
                 {
                     var = Normalize(var);
@@ -468,11 +468,11 @@ namespace SS
                 {
                     throw new ArgumentException();//"invalid var", "exp");
                 }
-            }
-            catch (ArgumentException)
-            {
-                return 0;
-            }
+           //}
+           //catch (ArgumentException)
+            //{
+            //    return 0;
+            //}
         }
 
         /// <summary>
