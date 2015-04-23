@@ -2,25 +2,36 @@
 void *get_in_addr(struct sockaddr *sa);
 std::string int_to_string(int a);
 
-// global variable spreadsheet
+// Global spreadsheet instance. Okay since there will only be one spreadsheet
+// object created when the program is run.
 spreadsheet_server * server = new spreadsheet_server();
 
 int main(int argc, char const *argv[])
 {
-	std::cout << "Spreadsheet server created" << std::endl;
-	server->listen_for_connections();
-	return 0;
+  // Simply kick off the server listening for connections (the servers main running state). 
+  std::cout << "Spreadsheet server created" << std::endl;
+  server->listen_for_connections();
+  return 0;
 }
 
-// Static method for thread initialization
+/* 
+ * Static method for thread initialization. Required by the pthread_create function.
+ */
 void *thread_init(void * arg)
 {
+  // The parameter will be an integer specifying the connected client's socket.
   int * socket;
   socket = (int *) arg;
+
   std::cout << "New thread created for socket " + int_to_string((*socket)) << std::endl;
+
+  // Begin listening to messages from the new client on the new thread.
   server->listen_to_client(*socket);
 }
 
+/*
+ * Helper method to convert an integer to a string.
+ */
 std::string int_to_string(int a)
 {
   std::string result;
@@ -29,6 +40,11 @@ std::string int_to_string(int a)
   return out.str();
 }
 
+/*
+ * Constructor initializes all pointed to structures 
+ * on the heap and opens the .bin file which holds state
+ * of registered users and spreadsheet information.
+ */
 spreadsheet_server::spreadsheet_server()
 {
   spreadsheets = new spreadsheet_map;
@@ -36,9 +52,12 @@ spreadsheet_server::spreadsheet_server()
   socket_spreadsheet = new socket_spreadsheet_map;
   users = new std::vector<std::string>;
   (*users).push_back("sysadmin");
-  open();
+  open(); // Populate server with necessary state information.
 }
 
+/*
+ * Destructor cleans up heap memory.
+ */
 spreadsheet_server::~spreadsheet_server()
 {
   delete spreadsheets;
@@ -47,6 +66,9 @@ spreadsheet_server::~spreadsheet_server()
   delete users;
 }
 
+/*
+ * 
+ */
 void spreadsheet_server::save()
 {
   // create spreadsheet file data on disk
@@ -68,6 +90,9 @@ void spreadsheet_server::save()
   file_out.close();
 }
 
+/*
+ *
+ */
 void spreadsheet_server::open()
 {
   std::ifstream file_in ("sprd_data.bin", std::ifstream::in);
@@ -102,6 +127,9 @@ void spreadsheet_server::open()
   file_in.close();
 }
 
+/*
+ *
+ */
 void spreadsheet_server::listen_for_connections()
 {
   int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
@@ -190,6 +218,9 @@ void spreadsheet_server::listen_for_connections()
   return;
 }
 
+/*
+ *
+ */
 void *get_in_addr(struct sockaddr *sa)
 {
     if (sa->sa_family == AF_INET) {
@@ -226,6 +257,9 @@ void spreadsheet_server::listen_to_client(int socket)
     pthread_exit(NULL);
 }
 
+/*
+ *
+ */
 void spreadsheet_server::process_request(int socket, std::string input, bool * registered)
 {	
   std::vector<std::string> v = parse_command(input);
@@ -241,6 +275,9 @@ void spreadsheet_server::process_request(int socket, std::string input, bool * r
     send_message(socket, "error 2 " + input);
 }
 
+/*
+ *
+ */
 void spreadsheet_server::process_connect(int socket, std::vector<std::string> v, bool * registered)
 {
   if(std::find((*users).begin(), (*users).end(), v.at(1)) == (*users).end())
@@ -279,6 +316,9 @@ void spreadsheet_server::process_connect(int socket, std::vector<std::string> v,
     }
 }
 
+/*
+ *
+ */
 void spreadsheet_server::process_register(int socket, std::vector<std::string> v)
 {
   if(std::find((*users).begin(), (*users).end(), v.at(1)) == (*users).end())
@@ -290,6 +330,9 @@ void spreadsheet_server::process_register(int socket, std::vector<std::string> v
       send_message(socket, "error 4 " + v[1]);
 }
 
+/*
+ *
+ */
 void spreadsheet_server::process_cell(int socket, std::vector<std::string> v, std::string input)
 {
   // get the spreadsheet name
@@ -315,6 +358,9 @@ void spreadsheet_server::process_undo(int socket, std::vector<std::string> v)
       send_message(*iterator, undo);
 }
 
+/*
+ *
+ */
 void spreadsheet_server::send_message(int socket, std::string temp)
 {
 	char * cstr = new char[temp.length() + 1];
@@ -324,6 +370,9 @@ void spreadsheet_server::send_message(int socket, std::string temp)
 	send(socket, cstr, (temp.length() + 1), 0);
 }
 
+/*
+ *
+ */
 std::vector<std::string> spreadsheet_server::parse_command(std::string input)
 {
   int first_space   = 0;
