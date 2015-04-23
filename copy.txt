@@ -1,0 +1,16 @@
+user Norman
+user Henry
+user Benny
+user john
+user Taylor
+user no
+user yup
+spreadsheet 
+spreadsheet MangoSheet
+cell A1 x is bad
+cell A5 a
+cell B2 2
+cell B4 yes
+cell C2 =A1
+cell C3 3
+cell D4 only one client here

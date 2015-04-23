@@ -99,26 +99,38 @@ void spreadsheet_server::save()
  */
 void spreadsheet_server::open()
 {
+  // Open the file 
   std::ifstream file_in ("sprd_data.bin", std::ifstream::in);
   std::string line = "";
   std::string current_sheet = "";
   char c = file_in.get();
+
+  // When the file has remaining characters, keep going
   while(file_in.good())
   {
+    // Iterate over each character, adding to "line" until
+    // a new line comes along, then process the line.
     if(c != '\n')
       line += c;
     else
     {
+      // Parse the line separated by spaces
       std::vector<std::string> v = parse_command(line.substr(0, line.length()));
+      // Add the second string from all lines that start with "user" to users
       if(v.at(0) == "user")
         users->push_back(v.at(1));
+      // Process "spreadsheet" line
       else if(v.at(0) == "spreadsheet")
       {
+        // In this case, all of the cells associated with current_sheet have
+        // been added, now clear the undo stack.
         if(current_sheet != "")
           (*spreadsheets)[current_sheet]->reset_undo();
+        // Advance current sheet and instantiate a new graph.
         current_sheet = v.at(1);
         (*spreadsheets)[current_sheet] = new spreadsheet_graph();
       }
+      // Add cell to the current_sheet
       else if(v.at(0) == "cell")
         (*spreadsheets)[current_sheet]->add(v.at(1), v.at(2));
 
@@ -126,13 +138,16 @@ void spreadsheet_server::open()
     }
     c = file_in.get();
   }
+  // Clear undo stack for the final sheet in the file
   if(current_sheet != "")
       (*spreadsheets)[current_sheet]->reset_undo();
   file_in.close();
 }
 
 /*
- *
+ * Kicks off the server listening and accepting connections.
+ * When a connection is made, the a new thread is made to listen
+ * for messages from the client over the socket.  
  */
 void spreadsheet_server::listen_for_connections()
 {
@@ -223,7 +238,7 @@ void spreadsheet_server::listen_for_connections()
 }
 
 /*
- *
+ * 
  */
 void *get_in_addr(struct sockaddr *sa)
 {
@@ -370,7 +385,7 @@ void spreadsheet_server::send_message(int socket, std::string temp)
 	char * cstr = new char[temp.length() + 1];
 	std::strcpy (cstr, temp.c_str());
 	cstr[temp.length()] = '\n';
-  std::cout << cstr;
+  //std::cout << cstr;
 	send(socket, cstr, (temp.length() + 1), 0);
 }
 
