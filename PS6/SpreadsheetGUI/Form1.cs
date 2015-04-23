@@ -223,6 +223,7 @@ namespace SS
 
             statusLabel.Text = "Selected cell " + selectedCell;
             textBoxCellContents.Focus();
+            textBoxCellContents.SelectAll();
         }
 
         /// <summary>
