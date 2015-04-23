@@ -42,36 +42,33 @@
             // 
             // textBoxHost
             // 
-            this.textBoxHost.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.textBoxHost.ForeColor = System.Drawing.SystemColors.MenuText;
             this.textBoxHost.Location = new System.Drawing.Point(164, 15);
-            this.textBoxHost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxHost.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxHost.Name = "textBoxHost";
             this.textBoxHost.Size = new System.Drawing.Size(287, 22);
             this.textBoxHost.TabIndex = 0;
             this.textBoxHost.Text = "lab1-1.eng.utah.edu";
-            this.textBoxHost.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxHost_MouseDown);
             // 
             // textBoxPort
             // 
-            this.textBoxPort.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.textBoxPort.ForeColor = System.Drawing.SystemColors.MenuText;
             this.textBoxPort.Location = new System.Drawing.Point(164, 47);
-            this.textBoxPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(287, 22);
             this.textBoxPort.TabIndex = 1;
             this.textBoxPort.Text = "2112";
-            this.textBoxPort.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxPort_MouseDown);
             // 
             // textBoxUserName
             // 
-            this.textBoxUserName.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.textBoxUserName.ForeColor = System.Drawing.SystemColors.MenuText;
             this.textBoxUserName.Location = new System.Drawing.Point(164, 79);
-            this.textBoxUserName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxUserName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxUserName.Name = "textBoxUserName";
             this.textBoxUserName.Size = new System.Drawing.Size(287, 22);
             this.textBoxUserName.TabIndex = 2;
             this.textBoxUserName.Text = "sysadmin";
-            this.textBoxUserName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxUserName_MouseDown);
             // 
             // label1
             // 
@@ -105,14 +102,13 @@
             // 
             // textBoxSpreadsheetName
             // 
-            this.textBoxSpreadsheetName.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.textBoxSpreadsheetName.ForeColor = System.Drawing.SystemColors.MenuText;
             this.textBoxSpreadsheetName.Location = new System.Drawing.Point(164, 112);
-            this.textBoxSpreadsheetName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxSpreadsheetName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSpreadsheetName.Name = "textBoxSpreadsheetName";
             this.textBoxSpreadsheetName.Size = new System.Drawing.Size(287, 22);
             this.textBoxSpreadsheetName.TabIndex = 6;
             this.textBoxSpreadsheetName.Text = "MangoSheet";
-            this.textBoxSpreadsheetName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBoxSpreadsheetName_MouseDown);
             // 
             // label4
             // 
@@ -127,7 +123,7 @@
             // buttonConnect
             // 
             this.buttonConnect.Location = new System.Drawing.Point(164, 153);
-            this.buttonConnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonConnect.Margin = new System.Windows.Forms.Padding(4);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(167, 39);
             this.buttonConnect.TabIndex = 8;
@@ -150,7 +146,7 @@
             this.Controls.Add(this.textBoxPort);
             this.Controls.Add(this.textBoxHost);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConnectionDialog";
             this.Text = "Connect to a Server";
             this.ResumeLayout(false);

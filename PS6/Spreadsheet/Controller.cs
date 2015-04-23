@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CustomNetworking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Sockets;
-using CustomNetworking;
 
 namespace SS
 {
@@ -18,19 +18,22 @@ namespace SS
         // The socket used to communicate with the server
         private StringSocket socket;
 
-        // This is when we receive a message for the messager
-        /// <summary>
-        /// message to update a cell has been received
-        /// </summary>
+        // This is when we receive a message for the messenger
+        // <summary>
+        // message to update a cell has been received
+        // </summary>
         public event Action<String[]> IncomingCellEvent;
+
         /// <summary>
-        /// some communication protocol error as occured
+        /// some communication protocol error as occurred
         /// </summary>
         public event Action<String[]> IncomingErrorEvent;
+
         /// <summary>
-        /// confirmation of connection to server 
+        /// confirmation of connection to server
         /// </summary>
         public event Action<String> IncomingConnectionEvent;
+
         /// <summary>
         /// Used for informing the client that we have disconnected
         /// </summary>
@@ -45,7 +48,7 @@ namespace SS
         }
 
         /// <summary>
-        /// Connect to the server at the given hostname and port and with the given name.
+        /// Connect to the server at the given host name and port and with the given name.
         /// </summary>
         /// <param name="hostname">IP addresses for game server</param>
         /// <param name="name">User's name</param>
@@ -61,7 +64,6 @@ namespace SS
             }
             catch (Exception)
             {
- 
             }
         }
 
@@ -83,13 +85,13 @@ namespace SS
             if (s.StartsWith("cell", true, null))
             {
                 if (IncomingCellEvent != null)
-                {                    
+                {
                     temp = s.Substring(5);
                     temp = temp.Trim();
                     String[] subString = new String[2];
                     String[] tempSubString = temp.Split(seperator, 2);
-                    
-                    // if the content of the cell is null, set it to a nullstring instead
+
+                    // if the content of the cell is null, set it to a null string instead
                     if (tempSubString.Length == 1)
                     {
                         subString[0] = tempSubString[0];
@@ -100,7 +102,6 @@ namespace SS
                         subString[0] = tempSubString[0];
                         subString[1] = tempSubString[1];
                     }
-
 
                     IncomingCellEvent(subString);
                 }
@@ -131,8 +132,8 @@ namespace SS
         }
 
         /// <summary>
-        /// Sends a message from the client to the server.  The message is passed in from the GUI
-        /// in the line parameter, gets a newline character appended to it, and is sent off.
+        /// Sends a message from the client to the server. The message is passed in from the GUI in the line parameter, gets
+        /// a newline character appended to it, and is sent off.
         /// </summary>
         /// <param name="line">Message from GUI</param>
         public void SendMessage(String line)

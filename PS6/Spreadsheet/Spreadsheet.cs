@@ -409,7 +409,7 @@ namespace SS
                 depends = new HashSet<String>(SetCellContents(name, content));
             }
 
-            //recalculate the dependants
+            //recalculate the dependents
             foreach (string cellName in depends)
             {
                 Cell cellAtKey;
@@ -438,21 +438,26 @@ namespace SS
         /// <summary>
         /// this is a helper function to get a variables value
         /// </summary>
-        /// <param name="var">the cellname to get the value</param>
+        /// <param name="var">the cell name to get the value</param>
         /// <returns>the double for the variable</returns>
         protected double getVar(String var)
         {
-            //try
-            //{
-            if (Regex.IsMatch(var, "(^[a-zA-Z]+[0-9]*$)") || IsValid(Normalize(var)) == true)
+            try
             {
-                var = Normalize(var);
-                Cell cellAtKey;
-                if (CellSet.TryGetValue(var, out cellAtKey))
+                if (Regex.IsMatch(var, "(^[a-zA-Z]+[0-9]*$)") || IsValid(Normalize(var)) == true)
                 {
-                    if (cellAtKey.CellValue is double)
+                    var = Normalize(var);
+                    Cell cellAtKey;
+                    if (CellSet.TryGetValue(var, out cellAtKey))
                     {
-                        return (double)cellAtKey.CellValue;
+                        if (cellAtKey.CellValue is double)
+                        {
+                            return (double)cellAtKey.CellValue;
+                        }
+                        else
+                        {
+                            throw new ArgumentException();//"var not here", "exp");
+                        }
                     }
                     else
                     {
@@ -461,18 +466,13 @@ namespace SS
                 }
                 else
                 {
-                    throw new ArgumentException();//"var not here", "exp");
+                    throw new ArgumentException();//"invalid var", "exp");
                 }
             }
-            else
+            catch (ArgumentException)
             {
-                throw new ArgumentException();//"invalid var", "exp");
+                return 0;
             }
-            //}
-            //catch (ArgumentException)
-            //{
-            //    return 0;
-            //}
         }
 
         /// <summary>

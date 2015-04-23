@@ -54,7 +54,7 @@ namespace SS
 
             this.Width += 2;
 
-            this.Text = "New Spreadsheet - Mangosheets Online";
+            this.Text = "New Spreadsheet - Mangosheets On-line";
 
             //saveToolStripMenuItem.Enabled = false;
             //saveToolStripMenuItem1.Enabled = false;
@@ -67,9 +67,14 @@ namespace SS
         private void DisconnectReceived(string obj)
         {
             spreadsheetPanel1.Clear();
-            statusLabel.Invoke(new Action(() => { statusLabel.Text = "Disconnected"; }));
-            closeConnectionToolStripMenuItem.Enabled = false;
-            sendMessageToolStripMenuItem.Enabled = false;
+            currentSheet = new Spreadsheet(isVal, norm, "PS6");
+
+            this.Invoke(new Action(() =>
+            {
+                statusLabel.Text = "Disconnected";
+                closeConnectionToolStripMenuItem.Enabled = false;
+                sendMessageToolStripMenuItem.Enabled = false;
+            }));
         }
 
         private void ErrorReceived(string[] obj)
@@ -435,16 +440,21 @@ namespace SS
 
         private int getCol(string selectedCell)
         {
-            char c = (char)selectedCell[0];
-            return c - 65;
+            // Capture the first character of the cell name and convert it to a 0 indexed integer equivalent
+            string temp = selectedCell.Substring(0, 1);
+            char column = char.Parse(temp);
+            int col = char.ToUpper(column) - 65;//index == 0
+
+            return col;
         }
 
         private int getRow(string selectedCell)
         {
-            int s;
-            if (int.TryParse(selectedCell.Substring(1), out s))
-                return s - 1;
-            return 0;
+            // Capture the rest of the cell name (could be a one or two digit number)
+            string temp = selectedCell.Substring(1);
+            int row = int.Parse(temp);
+
+            return row;
         }
 
         /// <summary>

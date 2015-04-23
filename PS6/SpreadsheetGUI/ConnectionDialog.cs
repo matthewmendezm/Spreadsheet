@@ -34,7 +34,7 @@ namespace SS
             string userName = textBoxUserName.Text;
             string spreadsheetName = textBoxSpreadsheetName.Text;
 
-            controller.Connect(host, "sysadmin", "", port);
+            controller.Connect(host, "sysadmin", spreadsheetName, port);
 
             System.Threading.Thread.Sleep(100);
 
@@ -49,37 +49,6 @@ namespace SS
             controller.Connect(host, userName, spreadsheetName, port);
 
             this.Close();
-        }
-
-        private void textBoxHost_MouseDown(object sender, MouseEventArgs e)
-        {
-            defaultTextClick(textBoxHost);
-        }
-
-        private bool defaultTextClick(TextBox box)
-        {
-            if (box.ForeColor != SystemColors.WindowText)
-            {
-                box.ForeColor = SystemColors.WindowText;
-                return true;
-            }
-
-            return false;
-        }
-
-        private void textBoxPort_MouseDown(object sender, MouseEventArgs e)
-        {
-            defaultTextClick(textBoxPort);
-        }
-
-        private void textBoxUserName_MouseDown(object sender, MouseEventArgs e)
-        {
-            defaultTextClick(textBoxUserName);
-        }
-
-        private void textBoxSpreadsheetName_MouseDown(object sender, MouseEventArgs e)
-        {
-            defaultTextClick(textBoxSpreadsheetName);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
