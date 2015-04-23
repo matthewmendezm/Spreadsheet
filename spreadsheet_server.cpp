@@ -67,17 +67,21 @@ spreadsheet_server::~spreadsheet_server()
 }
 
 /*
- * 
+ * Saves the registered user names and non-empty cells to file. 
  */
 void spreadsheet_server::save()
 {
   // create spreadsheet file data on disk
   std::ofstream file_out ("sprd_data.bin", std::ofstream::out | std::ofstream::trunc);
-  std::vector<std::string>::iterator it;
+
+  // Iterate over users and add them to file in the format "user johnnyboy\n" 
+ std::vector<std::string>::iterator it;
   for(it = users->begin(); it != users->end(); it++)
     if((*it) != "sysadmin")
       file_out << "user " + (*it) + "\n";
 
+  // Iterate over the spreadsheets, add a header to file in the format "spreadsheet MangoSheet"
+  // and then add all non-empty cells in that spreadsheet underneath it in the form "cell A1 worm". 
   spreadsheet_map::iterator iter;
   for(iter = spreadsheets->begin(); iter != spreadsheets->end(); iter++)
   {
@@ -91,7 +95,7 @@ void spreadsheet_server::save()
 }
 
 /*
- *
+ * Populate the spreadsheet uers and spreadsheet graphs with data from sprd_data.bin.
  */
 void spreadsheet_server::open()
 {
