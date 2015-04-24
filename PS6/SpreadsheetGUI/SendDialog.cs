@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SS
@@ -22,9 +15,9 @@ namespace SS
 
         private void SendMessageButton_Click(object sender, EventArgs e)
         {
-            string message = sendMessageTextbox.Text;           
+            string message = sendMessageTextbox.Text;
 
-            controller.SendMessage(message);           
+            controller.SendMessage(message);
 
             this.Close();
         }

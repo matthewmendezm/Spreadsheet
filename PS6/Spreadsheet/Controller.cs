@@ -1,10 +1,12 @@
-﻿using CustomNetworking;
+﻿/*
+ * Modified from CS 3500 spreadsheet to be multi user.
+ * 
+ * Author: Matthew Mendez, Jase Bleazard, Taylor Morris, Scott Wells.
+ */
+using CustomNetworking;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SS
 {
@@ -12,16 +14,16 @@ namespace SS
     /// Provides a way for the spreadsheet client to communicate with the server
     /// </summary>
     public class Controller
-    {   
+    {
         /// <summary>
-        /// this is a bool
+        /// Reports a connection or not.
         /// </summary>
         public bool connected = false;
 
         // The socket used to communicate with the server
         private StringSocket socket;
 
-        // This is when we receive a message for the messenger
+        /// This is when we receive a message for the messenger
         /// <summary>
         /// message to update a cell has been received
         /// </summary>
@@ -62,18 +64,11 @@ namespace SS
         /// <param name="port">Connection port</param>
         public void Connect(string hostname, String name, String sheetName, int port = 2000)
         {
-            //try
-            //{
-                TcpClient client = new TcpClient(hostname, port);
-                socket = new StringSocket(client.Client, ASCIIEncoding.Default);
-                socket.BeginSend("connect " + name + " " + sheetName + "\n", (e, p) => { socket.BeginReceive(LineReceived, null); }, null);
-                spreadsheetName = sheetName;
-                userName = name;
-            //}
-            //catch (Exception)
-            //{
-
-            //}
+            TcpClient client = new TcpClient(hostname, port);
+            socket = new StringSocket(client.Client, ASCIIEncoding.Default);
+            socket.BeginSend("connect " + name + " " + sheetName + "\n", (e, p) => { socket.BeginReceive(LineReceived, null); }, null);
+            spreadsheetName = sheetName;
+            userName = name;
         }
 
         private void LineReceived(string s, Exception e, object payload)

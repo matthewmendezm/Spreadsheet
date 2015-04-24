@@ -1,20 +1,15 @@
-﻿using SS;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SpreadsheetUtilities;
+using SS;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using SpreadsheetUtilities;
-using System.Threading;
 using System.Text.RegularExpressions;
-using System.Xml;
 
 namespace UnitTest
 {
     [TestClass]
     public class Tester
     {
-
-        
         [TestMethod]
         public void CellsTest()
         {
@@ -33,12 +28,8 @@ namespace UnitTest
         }
 
         /*
-        // For example, suppose that
-        // A1 contains 3
-        // B1 contains the formula A1 * A1
-        // C1 contains the formula B1 + A1
-        // D1 contains the formula B1 - C1
-        // The direct dependents of A1 are B1 and C1
+        // For example, suppose that A1 contains 3 B1 contains the formula A1 * A1 C1 contains the formula B1 + A1 D1
+        // contains the formula B1 - C1 The direct dependents of A1 are B1 and C1
         [TestMethod]
         public void DependantsTest()
         {
@@ -81,26 +72,22 @@ namespace UnitTest
             Assert.IsTrue((contents as string) == "");
         }
 
-        // For example, if name is A1, B1 contains A1*2, and C1 contains B1+A1, the
-        // set {A1, B1, C1} is returned.
+        // For example, if name is A1, B1 contains A1*2, and C1 contains B1+A1, the set {A1, B1, C1} is returned.
         [TestMethod]
         public void SetCellTest()
         {
             AbstractSpreadsheet sheet = new Spreadsheet();
-            
+
             sheet.SetContentsOfCell("B1", "=A1*2");
             sheet.SetContentsOfCell("C1", "=B1+A1");
-            
+
             HashSet<String> cellReturn = new HashSet<String>(sheet.SetContentsOfCell("A1", "3"));
             Assert.IsTrue(cellReturn.Count == 3 && cellReturn.Contains("A1") && cellReturn.Contains("B1") && cellReturn.Contains("C1"));
         }
 
-
-
-        // Spreadsheets are never allowed to contain a combination of Formulas that establish
-        // a circular dependency.  A circular dependency exists when a cell depends on itself.
-        // For example, suppose that A1 contains B1*2, B1 contains C1*2, and C1 contains A1*2.
-        // A1 depends on B1, which depends on C1, which depends on A1.  That's a circular
+        // Spreadsheets are never allowed to contain a combination of Formulas that establish a circular dependency. A
+        // circular dependency exists when a cell depends on itself. For example, suppose that A1 contains B1*2, B1 contains
+        // C1*2, and C1 contains A1*2. A1 depends on B1, which depends on C1, which depends on A1. That's a circular
         // dependency.
         /*
         [TestMethod]
@@ -122,7 +109,6 @@ namespace UnitTest
             sheet.SetContentsOfCell("B1", "=C1 * 2");
             try
             {
-
                 sheet.SetContentsOfCell("C1", "=A1 * 2");
             }
             catch
@@ -141,7 +127,6 @@ namespace UnitTest
             sheet.SetContentsOfCell("C1", "=D1 * 2");
             try
             {
-
                 sheet.SetContentsOfCell("C1", "=A1 * 2");
             }
             catch
@@ -155,7 +140,6 @@ namespace UnitTest
             }
         }
 
-
         [TestMethod]
         public void SetCellReturnTest()
         {
@@ -168,8 +152,6 @@ namespace UnitTest
             HashSet<String> cellReturn = new HashSet<String>(sheet.SetContentsOfCell("A1", "3"));
             Assert.IsTrue(cellReturn.Count == 4 && cellReturn.Contains("A1") && cellReturn.Contains("B1") && cellReturn.Contains("C1") && cellReturn.Contains("D1"));
         }
-
-        
 
         [TestMethod]
         public void SetNonNullFunctionCellStringTest()
@@ -195,7 +177,6 @@ namespace UnitTest
             sheet.SetContentsOfCell("E1", "=H1+13");
             HashSet<String> cellReturn = new HashSet<String>(sheet.SetContentsOfCell("B1", "5"));
             Assert.IsTrue(cellReturn.Count == 3 && cellReturn.Contains("B1") && cellReturn.Contains("C1") && cellReturn.Contains("D1"));
-
 
             Assert.IsTrue(sheet.GetCellContents("B1") is Double);
         }
@@ -240,6 +221,7 @@ namespace UnitTest
             AbstractSpreadsheet sheet = new Spreadsheet();
             sheet.SetContentsOfCell("^A55", "H1+13");
         }
+
         [TestMethod]
         [ExpectedException(typeof(InvalidNameException))]
         public void InvalidName4Test()
@@ -256,7 +238,7 @@ namespace UnitTest
             sheet.SetContentsOfCell("A1", "2");
             sheet.SetContentsOfCell("B1", "=5+A1");
             sheet.SetContentsOfCell("C1", "=B1+3");
-            Assert.IsTrue((double)sheet.GetCellValue("C1")==10);
+            Assert.IsTrue((double)sheet.GetCellValue("C1") == 10);
 
             sheet = new Spreadsheet();
 
@@ -272,10 +254,9 @@ namespace UnitTest
         [ExpectedException(typeof(InvalidNameException))]
         public void InvalidVarTest()
         {
-            AbstractSpreadsheet sheet = new Spreadsheet(isVal,norm,"default");
+            AbstractSpreadsheet sheet = new Spreadsheet(isVal, norm, "default");
 
             sheet.SetContentsOfCell("A0", "2");
-
         }
 
         [TestMethod]
@@ -285,9 +266,7 @@ namespace UnitTest
             AbstractSpreadsheet sheet = new Spreadsheet(isVal, norm, "default");
 
             sheet.SetContentsOfCell("A1", "=2 - A0");
-
         }
-
 
         [TestMethod]
         public void SaveTest()
@@ -304,15 +283,11 @@ namespace UnitTest
             Assert.IsTrue((double)sheet.GetCellValue("C1") == 10);
             HashSet<String> cellkeys = new HashSet<String>(sheet.GetNamesOfAllNonemptyCells());
             Assert.IsTrue(cellkeys.Count == 4 && cellkeys.Contains("A1") && cellkeys.Contains("B1") && cellkeys.Contains("C1") && cellkeys.Contains("D1"));
-
         }
-
 
         public static string norm(String var)
         {
-
             return var.ToUpper();
-
         }
 
         public static bool isVal(String var)
@@ -320,14 +295,11 @@ namespace UnitTest
             if (Regex.IsMatch(var, "(^[a-zA-Z]+[1-9]+[0-9]*$)"))
             {
                 return true;
-
             }
             else
             {
                 return false;
             }
-
         }
-              
     }
 }

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SpreadsheetUtilities;
+﻿using SpreadsheetUtilities;
+using System;
 
 namespace SS
 {
     /// <summary>
     /// this class is used to represent a single cell in a spreadsheet.
     /// </summary>
-    class Cell
+    internal class Cell
     {
-
         private object CellContentsInternal;
         public object CellValue;
         private Func<string, double> lookup;
@@ -29,8 +24,6 @@ namespace SS
             lookup = lookupFunc;
             if (contents is FormulaFixed)
             {
-                
-                
                 //CellValue = (contents as Formula).Evaluate(lookup);
                 //evaluateFunc();
             }
@@ -59,8 +52,6 @@ namespace SS
             {
                 CellValue = "";
             }
-            
         }
-
     }
 }
