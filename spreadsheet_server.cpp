@@ -249,7 +249,9 @@ void *get_in_addr(struct sockaddr *sa)
     return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
-// WE SHOULD RENAME THIS LISTEN_FOR_MESSAGE or something
+/*
+ *
+ */ 
 void spreadsheet_server::listen_to_client(int socket)
 {
   bool registered = false;
@@ -277,7 +279,9 @@ void spreadsheet_server::listen_to_client(int socket)
 }
 
 /*
- *
+ * Takes in the message sent from the client,  figures out what
+ * the message is, and call the correct function associated with
+ * that message.
  */
 void spreadsheet_server::process_request(int socket, std::string input, bool * registered)
 {	
@@ -295,7 +299,9 @@ void spreadsheet_server::process_request(int socket, std::string input, bool * r
 }
 
 /*
- *
+ * As long as the specified user (index 1 of the vector) is a registered user, 
+ * allow them to connect, open the specified spreadsheet (index 2) and associate
+ * the user with the spreadsheet graph so they can do things to it.
  */
 void spreadsheet_server::process_connect(int socket, std::vector<std::string> v, bool * registered)
 {
@@ -306,6 +312,9 @@ void spreadsheet_server::process_connect(int socket, std::vector<std::string> v,
       return;
     }  
 
+    // This flag is used in other functions to make sure that 
+    // a socket trying to make changes has been approved to 
+    // make changes.
     *registered = true;
 
     // if not found, make new spreadv[0] == "connect"sheet
@@ -314,7 +323,6 @@ void spreadsheet_server::process_connect(int socket, std::vector<std::string> v,
       std::cout << "New spreadsheet made with name " + v.at(2) << std::endl;
       // Make a new spreadsheet, add it to servers current spreadsheets
       (*spreadsheets)[v.at(2)] = new spreadsheet_graph();
-
       std::vector<int> new_vector; 
       (*spreadsheet_clients)[v.at(2)] = new_vector;
     }
@@ -322,10 +330,13 @@ void spreadsheet_server::process_connect(int socket, std::vector<std::string> v,
     // Add the new client's socket to the associated spreadsheet_clients list
     (*spreadsheet_clients)[v.at(2)].push_back(socket);
        
+    // Add the socket to the spreadsheet_graph -> socket list.
     (*socket_spreadsheet)[socket] = v.at(2);
 
-    // Send updated spreadsheet to connecting client via cell messages
+    // Echo to the client that they are connected
     send_message(socket, "connected " + int_to_string((*spreadsheets)[v.at(2)]->size()));
+    
+    // Send all non-empty cell information to the new socket.
     std::map<std::string, std::string> cells_to_send = (*spreadsheets)[v.at(2)]->get_cells();
     std::map<std::string, std::string>::iterator it;
     for(it = cells_to_send.begin(); it != cells_to_send.end(); it++)
@@ -336,7 +347,8 @@ void spreadsheet_server::process_connect(int socket, std::vector<std::string> v,
 }
 
 /*
- *
+ * Add the newly registered user to the list of registered users
+ * if they are not already on the list. Otherwise send an error.
  */
 void spreadsheet_server::process_register(int socket, std::vector<std::string> v)
 {
@@ -345,12 +357,19 @@ void spreadsheet_server::process_register(int socket, std::vector<std::string> v
       (*users).push_back(v.at(1));
       std::cout << "registered new user " + v.at(1) << std::endl;
     }
-    else
-      send_message(socket, "error 4 " + v[1]);
+  else
+  {
+    std::cout << "error 4 sent" << std::endl;
+    send_message(socket, "error 4 " + v.at(1));
+  }
 }
 
 /*
- *
+ * Update the spreadsheet according to the cell name and cell value
+ * that are the first and second indices of the vector parameter. 
+ * Updating the spreadsheet involves editing the underlying spreadsheet
+ * structure and sending the cell update message to all clients associated
+ * with the spreadsheet.
  */
 void spreadsheet_server::process_cell(int socket, std::vector<std::string> v, std::string input)
 {
@@ -358,39 +377,58 @@ void spreadsheet_server::process_cell(int socket, std::vector<std::string> v, st
   std::string sheet_name = (*socket_spreadsheet)[socket];
   if((*spreadsheets)[sheet_name]->add(v.at(1), v.at(2)))
   {
-    std::cout << "sending updated cell value to all clients " + v.at(1) + " " + v.at(2) << std::endl;
+    //std::cout << "sending updated cell value to all clients " + v.at(1) + " " + v.at(2) << std::endl;
+    
     // iterate through all of the clients and send new cell value
     for(socket_list::iterator iterator = (*spreadsheet_clients)[sheet_name].begin();
       iterator != (*spreadsheet_clients)[sheet_name].end(); iterator++)
         send_message(*iterator, input); 
   }
+  // If add returns false, there was a circular dependency.
   else
     send_message(socket, "error 1 CD");
 }
 
+/*
+ * Processes the undo command by updating the underlying "undo" and "spreadsheet"
+ * structures, and sending the cell that needs to be set by the undo to all 
+ * clients associated with the same spreadsheet as the client who undid.
+ */
 void spreadsheet_server::process_undo(int socket, std::vector<std::string> v)
 {
+  // Find the spreadsheet name associated with this socket
   std::string sheet_name = (*socket_spreadsheet)[socket];
+
+  // Get the cell command that needs to be sent to all clients
   std::string undo = (*spreadsheets)[(*socket_spreadsheet)[socket]]->undo();
+
+  // Iterate through all clients associated with the spreadsheet and 
+  // send them the cell update message.
   for(socket_list::iterator iterator = (*spreadsheet_clients)[sheet_name].begin();
     iterator != (*spreadsheet_clients)[sheet_name].end(); iterator++)
       send_message(*iterator, undo);
 }
 
 /*
- *
+ * Send a specified string over the specified socket with 
+ * a newline character appended to the end.
  */
 void spreadsheet_server::send_message(int socket, std::string temp)
 {
+  // Allocate enough space in the char array for the string + \n
 	char * cstr = new char[temp.length() + 1];
 	std::strcpy (cstr, temp.c_str());
 	cstr[temp.length()] = '\n';
-  //std::cout << cstr;
+
 	send(socket, cstr, (temp.length() + 1), 0);
 }
 
 /*
- *
+ * Splits a string depending on its spaces. If there are no spaces,
+ * returns the same single string in the vector. If there is one space,
+ * returns two strings separated by that space in the vector. If there 
+ * are two spaces or more, returns the string split up into three strings
+ * divided by the first and second spaces. All remaining spaces are ignored.
  */
 std::vector<std::string> spreadsheet_server::parse_command(std::string input)
 {
@@ -411,10 +449,13 @@ std::vector<std::string> spreadsheet_server::parse_command(std::string input)
       }
   }
 
-  // Probably undo
+  // If there were no spaces, simply put the string back
+  // in the vector as one.
   if (!first_space && !second_space)
     result.push_back(input);
-  // Probably Register User
+
+  // If there was only one space, put the two space-separated
+  // strings into the vector
   else if(!second_space)
   { 
     std::string first_one = input.substr(0, first_space);
@@ -422,6 +463,8 @@ std::vector<std::string> spreadsheet_server::parse_command(std::string input)
     result.push_back(first_one);
     result.push_back(second_one);
   }
+  // If there were two spaces, put the three first-and-second-space
+  // separated strings into the vector.
   else if(first_space && second_space)
   {
     result.push_back(input.substr(0, first_space));
