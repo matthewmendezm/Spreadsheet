@@ -357,8 +357,11 @@ void spreadsheet_server::process_register(int socket, std::vector<std::string> v
       (*users).push_back(v.at(1));
       std::cout << "registered new user " + v.at(1) << std::endl;
     }
-    else
-      send_message(socket, "error 4 " + v[1]);
+  else
+  {
+    std::cout << "error 4 sent" << std::endl;
+    send_message(socket, "error 4 " + v.at(1));
+  }
 }
 
 /*

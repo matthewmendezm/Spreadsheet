@@ -8,6 +8,9 @@ user scott
 user scart
 user Ren
 user HENRY
+user Hoover
+user Taylor\n
+user 
 spreadsheet MangoSheet
 cell A1 hello
 cell A12 555555555555555555555555555
@@ -306,3 +309,6 @@ cell S28 1
 cell T16 1
 cell U31 1
 cell U33 11
+spreadsheet New
+cell A1 50
+spreadsheet New\n
