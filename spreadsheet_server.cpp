@@ -1,16 +1,53 @@
+/* 
+ * Spreadsheet server project was made in collaboration for CS 3505 Spring 2015
+ *
+ * Team Name: The Mangos
+ *
+ * Names:     Scott Wells
+ *            Taylor Morris
+ *            Matthew Mendez
+ *            Jace Bleazard
+ */
+
 #include "spreadsheet_server.h"
+
+// helper function for socket connection purposes
 void *get_in_addr(struct sockaddr *sa);
+// private helper function for ease of use of strings in C
 std::string int_to_string(int a);
 
 // Global spreadsheet instance. Okay since there will only be one spreadsheet
 // object created when the program is run.
 spreadsheet_server * server = new spreadsheet_server();
 
+/*
+ * Main function creates and runs this spreadsheet server
+ */
 int main(int argc, char const *argv[])
 {
+  // Default port 2112
+  int port = 2112;
+
+  if(argc > 2)
+  {
+    std::cout << "Error. There can either be 1 or 0 arguments for spreadsheet server (to define a port to use)." << std::endl;
+    return 1;
+  }
+
+  // When given a parameter, use as port number
+  if(argc == 2)
+  {
+    port = atoi(argv[1]);
+    // check range, error if invalid
+    if (port < 2112 || port > 2120)
+    {
+      std::cout << "Port number must be in range [2112, 2120]. Program terminated." << std::endl;
+      return 1;
+    }
+  }
   // Simply kick off the server listening for connections (the servers main running state). 
   std::cout << "Spreadsheet server created" << std::endl;
-  server->listen_for_connections();
+  server->listen_for_connections(int_to_string(port));
   return 0;
 }
 
@@ -149,23 +186,22 @@ void spreadsheet_server::open()
  * When a connection is made, the a new thread is made to listen
  * for messages from the client over the socket.  
  */
-void spreadsheet_server::listen_for_connections()
+void spreadsheet_server::listen_for_connections(std::string port)
 {
-  int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
-  struct addrinfo hints, *servinfo, *p;
-  struct sockaddr_storage client_addr; // connector's address information
+  int sockfd, new_fd;                   // listen on sock_fd, new connection on new_fd
+  struct addrinfo hints, *servinfo, *p; // hints used for connection flexibility
+  struct sockaddr_storage client_addr;  // connector's address information
   socklen_t sin_size;
-  struct sigaction sa;
   int yes=1;
   char s[INET6_ADDRSTRLEN];
   int rv;
 
-  memset(&hints, 0, sizeof hints);
+  memset(&hints, 0, sizeof hints); // allocate memory for hints
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE; // use my IP
 
-  if ((rv = getaddrinfo(NULL, "2112", &hints, &servinfo)) != 0) {
+  if ((rv = getaddrinfo(NULL, port.c_str(), &hints, &servinfo)) != 0) {
       fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
       return;
   }
@@ -193,6 +229,7 @@ void spreadsheet_server::listen_for_connections()
       break;
   }
 
+  // if something went wrong when trying to use the port, print error and return
   if (p == NULL)  {
       fprintf(stderr, "server: failed to bind\n");
       return;
@@ -207,7 +244,7 @@ void spreadsheet_server::listen_for_connections()
 
   printf("Waiting for connection from clients...\n");
 
-   // main accept() loop //put while loop back HERE
+   // Main listening thread! (for new connections)
   while(true)
   {
   	
@@ -238,7 +275,8 @@ void spreadsheet_server::listen_for_connections()
 }
 
 /*
- * 
+ * Helper method to determine what protocol (ipv4 or ipv6) the client is using for communication
+ * (used with inet_ntop method)
  */
 void *get_in_addr(struct sockaddr *sa)
 {
@@ -250,20 +288,24 @@ void *get_in_addr(struct sockaddr *sa)
 }
 
 /*
- *
+ * Continually listens and reads in messages from clients on the given socket.
+ * Once a new line character is detected, the request is processed and sent
+ * off to be interpreted in process_request. This method also detects when
+ * a client has disconnected, and saves the spreadsheet accordingly.
  */ 
 void spreadsheet_server::listen_to_client(int socket)
 {
-  bool registered = false;
+  bool registered = false;  // Bool used for authentication flag for this socket.
 	std::string temp = "";
-  int received;
+  int received;             // How much data has come through on the socket.
 	while(1)
 	{
   		char msg[1];
-  		received = recv(socket, msg, 1, 0);
-      if(received < 1)
+  		received = recv(socket, msg, 1, 0); // Recieve and process one byte at a time
+      if(received < 1) // Something went wrong (most likely client disconnect)
         break;
 
+      // new line character found, process the message
   		if(msg[0] == '\n')
   		{
   			process_request(socket, temp, &registered);
@@ -272,10 +314,12 @@ void spreadsheet_server::listen_to_client(int socket)
   		else
   			temp += msg[0];
 	}		
-  	close(socket);
-    std::cout << "client disconnected" << std::endl;
-    server->save();
-    pthread_exit(NULL);
+
+  // Client has disconnected at this point!
+	close(socket);
+  std::cout << "client disconnected" << std::endl;
+  server->save();     // Save the spreadsheet data
+  pthread_exit(NULL); // Kill this thread
 }
 
 /*

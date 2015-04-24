@@ -1,3 +1,15 @@
+/* 
+ * Spreadsheet graph was made in collaboration for the Spreadsheet project
+ * for CS 3505 Spring 2015
+ *
+ * Team Name: The Mangos
+ *
+ * Names:     Scott Wells
+ *            Taylor Morris
+ *            Matthew Mendez
+ *            Jace Bleazard
+ */
+
 #include "spreadsheet_graph.h"
 
 // Empty constructor & default constructor is fine.

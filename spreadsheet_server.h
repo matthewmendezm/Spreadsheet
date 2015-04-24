@@ -1,5 +1,14 @@
-// SpreadsheetServer.h 
-// Test Edit
+/* Spreadsheet_server.h -- header file for spreadsheet_server.cpp
+ *
+ * Team Name:		The Mangos
+ *
+ * Team Members:	Scott Wells
+ *					Taylor Morris
+ *					Matthew Mendez
+ *					Jace Bleazard
+ *
+ * Date: 			April 23, 2015
+ */
 #ifndef SPREADSHEET_SERVER_H
 #define SPREADSHEET_SERVER_H
 
@@ -39,7 +48,7 @@ class spreadsheet_server
 {
 	public:
 		spreadsheet_server();
-		void listen_for_connections();
+		void listen_for_connections(std::string port);
 		void listen_to_client(int socket);
 		void send_message(int socket, std::string s);
 		~spreadsheet_server();
