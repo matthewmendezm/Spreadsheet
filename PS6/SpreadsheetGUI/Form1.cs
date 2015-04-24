@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -55,9 +54,6 @@ namespace SS
             this.Width += 2;
 
             this.Text = "Mangosheets Online";
-
-            //saveToolStripMenuItem.Enabled = false;
-            //saveToolStripMenuItem1.Enabled = false;
 
             closeConnectionToolStripMenuItem.Enabled = false;
             sendMessageToolStripMenuItem.Enabled = false;
@@ -284,8 +280,6 @@ namespace SS
             {
                 currentSheet.Save(currentFilePath);
                 statusLabel.Text = "Saved!";
-                //saveToolStripMenuItem.Enabled = false;
-                //saveToolStripMenuItem1.Enabled = false;
             }
         }
 
@@ -310,9 +304,6 @@ namespace SS
                 file = file.Substring(subInd + 1);
             }
             this.Text = file + " - Mangosheets Online";
-
-            //saveToolStripMenuItem.Enabled = false;
-            //saveToolStripMenuItem1.Enabled = false;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -371,8 +362,6 @@ namespace SS
                 }
                 finally
                 {
-                    //textBoxCellContents.Text = currentSheet.GetCellContents(selectedCell).ToString();
-
                     if (hasError)
                     {
                         BackItem tempItem = backActions.Pop();
@@ -385,9 +374,6 @@ namespace SS
                             textBoxCellContents.Text = "=" + textBoxCellContents.Text;
                             textBoxCellValue.Text = "error";
                         }));
-
-                        //textBoxCellContents.Text = "=" + textBoxCellContents.Text;
-                        //textBoxCellValue.Text = "error";
                     }
                 }
 

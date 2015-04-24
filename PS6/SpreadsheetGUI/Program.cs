@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SS
@@ -33,7 +30,6 @@ namespace SS
                 appContext.RunForm(new SpreadsheetGUI());
                 Application.Run(appContext);
             }
-
             catch (Exception)
             {
                 // Do nothing

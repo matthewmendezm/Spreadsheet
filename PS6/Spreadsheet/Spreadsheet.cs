@@ -1,12 +1,7 @@
 ﻿using SpreadsheetUtilities;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace SS
@@ -276,27 +271,20 @@ namespace SS
         /// <param name="name">the cell to get the value from</param>
         /// <returns>returns the value of the cell</returns>
         public override object GetCellValue(String name)
-        {            
+        {
             if (Regex.IsMatch(name, "(^[a-zA-Z]+[0-9]+$)") && IsValid(Normalize(name)) == true)
             {
                 name = Normalize(name);
                 Cell cellAtKey;
                 if (CellSet.TryGetValue(name, out cellAtKey))
-                {
                     return cellAtKey.CellValue;
-                }
                 else
-                {
-                    string empty = "";
-                    return empty;
-                }
+                    return "";
             }
             else
             {
                 throw new InvalidNameException();
             }
-                  
-            
         }
 
         /// <summary>
@@ -306,9 +294,7 @@ namespace SS
         public override IEnumerable<String> GetNamesOfAllNonemptyCells()
         {
             foreach (KeyValuePair<string, Cell> kvp in CellSet)
-            {
                 yield return kvp.Key;
-            }
         }
 
         /// <summary>
@@ -332,8 +318,7 @@ namespace SS
                 }
                 else
                 {
-                    string empty = "";
-                    return empty;
+                    return "";
                 }
             }
             else
@@ -444,22 +429,15 @@ namespace SS
         /// <returns>the double for the variable</returns>
         protected double getVar(String var)
         {
-            //try
-            //{
-                if (Regex.IsMatch(var, "(^[a-zA-Z]+[0-9]*$)") || IsValid(Normalize(var)) == true)
+            if (Regex.IsMatch(var, "(^[a-zA-Z]+[0-9]*$)") || IsValid(Normalize(var)) == true)
+            {
+                var = Normalize(var);
+                Cell cellAtKey;
+                if (CellSet.TryGetValue(var, out cellAtKey))
                 {
-                    var = Normalize(var);
-                    Cell cellAtKey;
-                    if (CellSet.TryGetValue(var, out cellAtKey))
+                    if (cellAtKey.CellValue is double)
                     {
-                        if (cellAtKey.CellValue is double)
-                        {
-                            return (double)cellAtKey.CellValue;
-                        }
-                        else
-                        {
-                            throw new ArgumentException();//"var not here", "exp");
-                        }
+                        return (double)cellAtKey.CellValue;
                     }
                     else
                     {
@@ -468,13 +446,13 @@ namespace SS
                 }
                 else
                 {
-                    throw new ArgumentException();//"invalid var", "exp");
+                    throw new ArgumentException();//"var not here", "exp");
                 }
-           //}
-           //catch (ArgumentException)
-            //{
-            //    return 0;
-            //}
+            }
+            else
+            {
+                throw new ArgumentException();//"invalid var", "exp");
+            }
         }
 
         /// <summary>
