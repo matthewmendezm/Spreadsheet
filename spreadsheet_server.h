@@ -52,9 +52,9 @@ class spreadsheet_server
 		void listen_to_client(int socket);
 		void send_message(int socket, std::string s);
 		~spreadsheet_server();
+		void save();
 
 	private:
-		void save();
 		void open();
 		void process_request(int socket, std::string input, bool * registered);
 		void process_connect(int socket, std::vector<std::string> v, bool * registered);

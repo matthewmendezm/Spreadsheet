@@ -10,7 +10,6 @@
  */
 
 #include "spreadsheet_server.h"
-
 // helper function for socket connection purposes
 void *get_in_addr(struct sockaddr *sa);
 // private helper function for ease of use of strings in C
@@ -64,6 +63,21 @@ void *thread_init(void * arg)
 
   // Begin listening to messages from the new client on the new thread.
   server->listen_to_client(*socket);
+}
+
+void *server_end(void * arg)
+{
+  std::string input;
+  while(1)
+  {
+    std::cin >> input;
+    if (input == "kill")
+    {
+      server->save();
+      exit(0);
+    }
+  }
+  
 }
 
 /*
@@ -244,6 +258,17 @@ void spreadsheet_server::listen_for_connections(std::string port)
 
   printf("Waiting for connection from clients...\n");
 
+  pthread_t end_thread;
+  int end;
+  int endint = 1;
+  end = pthread_create(&end_thread, NULL, &server_end, &endint);
+  if(end != 0) 
+    { 
+      printf("Error creating new pthread\n"); 
+      exit(EXIT_FAILURE); 
+    } 
+
+
    // Main listening thread! (for new connections)
   while(true)
   {
@@ -295,7 +320,7 @@ void *get_in_addr(struct sockaddr *sa)
  */ 
 void spreadsheet_server::listen_to_client(int socket)
 {
-  bool registered = false;  // Bool used for authentication flag for this socket.
+  bool registered = false;  // Bool used for authentication flag for this sockeerver_end’ was not t.
 	std::string temp = "";
   int received;             // How much data has come through on the socket.
 	while(1)
@@ -385,7 +410,7 @@ void spreadsheet_server::process_connect(int socket, std::vector<std::string> v,
     std::map<std::string, std::string>::iterator it;
     for(it = cells_to_send.begin(); it != cells_to_send.end(); it++)
     {
-      std::cout << "sending cell " + it->first + " " + it->second << std::endl;
+      //std::cout << "sending cell " + it->first + " " + it->second << std::endl;
       send_message(socket, "cell " + it->first + " " + it->second);
     }
 }
