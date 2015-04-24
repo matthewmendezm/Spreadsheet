@@ -1,4 +1,10 @@
-﻿using SpreadsheetUtilities;
+﻿/*
+ * Modified from CS 3500 spreadsheet to be multi user.
+ * 
+ * Author: Matthew Mendez, Jase Bleazard, Taylor Morris, Scott Wells.
+ */
+
+using SpreadsheetUtilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

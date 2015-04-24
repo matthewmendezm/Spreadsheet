@@ -1,4 +1,9 @@
-﻿using CustomNetworking;
+﻿/*
+ * Modified from CS 3500 spreadsheet to be multi user.
+ * 
+ * Author: Matthew Mendez, Jase Bleazard, Taylor Morris, Scott Wells.
+ */
+using CustomNetworking;
 using System;
 using System.Net.Sockets;
 using System.Text;
