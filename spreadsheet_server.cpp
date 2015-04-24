@@ -76,8 +76,7 @@ void *server_end(void * arg)
       server->save();
       exit(0);
     }
-  }
-  
+  } 
 }
 
 /*
