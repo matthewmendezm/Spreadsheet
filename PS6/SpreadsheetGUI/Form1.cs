@@ -59,7 +59,6 @@ namespace SS
             //saveToolStripMenuItem.Enabled = false;
             //saveToolStripMenuItem1.Enabled = false;
 
-            
             closeConnectionToolStripMenuItem.Enabled = false;
             sendMessageToolStripMenuItem.Enabled = false;
         }
@@ -89,7 +88,6 @@ namespace SS
             else if (obj[0] == "1")
             {
                 statusLabel.Invoke(new Action(() => { statusLabel.Text = "Current formula results in a circular dependency, no changes made"; }));
-                //MessageBox.Show("Current formula results in a circular dependency, no changes made", "Mangosheets On-line", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 if (currentSheet.GetCellContents(selectedCell) is FormulaFixed)
                 {
@@ -106,7 +104,7 @@ namespace SS
             }
             else if (obj[0] == "4")
             {
-                // our authentication method intentionaly causes this error, we ignore it.
+                // our authentication method intentional causes this error, we ignore it.
             }
         }
 
@@ -121,8 +119,6 @@ namespace SS
                 textBoxCellContents.Enabled = true;
                 backToolStripMenuItem.Enabled = true;
             }));
-            //statusLabel.Invoke(new Action(() => { statusLabel.Text = "Connected"; }));
-            //displaySelection(spreadsheetPanel1);
         }
 
         private void CellReceived(string[] obj)
@@ -131,23 +127,6 @@ namespace SS
             {
                 updateNewCell(obj[0], obj[1]);
             }));
-
-            //updateNewCell(obj[0], obj[1]);
-
-            /*
-            // Capture the first character of the cell name and convert it to a 0 indexed integer equivalent
-            string temp = obj[0].Substring(0, 1);
-            char column = char.Parse(temp);
-            int col = char.ToUpper(column) - 65;//index == 0
-
-            // Capture the rest of the cell name (could be a one or two digit number)
-            temp = obj[0].Substring(1);
-            int row = int.Parse(temp);
-            row--; // 0 index the row number.
-
-            //spreadsheetPanel1.SetValue(col, row, obj);
-            spreadsheetPanel1.Invoke(new Action(() => { spreadsheetPanel1.SetValue(col, row, obj[1]); }));
-             */
         }
 
         /// <summary>
@@ -171,23 +150,6 @@ namespace SS
 
             foreach (string cellName in currentSheet.GetNamesOfAllNonemptyCells())
             {
-                //string colLetter = cellName.Substring(1, 1);
-                /*
-                string letter = cellName.Substring(0, 1);
-                string number = cellName.Substring(1);
-                int col = (int)Enum.Parse(typeof(columns), letter);
-                int row = 0;
-                try
-                {
-                    row = Convert.ToInt32(number);
-                }
-                catch (FormatException e)
-                {
-                }
-
-                row -= 1;
-                spreadsheetPanel1.SetValue(col, row, currentSheet.GetCellValue(cellName).ToString());
-                */
                 updateSpreadValues(cellName);
             }
 
@@ -200,6 +162,7 @@ namespace SS
             textBoxCellContents.Text = currentSheet.GetCellContents(selectedCell).ToString();
 
             int subInd = filePath.LastIndexOf(@"\");
+
             if (subInd >= 0)
             {
                 filePath = filePath.Substring(subInd + 1);
@@ -299,12 +262,6 @@ namespace SS
             if (dialog == DialogResult.OK)
             {
                 string file = openFileDialog1.FileName;
-                try
-                {
-                }
-                catch (IOException)
-                {
-                }
 
                 SpreadsheetApplicationContext.getAppContext().RunForm(new SpreadsheetGUI(file));
                 statusLabel.Text = "Opened spreadsheet at " + file + " in new window";
@@ -392,13 +349,8 @@ namespace SS
 
                 backActions.Push(new BackItem(selectedCell, currentSheet.GetCellValue(selectedCell).ToString()));
 
-                //FOR SPREADSHEET SERVER PROJECT
-                //FOR SPREADSHEET SERVER PROJECT
-                //FOR SPREADSHEET SERVER PROJECT
-                //FOR SPREADSHEET SERVER PROJECT
-                //string temp = currentSheet.GetCellValue(selectedCell).ToString();
-
                 bool hasError = false;
+
                 try
                 {
                     this.Invoke(new Action(() =>
@@ -407,42 +359,16 @@ namespace SS
                         BackItem tempItem = backActions.Pop();
                         updateNewCell(tempItem.name, tempItem.value);
                     }));
-                    //updateNewCell(selectedCell, textBoxCellContents.Text);
-
-                    //BackItem tempItem = backActions.Pop();
-
-                    //updateNewCell(tempItem.name, tempItem.value);
-
-                    //int row = getRow(selectedCell);
-                    //int col = getCol(selectedCell);
-
-                    //if (e.KeyCode == Keys.Tab)
-                    //{
-                    //    selectedCell = Enum.GetName(typeof(columns), col) + row;
-                    //}
-                    //else
-                    //{
-                    //    selectedCell = Enum.GetName(typeof(columns), col) + row;
-                    //}
-
-                    //spreadsheetPanel1.SetSelection(col, row);
-                    
                 }
                 catch (FormulaFormatException)
                 {
                     statusLabel.Invoke(new Action(() => { statusLabel.Text = "Incorrectly formatted formula, no changes made"; }));
-                    //MessageBox.Show("You have put in bad data for a formula, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     hasError = true;
                 }
                 catch (ArgumentException)
                 {
                 }
-                /*
-            catch (CircularException ce)
-            {
-                MessageBox.Show("Setting this as the formula would result in a circular dependancy, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-                 */
                 finally
                 {
                     //textBoxCellContents.Text = currentSheet.GetCellContents(selectedCell).ToString();
@@ -550,7 +476,7 @@ namespace SS
             else
             {
                 spreadsheetPanel1.SetValue(col, row, currentSheet.GetCellValue(cellName).ToString());
-            }            
+            }
         }
 
         /// <summary>
@@ -560,15 +486,6 @@ namespace SS
         /// <param name="e"></param>
         private void SpreadsheetGUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            /*
-            if (currentSheet.Changed && closed != true)
-            {
-                if (MessageBox.Show("Are you sure you want to close? All unsaved changes will be lost! Oh no!", "Mangosheets Online", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
-             */
         }
 
         /// <summary>
@@ -611,41 +528,14 @@ namespace SS
             // send an undo message to the server.
             string message = "undo";
             controller.SendMessage(message);
-
-            /*
-            BackItem tempItem = backActions.Pop();
-
-            updateNewCell(tempItem.name, tempItem.value);
-
-            textBoxCellContents.Text = currentSheet.GetCellContents(selectedCell).ToString();
-
-            if (backActions.Count < 1)
-            {
-                backToolStripMenuItem.Enabled = false;
-            }
-             */
         }
 
         private void updateNewCell(string cellName, string newValue)
         {
-            //try
-            //{
             foreach (string cell in currentSheet.SetContentsOfCell(cellName, newValue))
             {
                 updateSpreadValues(cell);
             }
-
-            //}
-
-            //catch (Exception)
-            //{
-            //textBoxCellValue.Invoke(new Action(() => { textBoxCellValue.Text = "Dependant cells have wrong format"; }));
-            //}
-
-            // probably delete this
-            //spreadsheetPanel1.Invoke(new Action(() => { spreadsheetPanel1.SetValue(selectedCol, selectedRow, currentSheet.GetCellValue(selectedCell).ToString()); }));
-
-            //textBoxCellValue.Invoke(new Action(() => { textBoxCellValue.Text = currentSheet.GetCellValue(selectedCell).ToString(); }));
 
             // this is in the right place
             if (currentSheet.GetCellValue(selectedCell) is FormulaError)
@@ -654,9 +544,6 @@ namespace SS
             }
 
             statusLabel.Invoke(new Action(() => { statusLabel.Text = "Set cell " + selectedCell + " to " + textBoxCellContents.Text; }));
-
-            //saveToolStripMenuItem.Enabled = true;
-            //saveToolStripMenuItem1.Enabled = true;
         }
 
         private void SpreadsheetGUI_Load(object sender, EventArgs e)
