@@ -57,6 +57,7 @@
             this.Controls.Add(this.SendMessageButton);
             this.Controls.Add(this.sendMessageTextbox);
             this.Name = "SendDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SendDialog";
             this.ResumeLayout(false);
             this.PerformLayout();

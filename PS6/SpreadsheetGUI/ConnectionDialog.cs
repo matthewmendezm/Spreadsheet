@@ -23,6 +23,7 @@ namespace SS
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
+            labelConnectionError.Text = "";
             int port;
             string host = textBoxHost.Text;
 
@@ -34,7 +35,29 @@ namespace SS
             string userName = textBoxUserName.Text;
             string spreadsheetName = textBoxSpreadsheetName.Text;
 
-            controller.Connect(host, "sysadmin", spreadsheetName, port);
+            if (userName == "" || spreadsheetName == "")
+            {
+                labelConnectionError.Text = "Must provide user name and spreadsheet name";
+                return;
+            }
+
+            if (userName.Contains(" ") || spreadsheetName.Contains(" "))
+            {
+                labelConnectionError.Text = "User name and spreadsheet name may not contain spaces";
+                return;
+            }
+
+            try
+            {
+                controller.Connect(host, "sysadmin", spreadsheetName, port);
+            }
+            catch (Exception)
+            {
+                // print an error message
+                labelConnectionError.Text = "Cannot connect to server";
+                controller.connected = false;
+                return;
+            }
 
             System.Threading.Thread.Sleep(100);
 

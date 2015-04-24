@@ -302,6 +302,11 @@
             Provides a way for the spreadsheet client to communicate with the server
             </summary>
         </member>
+        <member name="F:SS.Controller.connected">
+            <summary>
+            this is a bool
+            </summary>
+        </member>
         <member name="M:SS.Controller.#ctor">
             <summary>
             Constructor
@@ -326,6 +331,11 @@
         <member name="M:SS.Controller.Disconnect">
             <summary>
             Helper method used to disconnect clients under any condition that ends the game
+            </summary>
+        </member>
+        <member name="E:SS.Controller.IncomingCellEvent">
+            <summary>
+            message to update a cell has been received
             </summary>
         </member>
         <member name="E:SS.Controller.IncomingErrorEvent">

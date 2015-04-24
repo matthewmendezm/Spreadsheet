@@ -12,16 +12,19 @@ namespace SS
     /// Provides a way for the spreadsheet client to communicate with the server
     /// </summary>
     public class Controller
-    {
-        //bool connected = false;
+    {   
+        /// <summary>
+        /// this is a bool
+        /// </summary>
+        public bool connected = false;
 
         // The socket used to communicate with the server
         private StringSocket socket;
 
         // This is when we receive a message for the messenger
-        // <summary>
-        // message to update a cell has been received
-        // </summary>
+        /// <summary>
+        /// message to update a cell has been received
+        /// </summary>
         public event Action<String[]> IncomingCellEvent;
 
         /// <summary>
@@ -32,12 +35,15 @@ namespace SS
         /// <summary>
         /// confirmation of connection to server
         /// </summary>
-        public event Action<String> IncomingConnectionEvent;
+        public event Action<String[]> IncomingConnectionEvent;
 
         /// <summary>
         /// Used for informing the client that we have disconnected
         /// </summary>
         public event Action<String> IncomingDisconnectEvent;
+
+        private string spreadsheetName;
+        private string userName;
 
         /// <summary>
         /// Constructor
@@ -56,15 +62,18 @@ namespace SS
         /// <param name="port">Connection port</param>
         public void Connect(string hostname, String name, String sheetName, int port = 2000)
         {
-            try
-            {
+            //try
+            //{
                 TcpClient client = new TcpClient(hostname, port);
                 socket = new StringSocket(client.Client, ASCIIEncoding.Default);
                 socket.BeginSend("connect " + name + " " + sheetName + "\n", (e, p) => { socket.BeginReceive(LineReceived, null); }, null);
-            }
-            catch (Exception)
-            {
-            }
+                spreadsheetName = sheetName;
+                userName = name;
+            //}
+            //catch (Exception)
+            //{
+
+            //}
         }
 
         private void LineReceived(string s, Exception e, object payload)
@@ -112,9 +121,12 @@ namespace SS
                 {
                     temp = s.Substring(10);
                     temp = temp.Trim();
-                    String subString = temp;
+                    String[] subString = new String[3];
+                    subString[0] = temp;
+                    subString[1] = spreadsheetName;
+                    subString[2] = userName;
                     IncomingConnectionEvent(subString);
-                    //connected = true;
+                    connected = true;
                 }
             }
             else if (s.StartsWith("error", true, null))
@@ -161,7 +173,7 @@ namespace SS
         {
             socket.Close();
             IncomingDisconnectEvent("");
-            //connected = false;
+            connected = false;
         }
     }
 }

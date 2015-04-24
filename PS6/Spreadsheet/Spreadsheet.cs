@@ -276,7 +276,7 @@ namespace SS
         /// <param name="name">the cell to get the value from</param>
         /// <returns>returns the value of the cell</returns>
         public override object GetCellValue(String name)
-        {
+        {            
             if (Regex.IsMatch(name, "(^[a-zA-Z]+[0-9]+$)") && IsValid(Normalize(name)) == true)
             {
                 name = Normalize(name);
@@ -295,6 +295,8 @@ namespace SS
             {
                 throw new InvalidNameException();
             }
+                  
+            
         }
 
         /// <summary>

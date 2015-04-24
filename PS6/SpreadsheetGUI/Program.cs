@@ -18,9 +18,26 @@ namespace SS
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Start an application context and run one form inside it
-            SpreadsheetApplicationContext appContext = SpreadsheetApplicationContext.getAppContext();
-            appContext.RunForm(new SpreadsheetGUI());
-            Application.Run(appContext);
+            //SpreadsheetApplicationContext appContext = SpreadsheetApplicationContext.getAppContext();
+            //appContext.RunForm(new SpreadsheetGUI());
+            //Application.Run(appContext);
+
+            helperMain();
+        }
+
+        private static void helperMain()
+        {
+            try
+            {
+                SpreadsheetApplicationContext appContext = SpreadsheetApplicationContext.getAppContext();
+                appContext.RunForm(new SpreadsheetGUI());
+                Application.Run(appContext);
+            }
+
+            catch (Exception)
+            {
+                // Do nothing
+            }
         }
     }
 

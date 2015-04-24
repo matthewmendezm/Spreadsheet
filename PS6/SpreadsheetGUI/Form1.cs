@@ -54,12 +54,12 @@ namespace SS
 
             this.Width += 2;
 
-            this.Text = "New Spreadsheet - Mangosheets On-line";
+            this.Text = "Mangosheets Online";
 
             //saveToolStripMenuItem.Enabled = false;
             //saveToolStripMenuItem1.Enabled = false;
 
-            backToolStripMenuItem.Enabled = true;
+            
             closeConnectionToolStripMenuItem.Enabled = false;
             sendMessageToolStripMenuItem.Enabled = false;
         }
@@ -74,12 +74,19 @@ namespace SS
                 statusLabel.Text = "Disconnected";
                 closeConnectionToolStripMenuItem.Enabled = false;
                 sendMessageToolStripMenuItem.Enabled = false;
+                textBoxCellContents.Enabled = false;
+                this.Text = "Mangosheets Online";
+                backToolStripMenuItem.Enabled = false;
             }));
         }
 
         private void ErrorReceived(string[] obj)
         {
-            if (obj[0] == "1")
+            if (obj[0] == "0")
+            {
+                // Our client implementation does not send this error
+            }
+            else if (obj[0] == "1")
             {
                 statusLabel.Invoke(new Action(() => { statusLabel.Text = "Current formula results in a circular dependency, no changes made"; }));
                 //MessageBox.Show("Current formula results in a circular dependency, no changes made", "Mangosheets On-line", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -91,22 +98,28 @@ namespace SS
             }
             else if (obj[0] == "2")
             {
+                // Not possible to reach this state while using our client
             }
             else if (obj[0] == "3")
             {
+                // Not possible to reach this state while using our client
             }
             else if (obj[0] == "4")
             {
+                // our authentication method intentionaly causes this error, we ignore it.
             }
         }
 
-        private void ConnectionReceived(string obj)
+        private void ConnectionReceived(string[] obj)
         {
-            for (int i = 0; i < Int32.Parse(obj); i++) ;
+            for (int i = 0; i < Int32.Parse(obj[0]); i++) ;
             this.Invoke(new Action(() =>
             {
+                this.Text = obj[1] + " - " + obj[2] + " - Mangosheets Online";
                 closeConnectionToolStripMenuItem.Enabled = true;
                 sendMessageToolStripMenuItem.Enabled = true;
+                textBoxCellContents.Enabled = true;
+                backToolStripMenuItem.Enabled = true;
             }));
             //statusLabel.Invoke(new Action(() => { statusLabel.Text = "Connected"; }));
             //displaySelection(spreadsheetPanel1);
@@ -114,7 +127,13 @@ namespace SS
 
         private void CellReceived(string[] obj)
         {
-            updateNewCell(obj[0], obj[1]);
+            this.Invoke(new Action(() =>
+            {
+                updateNewCell(obj[0], obj[1]);
+            }));
+
+            //updateNewCell(obj[0], obj[1]);
+
             /*
             // Capture the first character of the cell name and convert it to a 0 indexed integer equivalent
             string temp = obj[0].Substring(0, 1);
@@ -147,7 +166,7 @@ namespace SS
             }
             catch (SpreadsheetReadWriteException)
             {
-                MessageBox.Show("This file could not be read correctly! It may be for an older version of Mangosheets On-line, or may have become corrupt. Continue at own risk!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This file could not be read correctly! It may be for an older version of Mangosheets Online, or may have become corrupt. Continue at own risk!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             foreach (string cellName in currentSheet.GetNamesOfAllNonemptyCells())
@@ -185,7 +204,7 @@ namespace SS
             {
                 filePath = filePath.Substring(subInd + 1);
             }
-            this.Text = filePath + " - Mangosheets On-line";
+            this.Text = "Mangosheets Online";
         }
 
         /// <summary>
@@ -333,7 +352,7 @@ namespace SS
             {
                 file = file.Substring(subInd + 1);
             }
-            this.Text = file + " - Mangosheets On-line";
+            this.Text = file + " - Mangosheets Online";
 
             //saveToolStripMenuItem.Enabled = false;
             //saveToolStripMenuItem1.Enabled = false;
@@ -382,11 +401,17 @@ namespace SS
                 bool hasError = false;
                 try
                 {
-                    updateNewCell(selectedCell, textBoxCellContents.Text);
+                    this.Invoke(new Action(() =>
+                    {
+                        updateNewCell(selectedCell, textBoxCellContents.Text);
+                        BackItem tempItem = backActions.Pop();
+                        updateNewCell(tempItem.name, tempItem.value);
+                    }));
+                    //updateNewCell(selectedCell, textBoxCellContents.Text);
 
-                    BackItem tempItem = backActions.Pop();
+                    //BackItem tempItem = backActions.Pop();
 
-                    updateNewCell(tempItem.name, tempItem.value);
+                    //updateNewCell(tempItem.name, tempItem.value);
 
                     //int row = getRow(selectedCell);
                     //int col = getCol(selectedCell);
@@ -401,10 +426,12 @@ namespace SS
                     //}
 
                     //spreadsheetPanel1.SetSelection(col, row);
+                    
                 }
                 catch (FormulaFormatException)
                 {
-                    MessageBox.Show("You have put in bad data for a formula, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    statusLabel.Invoke(new Action(() => { statusLabel.Text = "Incorrectly formatted formula, no changes made"; }));
+                    //MessageBox.Show("You have put in bad data for a formula, your changes have not been made!", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     hasError = true;
                 }
                 catch (ArgumentException)
@@ -427,7 +454,14 @@ namespace SS
 
                     if (currentSheet.GetCellContents(selectedCell) is FormulaFixed)
                     {
-                        textBoxCellContents.Text = "=" + textBoxCellContents.Text;
+                        this.Invoke(new Action(() =>
+                        {
+                            textBoxCellContents.Text = "=" + textBoxCellContents.Text;
+                            textBoxCellValue.Text = "error";
+                        }));
+
+                        //textBoxCellContents.Text = "=" + textBoxCellContents.Text;
+                        //textBoxCellValue.Text = "error";
                     }
                 }
 
@@ -508,7 +542,15 @@ namespace SS
             }
 
             row -= 1;
-            spreadsheetPanel1.SetValue(col, row, currentSheet.GetCellValue(cellName).ToString());
+
+            if (currentSheet.GetCellValue(cellName).ToString() == "SpreadsheetUtilities.FormulaError")
+            {
+                spreadsheetPanel1.SetValue(col, row, "##error##");
+            }
+            else
+            {
+                spreadsheetPanel1.SetValue(col, row, currentSheet.GetCellValue(cellName).ToString());
+            }            
         }
 
         /// <summary>
@@ -546,7 +588,7 @@ namespace SS
         /// <param name="e"></param>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This software was developed by Team Mangos for cs3505 at the University of Utah.", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("This software was developed by Team Mangos for CS 3505 Spring Semester 2015 at the University of Utah. \n \n Scott Wells, Taylor Morris, Matthew Mendez, and Jase Bleazard", "Mangosheets Online", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
@@ -652,6 +694,12 @@ namespace SS
         private void closeConnectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             controller.Disconnect();
+        }
+
+        private void sendMessageToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            SendDialog sendDialog = new SendDialog(controller);
+            sendDialog.ShowDialog();
         }
     }
 }
