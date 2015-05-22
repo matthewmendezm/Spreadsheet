@@ -70,6 +70,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.hELPToolStripMenuItem,
@@ -133,7 +134,7 @@
             this.backToolStripMenuItem.Enabled = false;
             this.backToolStripMenuItem.Image = global::SS.Properties.Resources.backicon;
             this.backToolStripMenuItem.Name = "backToolStripMenuItem";
-            this.backToolStripMenuItem.Size = new System.Drawing.Size(28, 24);
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(32, 24);
             this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1

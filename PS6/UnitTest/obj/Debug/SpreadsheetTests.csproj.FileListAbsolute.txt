@@ -65,3 +65,18 @@ X:\cs3505\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.xml
 X:\cs3505\PS6\UnitTest\obj\Debug\SpreadsheetTests.csprojResolveAssemblyReference.cache
 X:\cs3505\PS6\UnitTest\obj\Debug\UnitTest.dll
 X:\cs3505\PS6\UnitTest\obj\Debug\UnitTest.pdb
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\UnitTest.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\UnitTest.pdb
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\UnitTest.dll.CodeAnalysisLog.xml
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\UnitTest.dll.lastcodeanalysissucceeded
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\Formula.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\Spreadsheet.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\StringSocketOfficial.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\Spreadsheet.pdb
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\Spreadsheet.xml
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\Formula.xml
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\bin\Debug\SpreadsheetUtilities.xml
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\obj\Debug\SpreadsheetTests.csprojResolveAssemblyReference.cache
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\obj\Debug\UnitTest.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\UnitTest\obj\Debug\UnitTest.pdb

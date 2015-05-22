@@ -22,3 +22,10 @@ X:\cs3505\PS6\GUITest\bin\Debug\GUITest.pdb
 X:\cs3505\PS6\GUITest\obj\Debug\GUITest.csprojResolveAssemblyReference.cache
 X:\cs3505\PS6\GUITest\obj\Debug\GUITest.dll
 X:\cs3505\PS6\GUITest\obj\Debug\GUITest.pdb
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\GUITest\bin\Debug\GUITest.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\GUITest\bin\Debug\GUITest.pdb
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\GUITest\bin\Debug\GUITest.dll.CodeAnalysisLog.xml
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\GUITest\bin\Debug\GUITest.dll.lastcodeanalysissucceeded
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\GUITest\obj\Debug\GUITest.csprojResolveAssemblyReference.cache
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\GUITest\obj\Debug\GUITest.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\GUITest\obj\Debug\GUITest.pdb

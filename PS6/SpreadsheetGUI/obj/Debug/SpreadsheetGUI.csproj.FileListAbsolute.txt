@@ -165,3 +165,24 @@ X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csproj.GenerateResource.Ca
 X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.exe
 X:\cs3505\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.pdb
 X:\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\StringSocketOfficial.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe.config
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.exe
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.pdb
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.pdb
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Formula.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Spreadsheet.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetPanel.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\StringSocketOfficial.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Spreadsheet.pdb
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Spreadsheet.xml
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\Formula.xml
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetPanel.xml
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetUtilities.xml
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csprojResolveAssemblyReference.cache
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SS.ConnectionDialog.resources
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SS.SpreadsheetGUI.resources
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SS.Properties.Resources.resources
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SS.SendDialog.resources
+C:\Users\Jase\Documents\Visual Studio 2013\Projects\spreadsheet\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache

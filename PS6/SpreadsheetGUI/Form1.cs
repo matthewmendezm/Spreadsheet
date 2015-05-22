@@ -1,6 +1,6 @@
 ﻿/*
  * Modified from CS 3500 spreadsheet to be multi user.
- * 
+ *
  * Author: Matthew Mendez, Jase Bleazard, Taylor Morris, Scott Wells.
  */
 
@@ -322,7 +322,9 @@ namespace SS
                     return true;
 
                 case Keys.Tab:
-                    textBoxCellContents_KeyUp(new object(), new KeyEventArgs(Keys.Tab));
+                    textBoxCellContents_KeyUp(new object(), new KeyEventArgs(keyData));
+                    textBoxCellContents.Focus();
+                    keyData = Keys.Enter;
                     break;
 
                 default:
@@ -389,25 +391,21 @@ namespace SS
                     controller.SendMessage(message);
                 }
             }
-        }
 
-        private int getCol(string selectedCell)
-        {
-            // Capture the first character of the cell name and convert it to a 0 indexed integer equivalent
-            string temp = selectedCell.Substring(0, 1);
-            char column = char.Parse(temp);
-            int col = char.ToUpper(column) - 65;//index == 0
+            // Code for moving the selected cell down one.
 
-            return col;
-        }
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    spreadsheetPanel1.SetSelection(selectedCol, 1 + selectedRow);
+                    displaySelection(spreadsheetPanel1);
+                    break;
 
-        private int getRow(string selectedCell)
-        {
-            // Capture the rest of the cell name (could be a one or two digit number)
-            string temp = selectedCell.Substring(1);
-            int row = int.Parse(temp);
-
-            return row;
+                case Keys.Tab:
+                    spreadsheetPanel1.SetSelection(1 + selectedCol, selectedRow);
+                    displaySelection(spreadsheetPanel1);
+                    break;
+            }
         }
 
         /// <summary>
