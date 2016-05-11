@@ -1,20 +1,6 @@
-# README #
+# README 
 
-Clone from Repo:
-git clone https://username@bitbucket.org/cs3500-Mangos/spreadsheet.git
-
-navigate to your repository
-
-git pull
-
-make any changes
-
-<git status> to see the files you've changed
-
-<git add (file name)> to add the file to your push (you should always add all files)
-
-<git status> again to ensure you've added everything
-
-<git commit -m 'your comment here'> to add a comment to the push (-am works too, was needed to push ps6, don't know why)
-
-<git push> to commit your changes to the repo.
+### Networked Spreadsheet - CS 3505 (Software Practice II)
+Allows users to simultaneously create, edit, and delete spreadsheets. The client 
+was created in CS 3500 (Software Practice I) and was extended to communicate with 
+the server which was written in CS 3505. 
